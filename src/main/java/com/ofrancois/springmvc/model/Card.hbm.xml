@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 mars 2017 14:18:32 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ofrancois.springmvc.model.Card" table="CARD">
+        <id name="id" type="long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="nameFr" type="java.lang.String">
+            <column name="NAMEFR" />
+        </property>
+        <property name="nameEn" type="java.lang.String">
+            <column name="NAMEEN" />
+        </property>
+        <property name="type" type="java.lang.String">
+            <column name="TYPE" />
+        </property>
+        <property name="edition" type="java.lang.String">
+            <column name="EDITION" />
+        </property>
+        <property name="manaCost" type="java.lang.String">
+            <column name="MANACOST" />
+        </property>
+        <property name="rarity" type="java.lang.String">
+            <column name="RARITY" />
+        </property>
+        <property name="price" type="float">
+            <column name="PRICE" />
+        </property>
+        <property name="nbItem" type="int">
+            <column name="NBITEM" />
+        </property>
+        <property name="nbDispo" type="int" access="field">
+            <column name="NBDISPO" />
+        </property>
+    </class>
+</hibernate-mapping>

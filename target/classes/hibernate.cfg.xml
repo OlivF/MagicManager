@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="MagicCardFactory">
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="hibernate.connection.url">jdbc:hsqldb:file:/db/magicmanager</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+        <mapping class="com.ofrancois.springmvc.model.Card"></mapping>
+        <mapping class="com.ofrancois.springmvc.model.Edition"></mapping> 
+        <mapping class="com.ofrancois.springmvc.model.Type"></mapping> 
+        <mapping class="com.ofrancois.springmvc.model.Rarity"></mapping> 
+    </session-factory>
+</hibernate-configuration>
