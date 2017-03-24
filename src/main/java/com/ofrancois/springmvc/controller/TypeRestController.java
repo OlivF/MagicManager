@@ -23,9 +23,7 @@ public class TypeRestController {
     @Autowired
     TypeService typeService;  //Service which will do all data retrieval/manipulation work
   
-     
     //-------------------Retrieve All Types --------------------------------------------------------
-      
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
     public ResponseEntity<List<Type>> listAllTypes() {
         List<Type> types = typeService.findAllTypes();
@@ -35,10 +33,7 @@ public class TypeRestController {
         return new ResponseEntity<List<Type>>(types, HttpStatus.OK);
     }
   
-  
-     
     //-------------------Retrieve Single Type--------------------------------------------------------
-      
     @RequestMapping(value = "/type/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Type> getType(@PathVariable("id") long id) {
         System.out.println("Fetching Type with id " + id);
@@ -49,11 +44,8 @@ public class TypeRestController {
         }
         return new ResponseEntity<Type>(type, HttpStatus.OK);
     }
-  
-      
       
     //-------------------Create a Type--------------------------------------------------------
-      
     @RequestMapping(value = "/type/", method = RequestMethod.POST)
     public ResponseEntity<Void> createType(@RequestBody Type type,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating Type " + type.toString());
@@ -70,10 +62,7 @@ public class TypeRestController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
   
-     
-      
     //------------------- Update a Type --------------------------------------------------------
-      
     @RequestMapping(value = "/type/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Type> updateType(@PathVariable("id") long id, @RequestBody Type type) {
         System.out.println("Updating Type " + id);
@@ -91,10 +80,7 @@ public class TypeRestController {
         return new ResponseEntity<Type>(currentType, HttpStatus.OK);
     }
   
-     
-     
     //------------------- Delete a Type --------------------------------------------------------
-      
     @RequestMapping(value = "/type/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Type> deleteType(@PathVariable("id") long id) {
         System.out.println("Fetching & Deleting Type with id " + id);
@@ -108,11 +94,8 @@ public class TypeRestController {
         typeService.deleteTypeById(id);
         return new ResponseEntity<Type>(HttpStatus.NO_CONTENT);
     }
-  
-      
      
     //------------------- Delete All Types --------------------------------------------------------
-      
     @RequestMapping(value = "/type/", method = RequestMethod.DELETE)
     public ResponseEntity<Type> deleteAllTypes() {
         System.out.println("Deleting All Types");
@@ -120,5 +103,4 @@ public class TypeRestController {
         typeService.deleteAllTypes();
         return new ResponseEntity<Type>(HttpStatus.NO_CONTENT);
     }
-  
 }

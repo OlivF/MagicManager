@@ -23,9 +23,7 @@ public class EditionRestController {
     @Autowired
     EditionService editionService;  //Service which will do all data retrieval/manipulation work
   
-     
     //-------------------Retrieve All Editions --------------------------------------------------------
-      
     @RequestMapping(value = "/edition/", method = RequestMethod.GET)
     public ResponseEntity<List<Edition>> listAllEditions() {
         List<Edition> editions = editionService.findAllEditions();
@@ -35,10 +33,7 @@ public class EditionRestController {
         return new ResponseEntity<List<Edition>>(editions, HttpStatus.OK);
     }
   
-  
-     
     //-------------------Retrieve Single Edition--------------------------------------------------------
-      
     @RequestMapping(value = "/edition/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Edition> getEdition(@PathVariable("id") long id) {
         System.out.println("Fetching Edition with id " + id);
@@ -49,11 +44,8 @@ public class EditionRestController {
         }
         return new ResponseEntity<Edition>(edition, HttpStatus.OK);
     }
-  
-      
       
     //-------------------Create a Edition--------------------------------------------------------
-      
     @RequestMapping(value = "/edition/", method = RequestMethod.POST)
     public ResponseEntity<Void> createEdition(@RequestBody Edition edition,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating Edition " + edition.toString());
@@ -70,10 +62,7 @@ public class EditionRestController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
   
-     
-      
     //------------------- Update a Edition --------------------------------------------------------
-      
     @RequestMapping(value = "/edition/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Edition> updateEdition(@PathVariable("id") long id, @RequestBody Edition edition) {
         System.out.println("Updating Edition " + id);
@@ -91,10 +80,7 @@ public class EditionRestController {
         return new ResponseEntity<Edition>(currentEdition, HttpStatus.OK);
     }
   
-     
-     
     //------------------- Delete a Edition --------------------------------------------------------
-      
     @RequestMapping(value = "/edition/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Edition> deleteEdition(@PathVariable("id") long id) {
         System.out.println("Fetching & Deleting Edition with id " + id);
@@ -109,10 +95,7 @@ public class EditionRestController {
         return new ResponseEntity<Edition>(HttpStatus.NO_CONTENT);
     }
   
-      
-     
     //------------------- Delete All Editions --------------------------------------------------------
-      
     @RequestMapping(value = "/edition/", method = RequestMethod.DELETE)
     public ResponseEntity<Edition> deleteAllEditions() {
         System.out.println("Deleting All Editions");
@@ -120,5 +103,4 @@ public class EditionRestController {
         editionService.deleteAllEditions();
         return new ResponseEntity<Edition>(HttpStatus.NO_CONTENT);
     }
-  
 }

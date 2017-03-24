@@ -12,10 +12,8 @@ public class HibernateUtil {
 
 	 static {
 	   try {
-	   // Cr�e la SessionFactory
-	   /*sessionFactory =
-	         new Configuration().configure().buildSessionFactory();*/
-		   StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+	   // Crée la SessionFactory
+	     StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 			        .configure( "hibernate.cfg.xml" )
 			        .build();
 
@@ -38,8 +36,8 @@ public class HibernateUtil {
 	   Session s = (Session) session.get();
 	   // Ouvre une nouvelle Session, si ce Thread n'en a aucune
 	   if (s == null) {
-	   s = sessionFactory.openSession();
-	   session.set(s);
+		   s = sessionFactory.openSession();
+		   session.set(s);
 	   }
 	   return s;
 	   }
@@ -50,5 +48,5 @@ public class HibernateUtil {
 	   session.set(null);
 	   if (s != null)
 	   s.close();
-	   }
+	 }
 }

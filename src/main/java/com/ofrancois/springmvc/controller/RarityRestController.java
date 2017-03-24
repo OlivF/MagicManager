@@ -22,10 +22,8 @@ public class RarityRestController {
   
     @Autowired
     RarityService rarityService;  //Service which will do all data retrieval/manipulation work
-  
      
     //-------------------Retrieve All Raritys --------------------------------------------------------
-      
     @RequestMapping(value = "/rarity/", method = RequestMethod.GET)
     public ResponseEntity<List<Rarity>> listAllRaritys() {
         List<Rarity> raritys = rarityService.findAllRaritys();
@@ -34,11 +32,8 @@ public class RarityRestController {
         }
         return new ResponseEntity<List<Rarity>>(raritys, HttpStatus.OK);
     }
-  
-  
      
     //-------------------Retrieve Single Rarity--------------------------------------------------------
-      
     @RequestMapping(value = "/rarity/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Rarity> getRarity(@PathVariable("id") long id) {
         System.out.println("Fetching Rarity with id " + id);
@@ -49,11 +44,8 @@ public class RarityRestController {
         }
         return new ResponseEntity<Rarity>(rarity, HttpStatus.OK);
     }
-  
-      
       
     //-------------------Create a Rarity--------------------------------------------------------
-      
     @RequestMapping(value = "/rarity/", method = RequestMethod.POST)
     public ResponseEntity<Void> createRarity(@RequestBody Rarity rarity,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating Rarity " + rarity.toString());
@@ -70,10 +62,7 @@ public class RarityRestController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
   
-     
-      
     //------------------- Update a Rarity --------------------------------------------------------
-      
     @RequestMapping(value = "/rarity/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Rarity> updateRarity(@PathVariable("id") long id, @RequestBody Rarity rarity) {
         System.out.println("Updating Rarity " + id);
@@ -91,10 +80,7 @@ public class RarityRestController {
         return new ResponseEntity<Rarity>(currentRarity, HttpStatus.OK);
     }
   
-     
-     
     //------------------- Delete a Rarity --------------------------------------------------------
-      
     @RequestMapping(value = "/rarity/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Rarity> deleteRarity(@PathVariable("id") long id) {
         System.out.println("Fetching & Deleting Rarity with id " + id);
@@ -109,10 +95,7 @@ public class RarityRestController {
         return new ResponseEntity<Rarity>(HttpStatus.NO_CONTENT);
     }
   
-      
-     
     //------------------- Delete All Raritys --------------------------------------------------------
-      
     @RequestMapping(value = "/rarity/", method = RequestMethod.DELETE)
     public ResponseEntity<Rarity> deleteAllRaritys() {
         System.out.println("Deleting All Raritys");
@@ -120,5 +103,4 @@ public class RarityRestController {
         rarityService.deleteAllRaritys();
         return new ResponseEntity<Rarity>(HttpStatus.NO_CONTENT);
     }
-  
 }
