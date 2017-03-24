@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
-
+/* Table Card*/
 @Entity
 @Table ( name = "card")
 public class Card {
