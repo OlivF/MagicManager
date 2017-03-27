@@ -24,10 +24,10 @@
                 </tr>
              </thead>
              <tbody>
-             	<tr ng-repeat="t in ctrlT.types | orderBy:sortTypeByName:sortReverseTypeByName | filter:searchType" ng-click="displayTypeFct();ctrlT.edit(t.id)">
+             	<tr ng-repeat="t in ctrlT.types | orderBy:sortTypeByName:sortReverseTypeByName | filter:searchType">
                		<td class="magicfont"><span ng-bind="t.name"></span></td>
                     <td class="center">
-                    	<button type="button" ng-click="displayTypeFct();ctrlT.edit(t.id)" class="btn btn-primary custom-width"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>  <!-- <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>-->
+                    	<button type="button" ng-click="displayTypeFct();ctrlT.edit(t.typeId)" class="btn btn-primary custom-width"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>  <!-- <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>-->
                     </td>
                 </tr>
              </tbody>

@@ -1,6 +1,7 @@
 package com.ofrancois.springmvc.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import com.ofrancois.springmvc.hibernate.HibernateUtil;
 import com.ofrancois.springmvc.model.Card;
+import com.ofrancois.springmvc.model.Edition;
+import com.ofrancois.springmvc.model.Rarity;
+import com.ofrancois.springmvc.model.Type;
  
 @Service("cardService")
 public class CardServiceImpl implements CardService{
@@ -25,6 +29,7 @@ public class CardServiceImpl implements CardService{
     }
  
     public List<Card> findAllCards() {
+    	cards= populateDummyCards();
         return cards;
     }
      
@@ -48,7 +53,8 @@ public class CardServiceImpl implements CardService{
      
     public void saveCard(Card card) {
     	card.setId(counter.incrementAndGet());
-        cards.add(card);
+    	
+    	cards.add(card);
         
         // Add card in DB
         Session session = HibernateUtil.currentSession();
@@ -62,17 +68,20 @@ public class CardServiceImpl implements CardService{
     public void updateCard(Card card) {
         int index = cards.indexOf(card);
         cards.set(index, card);
-       
+        System.out.println(card.toString());
         // update card in DB
         Session session = HibernateUtil.currentSession();
         Transaction tx = session.beginTransaction();
         Card c = (Card) session.load(Card.class, card.getId());
+        Type t = (Type) session.load(Type.class, card.getType().getTypeId());
+        Rarity r = (Rarity) session.load(Rarity.class, card.getRarity().getId());
+        Edition e = (Edition) session.load(Edition.class, card.getEdition().getId());
         c.setNameFr(card.getNameFr());
         c.setNameEn(card.getNameEn());
-        c.setType(card.getType());
-        c.setEdition(card.getEdition());
+        c.setType(t);
+        c.setEdition(e);
         c.setManaCost(card.getManaCost());
-        c.setRarity(card.getRarity());
+        c.setRarity(r);
         c.setPrice(card.getPrice());
         c.setNbItem(card.getNbItem()); 
         session.save(c);

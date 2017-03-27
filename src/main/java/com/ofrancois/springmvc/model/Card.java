@@ -2,10 +2,17 @@ package com.ofrancois.springmvc.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.sql.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 /* Table Card*/
 @Entity
@@ -18,19 +25,24 @@ public class Card {
     
     private String nameEn;
     
-    private String type;
+    //private int type_id;
+    //private String type;
+    private Type type;
     
-    private String edition;
+    
+    private Edition edition;
      
     private String manaCost;
     
-    private String rarity;
+    private Rarity rarity;
      
     private float price;
     
     private int nbItem;
     
     private int nbDispo;
+    
+    private Date date;
      
     public Card(){}
      
@@ -38,13 +50,12 @@ public class Card {
         this.id = id;
         this.nameFr = nameFr;
         this.nameEn = nameEn;
-        this.type = type;
-        this.edition = edition;
+        //this.type = type;
+        //this.edition = edition;
         this.manaCost = manaCost;
-        this.rarity = rarity;
+        //this.rarity = rarity;
         this.price = price;
         this.nbItem = nbItem;
-        this.nbDispo = nbItem;
     }
  
     @Id
@@ -75,22 +86,41 @@ public class Card {
     public void setNameEn(String nameEn) {
         this.nameEn = nameEn;
     }
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_id")
+    public Type getType() {
+        return type;
+    }
  
-    @Column(name = "TYPE")
-    public String getType() {
+    public void setType(Type type) {
+        this.type = type;
+    }
+ 
+    /*public String getType() {
         return type;
     }
  
     public void setType(String type) {
         this.type = type;
-    }
+    }*/
     
-    @Column(name = "EDITION")
-    public String getEdition() {
+    /*@Column(name = "TYPE_ID")
+    public int getTypeId() {
+        return type_id;
+    }
+ 
+    public void setTypeId(int type_id) {
+        this.type_id = type_id;
+    }*/
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "edition_id")
+    public Edition getEdition() {
         return edition;
     }
  
-    public void setEdition(String edition) {
+    public void setEdition(Edition edition) {
         this.edition = edition;
     }
     
@@ -103,12 +133,13 @@ public class Card {
         this.manaCost = manaCost;
     }
     
-    @Column(name = "RARITY")
-    public String getRarity() {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rarity_id")
+    public Rarity getRarity() {
         return rarity;
     }
  
-    public void setRarity(String rarity) {
+    public void setRarity(Rarity rarity) {
         this.rarity = rarity;
     }
     
@@ -129,7 +160,15 @@ public class Card {
     public void setNbItem(int nbItem) {
         this.nbItem = nbItem;
     }
+
+    @Column(name = "DISPONIBILITY")
+    public int getNbDispo() {
+        return nbDispo;
+    }
  
+    public void setNbDispo(int nbDispo) {
+        this.nbDispo = nbDispo;
+    }
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -156,6 +195,15 @@ public class Card {
     public String toString() {
         return "Card [id=" + id + ", nameFr=" + nameFr + ", nameEn=" + nameEn
                 + ", type=" + type + ", edition=" + edition + ", manaCost=" + manaCost 
-                + ", rarity=" + rarity + ", price=" + price + ", nbItem=" + nbItem +", nbDispo=" + nbDispo +"]";
-    } 
+                + ", rarity=" + rarity + ", price=" + price + ", nbItem=" + nbItem +", nbDispo=" + nbDispo +", date=" + date + "]";
+    }
+
+    @Column(name = "DATECREATION")
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	} 
 }

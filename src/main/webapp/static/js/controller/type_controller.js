@@ -2,7 +2,7 @@
  
 angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '$sce', function($scope, TypeService, $sce) {
     var self = this;
-    self.type={id:null,name:''};
+    self.type={typeId:null,name:''};
     self.types=[];
  
     self.submit = submit;
@@ -66,12 +66,12 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
  
     function submit() {
     	$('.popin.addType').removeClass('displayType');
-        if(self.type.id===null || typeof self.type.id === "undefined"){
+        if(self.type.typeId===null || typeof self.type.typeId === "undefined"){
             console.log('Saving New Type', self.type);
             createType(self.type);
         }else{
-            updateType(self.type, self.type.id);
-            console.log('Type updated with id ', self.type.id);
+            updateType(self.type, self.type.typeId);
+            console.log('Type updated with id ', self.type.typeId);
         }
         reset();
     }
@@ -80,7 +80,7 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
         console.log('id to be edited', id);
         $scope.displayPopinAddClass=true;
         for(var i = 0; i < self.types.length; i++){
-            if(self.types[i].id === id) {
+            if(self.types[i].typeId === id) {
                 self.type = angular.copy(self.types[i]);
                 break;
             }
@@ -89,7 +89,7 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
  
     function remove(id){
         console.log('id to be deleted', id);
-        if(typeof self.type !== "undefined" && self.type.id === id) {//clean form if the user to be deleted is shown there.
+        if(typeof self.type !== "undefined" && self.type.typeId === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
         deleteType(id);
@@ -97,7 +97,7 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
  
  
     function reset(){
-        self.type={id:null,name:''};
+        self.type={typeId:null,name:''};
        // $scope.myFormType.$setPristine(); //reset Form
     }    
 }]);

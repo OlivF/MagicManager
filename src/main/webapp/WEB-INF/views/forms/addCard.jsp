@@ -25,7 +25,7 @@
 							    <span class="input-group-addon">Type</span>
 							    <div class="dropdown dropdown-scroll dropdownType">
 								    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-								    	<span ng-if="!!ctrl.card.type" class="typeChoose">{{ctrl.card.type}}</span>
+								    	<span ng-if="!!ctrl.card.type" class="typeChoose">{{ctrl.card.type.name}}</span>
 								    	<span ng-if="!ctrl.card.type" class="typeChoose" ng-model="ctrl.card.type">Choose a Type</span> 
 								    	<i class="fa fa-caret-down fa-2x" aria-hidden="true"></i>
 								    </button>
@@ -38,7 +38,7 @@
 								                <input type="text" class="form-control" placeholder="Query" ng-model="queryT"></input>
 								            </div>
 								        </li>
-								        <li role="presentation" ng-repeat='t in ctrlT.types | filter:queryT'> <a href="#"> <span ng-click="ctrl.card.type=t.name" class="typeSelector">{{t.name}}</span> </a>
+								        <li ng-click="ctrl.card.type=t" role="presentation" ng-repeat='t in ctrlT.types | filter:queryT'> <a href="#"> <span class="typeSelector">{{t.name}}</span> </a>
 								        </li>
 								    </ul>
 								</div>
@@ -67,7 +67,7 @@
                   			<div class="input-group">
 							    <span class="input-group-addon">Edition</span>
 							    <div class="dropdown dropdown-scroll dropdownEdition">
-								    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"><span ng-if="!!ctrl.card.edition" class="editionChoose">{{ctrl.card.edition}}</span><span ng-if="!ctrl.card.edition" class="editionChoose">Choose an Edition</span> <i class="fa fa-caret-down fa-2x" aria-hidden="true"></i>
+								    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"><span ng-if="!!ctrl.card.edition" class="editionChoose">{{ctrl.card.edition.name}}</span><span ng-if="!ctrl.card.edition" class="editionChoose">Choose an Edition</span> <i class="fa fa-caret-down fa-2x" aria-hidden="true"></i>
 								    </button>
 								    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 								        <li role="presentation">
@@ -77,7 +77,7 @@
 								                <input type="text" class="form-control" placeholder="Query" ng-model="query"></input>
 								            </div>
 								        </li>
-								        <li role="presentation" ng-repeat='e in ctrlE.editions | filter:query'> <a href="#"> <span ng-click="ctrl.card.edition=e.name" class="editionSelector">{{e.name}}</span> </a>
+								        <li ng-click="ctrl.card.edition=e"  role="presentation" ng-repeat='e in ctrlE.editions | filter:query'> <a href="#"> <span class="editionSelector">{{e.name}}</span> </a>
 								        </li>
 								    </ul>
 								</div>
@@ -128,7 +128,8 @@
                     		 <div class="input-group">
 							    <span class="input-group-addon">Rarity</span>
 							    <label class="radio-inline" ng-repeat="r in ctrlR.raritys">
-								  <input type="radio" ng-model="ctrl.card.rarity" id="rarity" name="rarity" value="{{r.name}}" required> <img ng-src="<c:url value='/static/img/{{r.name}}.gif'/>">
+								  <input type="radio" ng-if="!!ctrl.card.rarity" checked="checked" ng-click="ctrl.card.rarity=r" id="rarity" name="rarity" value="{{r}}" required> 
+								  <input type="radio" ng-if="!ctrl.card.rarity" ng-click="ctrl.card.rarity=r" id="rarity" name="rarity" value="{{r}}" required> <img ng-src="<c:url value='/static/img/{{r.name}}.gif'/>">
 								</label>
 							 </div>
                     	</div>

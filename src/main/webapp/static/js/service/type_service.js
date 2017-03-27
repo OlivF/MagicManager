@@ -8,6 +8,7 @@ angular.module('myApp').factory('TypeService', ['$http', '$q', function($http, $
         fetchAllTypes: fetchAllTypes,
         createType: createType,
         updateType:updateType,
+        getTypeById:getTypeById,
         deleteType:deleteType
     };
  
@@ -43,6 +44,20 @@ angular.module('myApp').factory('TypeService', ['$http', '$q', function($http, $
         return deferred.promise;
     }
  
+    function getTypeById(id) {
+    	/*var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+id)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while getting Type by Id');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;*/
+    }
  
     function updateType(type, id) {
         var deferred = $q.defer();

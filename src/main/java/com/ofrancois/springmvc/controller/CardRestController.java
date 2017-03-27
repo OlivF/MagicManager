@@ -1,5 +1,6 @@
 package com.ofrancois.springmvc.controller;
 
+import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.ofrancois.springmvc.model.Card;
+import com.ofrancois.springmvc.model.Type;
 import com.ofrancois.springmvc.service.CardService;
+import com.ofrancois.springmvc.service.TypeService;
+import com.ofrancois.springmvc.service.TypeServiceImpl;
   
 @RestController
 public class CardRestController {
   
     @Autowired
     CardService cardService;  //Service which will do all data retrieval/manipulation work
+    TypeService typeService;
   
     //-------------------Retrieve All Cards --------------------------------------------------------
     @RequestMapping(value = "/card/", method = RequestMethod.GET)
@@ -46,13 +51,18 @@ public class CardRestController {
     //-------------------Create a Card--------------------------------------------------------
     @RequestMapping(value = "/card/", method = RequestMethod.POST)
     public ResponseEntity<Void> createCard(@RequestBody Card card,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating Card " + card.toString());
+    	
+    	//card.setTypeId(1);
+        card.setNbDispo(card.getNbItem());
+        card.setDate(new Date(System.currentTimeMillis()));
+    	
+       // System.out.println("Creating Card " + card.toString());
   
         if (cardService.isCardExist(card)) {
             System.out.println("A Card with name " + card.getNameFr() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-  
+        
         cardService.saveCard(card);
   
         HttpHeaders headers = new HttpHeaders();
@@ -69,7 +79,7 @@ public class CardRestController {
         System.out.println("Updating Card " + id);
           
         Card currentCard = cardService.findById(id);
-          
+        System.out.println(card.toString());
         if (currentCard==null) {
             System.out.println("Card with id " + id + " not found");
             return new ResponseEntity<Card>(HttpStatus.NOT_FOUND);
@@ -82,7 +92,8 @@ public class CardRestController {
         currentCard.setManaCost(card.getManaCost());
         currentCard.setRarity(card.getRarity());
         currentCard.setPrice(card.getPrice());
-        currentCard.setNbItem(card.getNbItem()); 
+        currentCard.setNbItem(card.getNbItem());
+        currentCard.setDate(new Date(System.currentTimeMillis()));
         cardService.updateCard(currentCard);
         return new ResponseEntity<Card>(currentCard, HttpStatus.OK);
     }

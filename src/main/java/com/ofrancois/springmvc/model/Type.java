@@ -12,26 +12,26 @@ import javax.persistence.Table;
 @Table ( name = "type")
 public class Type {
 
-	private long id;
+	private long type_id;
     
     private String name;
      
     public Type(){}
     
     public Type(long id, String name){
-        this.id = id;
+        this.type_id = id;
         this.name = name;
     }
  
     @Id
   	@GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
-    public long getId() {
-        return id;
+    @Column(name = "type_id", unique = true, nullable = false)
+    public long getTypeId() {
+        return type_id;
     }
  
-    public void setId(long id) {
-        this.id = id;
+    public void setTypeId(long id) {
+        this.type_id = id;
     }
  
     @Column(name = "NAME")
@@ -47,7 +47,7 @@ public class Type {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + (int) (type_id ^ (type_id >>> 32));
         return result;
     }
  
@@ -60,13 +60,13 @@ public class Type {
         if (!(obj instanceof Type))
             return false;
         Type other = (Type) obj;
-        if (id != other.id)
+        if (type_id != other.type_id)
             return false;
         return true;
     }
  
     @Override
     public String toString() {
-        return "Edition [id=" + id + ", name=" + name + "]";
+        return "Type [id=" + type_id + ", name=" + name + "]";
     }   
 }

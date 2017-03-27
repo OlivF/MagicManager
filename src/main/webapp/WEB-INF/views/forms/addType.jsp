@@ -5,7 +5,7 @@
           	<div class="panel-heading"><span class="lead">Add a type:</span></div>
           	<div class="formcontainer">
            		<form ng-submit="ctrlT.submit()" name="myFormType" class="form-horizontal">
-            		<input type="hidden" ng-model="ctrlT.type.id" />
+            		<input type="hidden" ng-model="ctrlT.type.typeId" />
                		<div class="row">
                    		<div class="form-group col-md-12">
                        		<label class="col-md-2 control-lable" for="name">Name</label>
@@ -21,7 +21,7 @@
                		</div>
                		<div class="row">
                    		<div class="form-actions floatRight">
-                       		<input type="submit"  ng-click="closePopin();" value="{{!ctrlT.type.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myFormType.$invalid">
+                       		<input type="submit"  ng-click="closePopin();" value="{{!ctrlT.type.typeId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myFormType.$invalid">
                        		<button type="button" ng-click="ctrlT.reset()" class="btn btn-warning btn-sm" ng-disabled="myFormType.$pristine">Reset Form</button>
                    		</div>
                		</div>

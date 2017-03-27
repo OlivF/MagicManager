@@ -75,6 +75,18 @@
                               	</a> 
                               
                               </th>
+                               <th class="center"> 
+                              	<a href="javascript:void(0)">
+                              		<span class="center magicfont">Nb Dispo</span>
+                              	</a> 
+                              
+                              </th>
+                               <th class="center"> 
+                              	<a href="javascript:void(0)">
+                              		<span class="center magicfont">Date Creation</span>
+                              	</a> 
+                              
+                              </th>
                               <th class="width50"></th>
                           </tr>
                       </thead>
@@ -82,12 +94,14 @@
                           <tr ng-repeat="u in ctrl.cards | orderBy:sortType:sortReverse | filter:searchCard">
                          	  <td class="magicfont"><span ng-bind="u.nameFr"></span></td>
                               <td class="magicfont"><span ng-bind="u.nameEn"></span></td>
-                              <td class="magicfont"><span ng-bind="u.type"></span></td>
-                              <td class="magicfont"><span ng-bind="u.edition"></span></td>
+                              <td class="magicfont"><span ng-bind="u.type.name"></span></td>
+                              <td class="magicfont"><span ng-bind="u.edition.name"></span></td>
                               <td class="center magicfont"><span ng-bind-html='getManaCostHtml(u.manaCost, "<c:url value='/static/img/'/>")'></span></td>
-                              <td class="center magicfont"><img ng-src="<c:url value='/static/img/{{u.rarity}}.gif'/>"></td>
+                              <td class="center magicfont"><img ng-src="<c:url value='/static/img/{{u.rarity.name}}.gif'/>"></td>
                               <td class="center small"><span ng-bind="u.price"></span>&euro;</td>
                               <td class="center small"><span ng-bind="u.nbItem"></span></td>
+                              <td class="center small"><span ng-bind="u.nbDispo"></span></td>
+                              <td class="center small"><span ng-bind="u.date"></span></td>
                               <td class="center">
                               <button type="button" ng-click="displayCardFct();ctrl.edit(u.id)" class="btn btn-primary custom-width"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>  <!-- <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>-->
                               </td>

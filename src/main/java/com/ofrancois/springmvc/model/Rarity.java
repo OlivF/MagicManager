@@ -12,26 +12,26 @@ import javax.persistence.Table;
 @Table ( name = "rarity")
 public class Rarity {
 
-	private long id;
+	private long rarity_id;
     
     private String name;
      
     public Rarity(){}
     
     public Rarity(long id, String name){
-        this.id = id;
+        this.rarity_id = id;
         this.name = name;
     }
     
     @Id
   	@GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "rarity_id", unique = true, nullable = false)
     public long getId() {
-        return id;
+        return rarity_id;
     }
  
     public void setId(long id) {
-        this.id = id;
+        this.rarity_id = id;
     }
  
     @Column(name = "NAME")
@@ -47,7 +47,7 @@ public class Rarity {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + (int) (rarity_id ^ (rarity_id >>> 32));
         return result;
     }
  
@@ -60,13 +60,13 @@ public class Rarity {
         if (!(obj instanceof Rarity))
             return false;
         Rarity other = (Rarity) obj;
-        if (id != other.id)
+        if (rarity_id != other.rarity_id)
             return false;
         return true;
     }
  
     @Override
     public String toString() {
-        return "Edition [id=" + id + ", name=" + name + "]";
+        return "Rarity [id=" + rarity_id + ", name=" + name + "]";
     }   
 }

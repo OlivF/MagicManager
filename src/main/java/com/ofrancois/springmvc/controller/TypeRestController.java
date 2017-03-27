@@ -58,7 +58,7 @@ public class TypeRestController {
         typeService.saveType(type);
   
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/type/{id}").buildAndExpand(type.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/type/{id}").buildAndExpand(type.getTypeId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
   

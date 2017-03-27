@@ -1,6 +1,6 @@
 'use strict';
  
-angular.module('myApp').controller('CardController', ['$scope', 'CardService', '$sce', function($scope, CardService, $sce) {
+angular.module('myApp').controller('CardController', ['$scope', 'CardService', 'TypeService', '$sce', function($scope, CardService, TypeService, $sce) {
     var self = this;
     self.card={id:null,nameFr:'',nameEn:'',type:'', edition:"", manaCost:"", rarity:"", price:""};
     self.cards=[];
@@ -9,9 +9,14 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
+    self.getType = getType;
     
     self.arrayManaCost = [];
     self.manaCostStr = "";
+    
+    
+    
+    
     
     $scope.sortType     = 'nameFr'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
@@ -24,6 +29,7 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
             .then(
             function(d) {
                 self.cards = d;
+                updateCardType();
             },
             function(errResponse){
                 console.error('Error while fetching Card');
@@ -31,6 +37,18 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
         );
     }
  
+    function updateCardType() {
+    	
+    	console.log(self.cards[0])
+    	/*for(var i=0; i<self.cards.length;i++); {
+    		self.card[i].type = "blabla";
+    		
+    	}*/
+    	
+    }
+    
+    
+    
     function createCard(card){
         CardService.createCard(card)
             .then(
@@ -170,6 +188,7 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     }
     
     $scope.getManaCostHtml = function ( manaCost, url ) {
+    	console.log("GET MANA COST HTML" + manaCost);
     	var html = '';
     	var array = [];
     	for(var j=0; j<manaCost.length; j++) {
@@ -186,6 +205,20 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     	
     }
     
-    
+    function getType ( type_id ) {
+    	console.log("GET TYPE "+type_id)
+    	var type;
+    	/*TypeService.getTypeById( type_id ).then(
+                function(d) {
+                    type = d;
+                    return $sce.trustAsHtml(type.name);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Type by Id');
+                }
+               );*/
+    	//console.log(type);
+    	return $sce.trustAsHtml("ok");
+    }
     
 }]);

@@ -32,7 +32,7 @@ public class TypeServiceImpl implements TypeService{
      
     public Type findById(long id) {
         for(Type type : types){
-            if(type.getId() == id){
+            if(type.getTypeId() == id){
                 return type;
             }
         }
@@ -49,7 +49,7 @@ public class TypeServiceImpl implements TypeService{
     }
      
     public void saveType(Type type) {
-    	type.setId(counter.incrementAndGet());
+    	type.setTypeId(counter.incrementAndGet());
         types.add(type);
         
         // Add type in DB
@@ -67,7 +67,7 @@ public class TypeServiceImpl implements TypeService{
         // update type in DB
         Session session = HibernateUtil.currentSession();
         Transaction tx = session.beginTransaction();
-        Type t = (Type) session.load(Type.class, type.getId());
+        Type t = (Type) session.load(Type.class, type.getTypeId());
         t.setName(type.getName());
         session.save(t);
         tx.commit();
@@ -78,7 +78,7 @@ public class TypeServiceImpl implements TypeService{
          
         for (Iterator<Type> iterator = types.iterator(); iterator.hasNext(); ) {
             Type type = iterator.next();
-            if (type.getId() == id) {
+            if (type.getTypeId() == id) {
                 iterator.remove();
             }
         }
