@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 mars 2017 14:18:32 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ofrancois.springmvc.model.Deck" table="DECK">
+        <id name="id" type="long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="card_id" type="long">
+            <column name="CARD_iD" />
+        </property>
+        <property name="deck_id" type="long">
+            <column name="DECK_ID" />
+        </property>
+    </class>
+</hibernate-mapping>
