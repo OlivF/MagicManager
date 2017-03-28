@@ -14,19 +14,43 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.ofrancois.springmvc.model.Card;
-import com.ofrancois.springmvc.model.Type;
 import com.ofrancois.springmvc.service.CardService;
-import com.ofrancois.springmvc.service.TypeService;
-import com.ofrancois.springmvc.service.TypeServiceImpl;
-  
+
+/** 
+ * <b>CardRestController est le controleur des requêtes sur les cartes</b>
+ * <p>
+ * Les différentes actions possibles sont :
+ * <ul>
+ * <li>Récupérer les informations de toutes les cartes</li>
+ * <li>Récupérer les informations d'une carte</li>
+ * <li>Ajouter une carte</li>
+ * <li>Mettre à jour les informations d'une carte</li>
+ * <li>Supprimer une carte</li>
+ * <li>Supprimer toutes les cartes</li>
+ * </ul>
+ * </p>
+ * 
+ * @see Card
+ * 
+ * @author Olivier F.
+ * @version 1.0
+ */ 
 @RestController
 public class CardRestController {
   
+	/**
+	 * Le service des cartes
+	 */
     @Autowired
     CardService cardService;  //Service which will do all data retrieval/manipulation work
-    TypeService typeService;
   
-    //-------------------Retrieve All Cards --------------------------------------------------------
+    /**
+     * Récupère les informations de toutes les cartes dans la base
+     * 
+     * @return La liste de toutes les cartes
+     * 
+     * @see Card
+     */
     @RequestMapping(value = "/card/", method = RequestMethod.GET)
     public ResponseEntity<List<Card>> listAllCards() {
         List<Card> cards = cardService.findAllCards();
@@ -36,7 +60,16 @@ public class CardRestController {
         return new ResponseEntity<List<Card>>(cards, HttpStatus.OK);
     }
   
-    //-------------------Retrieve Single Card--------------------------------------------------------
+    /**
+     * Récupère les informations d'une carte
+     * 
+     * @param id
+     * 				L'identifiant de la carte à rechercher
+     * 
+     * @return Une carte
+     * 
+     * @see Card
+     */
     @RequestMapping(value = "/card/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Card> getCard(@PathVariable("id") long id) {
         System.out.println("Fetching Card with id " + id);
@@ -48,15 +81,21 @@ public class CardRestController {
         return new ResponseEntity<Card>(card, HttpStatus.OK);
     }
       
-    //-------------------Create a Card--------------------------------------------------------
+    /**
+     * Ajoute une carte dans la base
+     * 
+     * @param card
+     * 				La carte a ajouter
+     * @param ucBuilder
+     * @return
+     */
     @RequestMapping(value = "/card/", method = RequestMethod.POST)
     public ResponseEntity<Void> createCard(@RequestBody Card card,    UriComponentsBuilder ucBuilder) {
     	
-    	//card.setTypeId(1);
-        card.setNbDispo(card.getNbItem());
+    	card.setNbDispo(card.getNbItem());
         card.setDate(new Date(System.currentTimeMillis()));
     	
-       // System.out.println("Creating Card " + card.toString());
+        // System.out.println("Creating Card " + card.toString());
   
         if (cardService.isCardExist(card)) {
             System.out.println("A Card with name " + card.getNameFr() + " already exist");
@@ -70,10 +109,18 @@ public class CardRestController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
   
-     
-      
-    //------------------- Update a Card --------------------------------------------------------
-      
+    /**
+     * Met à jour une carte
+     * 
+     * @param id
+     * 				l'identifiant de la carte à mettre à jour
+     * @param card
+     * 				La nouvelle carte
+     * 
+     * @return une carte
+     * 
+     * @see Card
+     */
     @RequestMapping(value = "/card/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Card> updateCard(@PathVariable("id") long id, @RequestBody Card card) {
         System.out.println("Updating Card " + id);
@@ -98,7 +145,13 @@ public class CardRestController {
         return new ResponseEntity<Card>(currentCard, HttpStatus.OK);
     }
   
-    //------------------- Delete a Card --------------------------------------------------------
+    /**
+     * Supprimer une carte
+     * 
+     * @param id
+     * 				l'identifiant de la carte à supprimer
+     * @return
+     */
     @RequestMapping(value = "/card/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Card> deleteCard(@PathVariable("id") long id) {
         System.out.println("Fetching & Deleting Card with id " + id);
@@ -113,7 +166,11 @@ public class CardRestController {
         return new ResponseEntity<Card>(HttpStatus.NO_CONTENT);
     }
   
-    //------------------- Delete All Cards --------------------------------------------------------
+    /**
+     * Supprimer toutes les cartes
+     * 
+     * @return
+     */
     @RequestMapping(value = "/card/", method = RequestMethod.DELETE)
     public ResponseEntity<Card> deleteAllCards() {
         System.out.println("Deleting All Cards");

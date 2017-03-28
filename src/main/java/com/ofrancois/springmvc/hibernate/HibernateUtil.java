@@ -6,47 +6,64 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+/** 
+ * <b>HibernateUtil est la classe pour la gestion des sessions hibernate</b>
+ * 
+ * @author Olivier F.
+ * @version 1.0
+ */
 public class HibernateUtil {
 
-	 private static final SessionFactory sessionFactory;
+	/**
+	 * La sessionFactory
+	 */
+	private static final SessionFactory sessionFactory;
 
-	 static {
-	   try {
-	   // Crée la SessionFactory
-	     StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+	static {
+		try {
+			// Crée la SessionFactory
+			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 			        .configure( "hibernate.cfg.xml" )
 			        .build();
 
-			        Metadata metadata = new MetadataSources( standardRegistry )
+			Metadata metadata = new MetadataSources( standardRegistry )
 			        .getMetadataBuilder()
 			        .build();
-		   sessionFactory = metadata.getSessionFactoryBuilder().build();
-		   
-		   
+			sessionFactory = metadata.getSessionFactoryBuilder().build();
 	   } catch (HibernateException ex) {
-	   throw new RuntimeException("Probl�me de configuration : "
-	   + ex.getMessage(), ex);
+		   throw new RuntimeException("Problème de configuration : "
+				   							+ ex.getMessage(), ex);
 	   }
-	   }
+	}
 
-	 public static final ThreadLocal session = new ThreadLocal();
+	public static final ThreadLocal session = new ThreadLocal();
 
-	 public static Session currentSession()
-	                throws HibernateException {
-	   Session s = (Session) session.get();
-	   // Ouvre une nouvelle Session, si ce Thread n'en a aucune
-	   if (s == null) {
+	/**
+	 * Récupère la session hibernate
+	 * 
+	 * @return La session
+	 * 
+	 * @throws HibernateException
+	 */
+	public static Session currentSession() throws HibernateException {
+		Session s = (Session) session.get();
+		// Ouvre une nouvelle Session, si ce Thread n'en a aucune
+		if (s == null) {
 		   s = sessionFactory.openSession();
 		   session.set(s);
-	   }
-	   return s;
-	   }
+		}
+		return s;
+	}
 
-	 public static void closeSession()
-	                throws HibernateException {
+	/**
+	 * Ferme la session Hibernate
+	 * 
+	 * @throws HibernateException
+	 */
+	public static void closeSession() throws HibernateException {
 	   Session s = (Session) session.get();
 	   session.set(null);
 	   if (s != null)
-	   s.close();
-	 }
+		   s.close();
+	}
 }

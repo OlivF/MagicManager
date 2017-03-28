@@ -13,17 +13,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import com.ofrancois.springmvc.model.Type;
 import com.ofrancois.springmvc.service.TypeService;
-  
+
+/** 
+ * <b>TypeRestController est le controleur des requêtes sur les types</b>
+ * <p>
+ * Les différentes actions possibles sont :
+ * <ul>
+ * <li>Récupérer les informations de tous les types</li>
+ * <li>Récupérer les informations d'un type</li>
+ * <li>Ajouter un type</li>
+ * <li>Mettre à jour les informations d'un type</li>
+ * <li>Supprimer un type</li>
+ * <li>Supprimer tous les types</li>
+ * </ul>
+ * </p>
+ * 
+ * @see Type
+ * 
+ * @author Olivier F.
+ * @version 1.0
+ */ 
 @RestController
 public class TypeRestController {
   
+	/**
+	 * Le service des types
+	 */
     @Autowired
     TypeService typeService;  //Service which will do all data retrieval/manipulation work
   
-    //-------------------Retrieve All Types --------------------------------------------------------
+    /**
+     * Récupère les informations de tous les types dans la base
+     * 
+     * @return La liste de tous les types
+     * 
+     * @see Type
+     */
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
     public ResponseEntity<List<Type>> listAllTypes() {
         List<Type> types = typeService.findAllTypes();
@@ -33,7 +60,16 @@ public class TypeRestController {
         return new ResponseEntity<List<Type>>(types, HttpStatus.OK);
     }
   
-    //-------------------Retrieve Single Type--------------------------------------------------------
+    /**
+     * Récupère les informations d'un type
+     * 
+     * @param id
+     * 				L'identifiant du type à rechercher
+     * 
+     * @return Un type
+     * 
+     * @see Type
+     */
     @RequestMapping(value = "/type/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Type> getType(@PathVariable("id") long id) {
         System.out.println("Fetching Type with id " + id);
@@ -45,7 +81,14 @@ public class TypeRestController {
         return new ResponseEntity<Type>(type, HttpStatus.OK);
     }
       
-    //-------------------Create a Type--------------------------------------------------------
+    /**
+     * Ajoute un type dans la base
+     * 
+     * @param type
+     * 				Le type a ajouter
+     * @param ucBuilder
+     * @return
+     */
     @RequestMapping(value = "/type/", method = RequestMethod.POST)
     public ResponseEntity<Void> createType(@RequestBody Type type,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating Type " + type.toString());
@@ -62,7 +105,18 @@ public class TypeRestController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
   
-    //------------------- Update a Type --------------------------------------------------------
+    /**
+     * Met à jour un type
+     * 
+     * @param id
+     * 				l'identifiant du type à mettre à jour
+     * @param type
+     * 				Le nouveau type
+     * 
+     * @return un type
+     * 
+     * @see Type
+     */
     @RequestMapping(value = "/type/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Type> updateType(@PathVariable("id") long id, @RequestBody Type type) {
         System.out.println("Updating Type " + id);
@@ -80,7 +134,13 @@ public class TypeRestController {
         return new ResponseEntity<Type>(currentType, HttpStatus.OK);
     }
   
-    //------------------- Delete a Type --------------------------------------------------------
+    /**
+     * Supprimer un type
+     * 
+     * @param id
+     * 				l'identifiant du type à supprimer
+     * @return
+     */
     @RequestMapping(value = "/type/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Type> deleteType(@PathVariable("id") long id) {
         System.out.println("Fetching & Deleting Type with id " + id);
@@ -95,7 +155,11 @@ public class TypeRestController {
         return new ResponseEntity<Type>(HttpStatus.NO_CONTENT);
     }
      
-    //------------------- Delete All Types --------------------------------------------------------
+    /**
+     * Supprimer tous les types
+     * 
+     * @return
+     */
     @RequestMapping(value = "/type/", method = RequestMethod.DELETE)
     public ResponseEntity<Type> deleteAllTypes() {
         System.out.println("Deleting All Types");
