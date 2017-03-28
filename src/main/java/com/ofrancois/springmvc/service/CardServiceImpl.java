@@ -1,7 +1,5 @@
 package com.ofrancois.springmvc.service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,22 +15,61 @@ import com.ofrancois.springmvc.model.Edition;
 import com.ofrancois.springmvc.model.Rarity;
 import com.ofrancois.springmvc.model.Type;
  
+/** 
+ * <b>CardServiceImpl est la classe associée à l'interface CardService</b>
+ * <p>
+ * Cette classe est composée de plusieurs méthodes :
+ * <ul>
+ * <li>Trouver une carte par son identifiant</li>
+ * <li>Trouver une carte par son nom</li>
+ * <li>Enregistrer une carte</li>
+ * <li>Mettre à jour une carte</li>
+ * <li>Supprimer une carte</li>
+ * <li>Chercher toutes les cartes</li>
+ * <li>Supprimer toutes cartes</li>
+ * <li>Vérifier si une carte existe</li>
+ * </ul>
+ * </p>
+ * 
+ * @author Olivier F.
+ * @version 1.0
+ */
 @Service("cardService")
 public class CardServiceImpl implements CardService{
      
+	/**
+	 * Un compteur pour les identifiants
+	 */
     private static final AtomicLong counter = new AtomicLong();
      
+    /**
+     * La liste static des cartes
+     */
     private static List<Card> cards;
      
     static{
         cards= populateDummyCards();
     }
  
+    /**
+     * retourne toutes les cartes
+     * 
+     * @return une liste de cartes
+     */
     public List<Card> findAllCards() {
     	cards= populateDummyCards();
         return cards;
     }
-     
+    
+    /**
+	 * Retourne une carte en la cherchant par son identifiant$
+	 * 
+	 * @param id
+	 * 				l'identifiant de la carte à rechercher
+	 * @return Card
+	 * 
+	 * @see Card
+	 */
     public Card findById(long id) {
         for(Card card : cards){
             if(card.getId() == id){
@@ -41,7 +78,16 @@ public class CardServiceImpl implements CardService{
         }
         return null;
     }
-     
+    
+    /**
+     * Retourne une Card en la cherchant par son nom
+     * 
+     * @param name
+     * 				Le nom de la carte a rechercher
+     * @return une carte
+     * 
+     * @see Card
+     */
     public Card findByName(String name) {
         for(Card card : cards){
             if(card.getNameFr().equalsIgnoreCase(name)){
@@ -50,7 +96,13 @@ public class CardServiceImpl implements CardService{
         }
         return null;
     }
-     
+    
+    /**
+     * Enregistre une carte
+     * 
+     * @param card
+     * 				La carte a enregistrer
+     */
     public void saveCard(Card card) {
     	card.setId(counter.incrementAndGet());
     	
@@ -65,6 +117,12 @@ public class CardServiceImpl implements CardService{
         
     }
  
+    /**
+     * Mettre à jour une carte
+     * 
+     * @param card
+     * 				La carte a mettre à jour
+     */
     public void updateCard(Card card) {
         int index = cards.indexOf(card);
         cards.set(index, card);
@@ -89,6 +147,12 @@ public class CardServiceImpl implements CardService{
         HibernateUtil.closeSession();
     }
  
+    /**
+     * Supprime une carte en la cherchant par son identifiant
+     * 
+     * @param id
+     * 				l'identifiant de la carte à supprimer
+     */
     public void deleteCardById(long id) {
          
         for (Iterator<Card> iterator = cards.iterator(); iterator.hasNext(); ) {
@@ -99,14 +163,29 @@ public class CardServiceImpl implements CardService{
         }
     }
  
+    /**
+     * Retourne true si la card existe
+     * @param card
+     * 				la carte a chercher
+     * @return boolean
+     * 
+     */
     public boolean isCardExist(Card card) {
         return findByName(card.getNameFr())!=null;
     }
      
+    /**
+     * Supprime toutes les cartes
+     */
     public void deleteAllCards(){
         cards.clear();
     }
  
+    /**
+     * retourne toutes les cartes de la base
+     * 
+     * @return une liste de cartes
+     */
     private static List<Card> populateDummyCards(){
     	
     	// Get List Card from DB
