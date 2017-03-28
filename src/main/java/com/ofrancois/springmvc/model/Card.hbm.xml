@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 20 mars 2017 14:18:32 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 28 mars 2017 15:07:06 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="com.ofrancois.springmvc.model.Card" table="CARD">
         <id name="id" type="long">
@@ -14,26 +14,23 @@
         <property name="nameEn" type="java.lang.String">
             <column name="NAMEEN" />
         </property>
-        <property name="type" type="java.lang.String">
-            <column name="TYPE" />
-        </property>
-        <property name="edition" type="java.lang.String">
-            <column name="EDITION" />
-        </property>
+        <one-to-one name="type" class="com.ofrancois.springmvc.model.Type"></one-to-one>
+        <one-to-one name="edition" class="com.ofrancois.springmvc.model.Edition"></one-to-one>
         <property name="manaCost" type="java.lang.String">
             <column name="MANACOST" />
         </property>
-        <property name="rarity" type="java.lang.String">
-            <column name="RARITY" />
-        </property>
+        <one-to-one name="rarity" class="com.ofrancois.springmvc.model.Rarity"></one-to-one>
         <property name="price" type="float">
             <column name="PRICE" />
         </property>
         <property name="nbItem" type="int">
             <column name="NBITEM" />
         </property>
-        <property name="nbDispo" type="int" access="field">
+        <property name="nbDispo" type="int">
             <column name="NBDISPO" />
+        </property>
+        <property name="date" type="java.sql.Date">
+            <column name="DATE" />
         </property>
     </class>
 </hibernate-mapping>

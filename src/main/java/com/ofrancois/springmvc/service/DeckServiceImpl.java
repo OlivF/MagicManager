@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.ofrancois.springmvc.hibernate.HibernateUtil;
 import com.ofrancois.springmvc.model.Deck;
-import com.ofrancois.springmvc.model.Deck;
 
 /** 
  * <b>DeckServiceImpl est la classe correspondant à l'interface DeckService</b>
