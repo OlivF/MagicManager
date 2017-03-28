@@ -1,5 +1,6 @@
 package com.ofrancois.springmvc.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -147,6 +148,46 @@ public class CarddeckServiceImpl implements CarddeckService{
         carddecks.clear();
     }
  
+    /**
+	 * Retourne les carddeck qui sont dans un deck
+	 * 
+	 * @param id
+	 * 				l'identifiant du deck à rechercher
+	 * @return CardDeck
+	 * 
+	 * @see Carddeck
+	 */
+    public List<Carddeck> findCardByDeckId(long id) {
+        
+    	 List<Carddeck> cardByDeck = new ArrayList<Carddeck>();
+    	 for(Carddeck carddeck : carddecks){
+             if(carddeck.getDeck().getId() == id){
+            	 cardByDeck.add(carddeck);
+             }	 
+         }
+    	return cardByDeck;
+    }
+    
+    /**
+	 * Retourne les deckcard qui sont associés à une carte
+	 * 
+	 * @param id
+	 * 				l'identifiant de la carte à rechercher
+	 * @return CardDeck
+	 * 
+	 * @see Carddeck
+	 */
+    public List<Carddeck> findDeckByCardId(long id) {
+        
+    	 List<Carddeck> cardByDeck = new ArrayList<Carddeck>();
+    	 for(Carddeck carddeck : carddecks){
+             if(carddeck.getCard().getId() == id){
+            	 cardByDeck.add(carddeck);
+             }	 
+         }
+    	return cardByDeck;
+    }
+    
     /**
      * Retourne la liste de tous les carddecks
      * 

@@ -70,6 +70,20 @@ public interface CarddeckService {
     List<Carddeck> findAllCardDecks(); 
     
     /**
+     * retourne tous les carddecks d'un deck
+     * 
+     * @return une liste des carddecks
+     */
+    List<Carddeck> findCardByDeckId(long id);
+    
+    /**
+     * retourne tous les carddecks d'une carte
+     * 
+     * @return une liste des carddecks
+     */
+    List<Carddeck> findDeckByCardId(long id);
+    
+    /**
      * Supprime tous les carddecks
      */
     void deleteAllCardDecks();

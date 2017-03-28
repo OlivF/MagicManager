@@ -2,10 +2,13 @@ package com.ofrancois.springmvc.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /** 
@@ -37,18 +40,18 @@ public class Carddeck {
 	/**
 	 * L'identifiant du deck
 	 * 
-	 * @see Carddeck#setDeckId(long)
-	 * @see Carddeck#getDeckId()
+	 * @see Carddeck#setDeck(deck)
+	 * @see Carddeck#getDeck()
 	 */
-    private long deck_id;
+    private Deck deck;
     
     /**
 	 * L'identifiant de la carte
 	 * 
-	 * @see Carddeck#setCardId(long)
-	 * @see Carddeck#getCardId()
+	 * @see Carddeck#setCard(Card)
+	 * @see Carddeck#getCard()
 	 */
-    private long card_id;
+    private Card card;
     
     /**
      * La quantity de la carte
@@ -72,10 +75,10 @@ public class Carddeck {
      * @param color
      * 				La couleur du deck
      */
-    public Carddeck(long id, long card_id, long deck_id, int quantity){
+    public Carddeck(long id, Card card, Deck deck, int quantity){
         this.card_deck_id = id;
-        this.card_id = card_id;
-        this.deck_id= deck_id;
+        this.card = card;
+        this.deck= deck;
         this.quantity = quantity;
     }
  
@@ -106,9 +109,10 @@ public class Carddeck {
      * 
      * @return L'identifiant du deck
      */
-    @Column(name = "DECK_ID")
-    public long getDeckId() {
-        return deck_id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "deck_id")
+    public Deck getDeck() {
+        return deck;
     }
  
     /**
@@ -117,8 +121,8 @@ public class Carddeck {
      * @param name
      * 				Le nouvel identifiant du deck
      */
-    public void setDeckId(long deck_id) {
-        this.deck_id = deck_id;
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
     
     /**
@@ -126,9 +130,10 @@ public class Carddeck {
      * 
      * @return L'identifiant de la carte
      */
-    @Column(name = "CARD_ID")
-    public long getCardId() {
-        return card_id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "card_id")
+    public Card getCard() {
+        return card;
     }
  
     /**
@@ -137,8 +142,8 @@ public class Carddeck {
      * @param card_id
      * 				Le nouvel identifiant de la carte
      */
-    public void setCardId(long card_id) {
-        this.card_id = card_id;
+    public void setCard(Card card) {
+        this.card = card;
     }
  
     /**
@@ -194,6 +199,6 @@ public class Carddeck {
      */
     @Override
     public String toString() {
-        return "CardDeck [id=" + card_deck_id + ", cardId=" + card_id + ", deckId= " + deck_id + "]";
+        return "CardDeck [id=" + card_deck_id + ", cardId=" + card.toString() + ", deckId= " + deck.toString() + "]";
     }   
 }
