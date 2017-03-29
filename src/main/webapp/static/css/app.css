@@ -1,3 +1,47 @@
+/* ACCUEIL */
+body.home {
+	background-color: goldenrod;
+}
+
+.home div#locale {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    top: 50px;
+    font-size: 5em;
+    color: darkred;
+    font-weight: bold;
+}
+
+.home div#logo {
+    position: relative;
+    text-align: center;
+    top: 25px;
+}
+
+.home div#nbCard, .home div#nbDeck, .home div#price {
+    position: relative;
+    top: 50px;
+    font-size: 4em;
+    width: 100%;
+    text-align: center;
+}
+
+.home .result {
+	font-weight: bold;
+    color: darkgreen;
+}
+
+.home div#price.bold {
+	font-style: italic;
+    font-weight: bold;
+}
+
+.home .btn-group-justified {
+	top : 70px;
+}
+/* FIN ACCUEIL */
+
 body, #mainWrapper {
 	height: 70%;
 	background-color:rgb(245, 245, 245);
@@ -43,7 +87,7 @@ body, .form-control{
 }
 
 .custom-width {
-    width: 80px !important;
+    width: 100px !important;
 }
 
 .panel-default {
@@ -155,7 +199,24 @@ a:focus, a:hover {
 .width50 {
 	width:50px;
 }
-     
+
+.width80 {
+	width:80%;
+}
+
+.width60 {
+	width:60%;
+}
+.width70 {
+	width:70%;
+}
+.width20 {
+	width:20%;	
+}
+.width10 {
+	width:10%;	
+}
+       
 /* banniere */
 .banniere {
 	position: absolute;

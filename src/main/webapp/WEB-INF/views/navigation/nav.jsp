@@ -9,32 +9,27 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Home</a>
+      <a class="navbar-brand" href="<c:url value='/'/>">ACCUEIL</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
-      	<li><a href="<c:url value='/'/>">LIST CARDS</a></li>
-      	<li><a href="<c:url value='/listOther'/>">List Other</a></li>
+      	<li><a href="<c:url value='/cardList'/>">VOIR TOUTES LES CARTES</a></li>
+      	<li><a href="<c:url value='/deckList'/>">VOIR TOUS LES DECKS</a></li>
+      	<li><a href="<c:url value='/listOther'/>">VOIR TOUS LES TYPE/EDITION/RARETE</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li class="addCardBtn" ng-click="displayCardFct();" ><a href="javascript:void(0);">ADD A CARD</a></li>
+        <li class="addCardBtn" ng-click="displayCardFct();" ><a href="javascript:void(0);">AJOUTER UNE CARTE</a></li>
+        <li><a href="<c:url value='/addDeck'/>">AJOUTER UN DECK</a></li>
         <li class="dropdown">
-        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add Other...<span class="caret"></span></a>
+        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">AJOUTER ...<span class="caret"></span></a>
 	        <ul class="dropdown-menu">
-	            <li><a ng-click="displayTypeFct();" href="javascript:void(0);">Add a Type</a></li>
-	            <li><a ng-click="displayEditionFct();" href="javascript:void(0);">Add an Edition</a></li>
-	            <li><a ng-click="displayRarityFct();" href="javascript:void(0);">Add a Rarity</a></li>
+	            <li><a ng-click="displayTypeFct();" href="javascript:void(0);">AJOUTER UN TYPE</a></li>
+	            <li><a ng-click="displayEditionFct();" href="javascript:void(0);">AJOUTER UNE EDITION</a></li>
+	            <li><a ng-click="displayRarityFct();" href="javascript:void(0);">AJOUTER UNE RARETE</a></li>
 	        </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deck Builder <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="<c:url value='/addDeck'/>">Create a Deck</a></li>
-            <li><a href="<c:url value='/decks'/>">List of Decks</a></li>
-          </ul>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

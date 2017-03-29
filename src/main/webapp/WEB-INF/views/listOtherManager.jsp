@@ -15,16 +15,14 @@
     
     <div class="generic-container">
 	    <div class="row">
-		  	<div class="col-md-8">
+		  	<div class="col-md-4">
 		  		<%@ include file="lists/listEdition.jsp" %>
 		  	</div>
 		  	<div class="col-md-4">
-			  	<div class="col-md-12">
-			  		<%@ include file="lists/listType.jsp" %>
-			  	</div>
-			  	<div class="col-md-12">
-			  		<%@ include file="lists/listRarity.jsp" %>
-			 	</div>
+			 	<%@ include file="lists/listType.jsp" %>
+			</div>
+		 	<div class="col-md-4">
+		  		<%@ include file="lists/listRarity.jsp" %>
 		 	</div>
 		</div>
 	</div>

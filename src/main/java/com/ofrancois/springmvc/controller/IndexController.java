@@ -21,7 +21,7 @@ public class IndexController {
 	 */
     @RequestMapping(method = RequestMethod.GET)
     public String getIndexPage() {
-    	return "cardManager";
+    	return "home";
     }
  
 }
