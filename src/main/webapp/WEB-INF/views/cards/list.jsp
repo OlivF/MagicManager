@@ -96,7 +96,7 @@
                       </thead>
                       <tbody>
                           <tr ng-repeat="u in ctrl.cards | orderBy:sortType:sortReverse | filter:searchCard">
-                         	  <td class="magicfont"><span ng-bind="u.nameFr"></span></td>
+                         	  <td class="magicfont"><a ng-href="https://www.magicbazar.fr/recherche/search.php?s={{u.nameFr}}" target="_blank"><span ng-bind="u.nameFr"></a></span></td>
                               <td class="magicfont"><span ng-bind="u.nameEn"></span></td>
                               <td class="magicfont"><span ng-bind="u.type.name"></span></td>
                               <td class="magicfont"><span ng-bind="u.edition.name"></span></td>

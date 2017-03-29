@@ -126,6 +126,11 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
         //$scope.myForm.$setPristine(); //reset Form
     }
     
+    $scope.seeCardInfo = function() {
+    	console.log("CLICK ON CARD");
+    };
+    
+    
     $scope.addManaCost = function ( url , str) {
     	//console.log('ADD MANACOST');
     	self.arrayManaCost.push(url);

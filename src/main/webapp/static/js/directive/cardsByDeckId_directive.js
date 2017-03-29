@@ -1,0 +1,115 @@
+/*
+ * Create an html balise who generate a dropdown list containing
+ * decks associate to the card id in parameter
+ */
+angular.module('app.directives.listCards',[])
+	.directive('listCards', function (CarddeckService){
+		return {
+			restrict: 'E',
+			scope: {
+				deckid: '=',
+				deckname: '=',
+				url: '=',
+			},
+			template: '<div class="generic-container">'+
+	          			'<form>'+
+	          				'<div class="form-group">'+
+	          					'<div class="input-group">'+
+	          						'<div class="input-group-addon"><i class="fa fa-search"></i></div>'+
+	          						'<input type="text" class="form-control" placeholder="Search card by name" ng-model="searchCard">'+
+	          					'</div>'+      
+	          				'</div>'+
+	          			'</form>'+
+	          			'<div class="panel panel-default">'+
+	          				'<div class="panel-heading"><span class="lead magicfont">List Cards for {{deckname}}</span></div>'+
+	          					'<div class="tablecontainer">'+
+	          						'<table class="table table-hover">'+
+	          							'<thead>'+
+	          								'<tr>'+
+	          									'<th>'+
+	          										'<a href="javascript:void(0)" ng-click="sortType = \'nameFr\'; sortReverse = !sortReverse">'+
+	          										'<span class="magicfont">French Name</span>'+
+	          										'<i ng-show="sortType == \'nameFr\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
+	          										'<i ng-show="sortType == \'nameFr\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
+	          										'</a>'+ 
+	          									'</th>'+
+	          									'<th>'+
+	          	                              		'<a href="javascript:void(0)" ng-click="sortType = \'nameEn\'; sortReverse = !sortReverse">'+
+	          	                              		'<span class="magicfont">English Name</span>'+
+	          	                              		'<i ng-show="sortType == \'nameEn\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
+	          	                          	  		'<i ng-show="sortType == \'nameEn\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
+	          	                          	  		'</a>'+ 
+	          	                          	  	'</th>'+
+	          	                          	  	'<th>'+
+	          	                          	  		'<a href="javascript:void(0)" ng-click="sortType = \'type\'; sortReverse = !sortReverse">'+
+	          	                          	  		'<span class="magicfont">Type</span>'+
+	          	                          	  		'<i ng-show="sortType == \'type\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
+	          	                          	  		'<i ng-show="sortType == \'type\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
+	          	                          	  		'</a>'+ 
+	          	                                '</th>'+
+	          	                                '<th>'+
+	          	                                	'<a href="javascript:void(0)" ng-click="sortType = \'edition\'; sortReverse = !sortReverse">'+
+	          	                                	'<span  class="magicfont">Edition</span>'+
+	          	                                	'<i ng-show="sortType == \'edition\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
+	          	                          	  		'<i ng-show="sortType == \'edition\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
+	          	                          	  		'</a>'+
+	          	                          	  	'</th>'+
+	          	                          	  	'<th class="center">'+ 
+	          	                          	  		'<a href="javascript:void(0)" ng-click="sortType = \'manaCost\'; sortReverse = !sortReverse">'+
+	          	                              		'<span class="center magicfont">Mana Cost</span>'+
+	          	                              		'<i ng-show="sortType == \'manaCost\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
+	          	                          	  		'<i ng-show="sortType == \'manaCost\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
+	          	                          	  		'</a>'+
+	          	                                '</th>'+
+	          	                                '<th class="center">'+ 
+	          	                              		'<a href="javascript:void(0)" ng-click="sortType = \'rarity\'; sortReverse = !sortReverse">'+
+	          	                              		'<span class="center magicfont">Rarity</span>'+
+	          	                              		'<i ng-show="sortType == \'rarity\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
+	          	                          	  		'<i ng-show="sortType == \'rarity\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
+	          	                          	  		'</a>'+
+	          	                                '</th>'+
+	          	                                '<th class="center">'+ 
+	          	                              		'<a href="javascript:void(0)" ng-click="sortType = \'price\'; sortReverse = !sortReverse">'+
+	          	                              		'<span class="center magicfont">Price</span>'+
+	          	                              		'<i ng-show="sortType == \'price\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
+	          	                          	  		'<i ng-show="sortType == \'price\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
+	          	                          	  		'</a>'+ 
+	          	                                '</th>'+
+	          	                                '<th class="center">'+ 
+	          	                              		'<a href="javascript:void(0)">'+
+	          	                              		'<span class="center magicfont">Nb</span>'+
+	          	                              		'</a>'+ 
+	          	                                 '</th>'+
+	          	                               '</tr>'+
+	          								'</thead>'+
+	          								'<tbody>'+
+	          								'<tr ng-repeat="u in cardListFinal | orderBy:sortType:sortReverse | filter:searchCard">'+
+	          									'<td class="magicfont"><a ng-href="https://www.magicbazar.fr/recherche/search.php?s={{u.card.nameFr}}" target="_blank"><span ng-bind="u.card.nameFr"></span></a></td>'+
+	          									'<td class="magicfont"><span ng-bind="u.card.nameEn"></span></td>'+
+	          									'<td class="magicfont"><span ng-bind="u.card.type.name"></span></td>'+
+	          									'<td class="magicfont"><span ng-bind="u.card.edition.name"></span></td>'+
+	          									'<td class="center magicfont">'+
+	          	                              		'<mana-cost idcard="u.id" str="u.card.manaCost" url="url"></mana-cost>'+
+	          	                              	'</td>'+
+	          	                              	'<td class="center magicfont"><img ng-src="{{url}}{{u.card.rarity.name}}.gif"></td>'+
+	          	                              	'<td class="center small"><span ng-bind="u.card.price"></span>&euro;</td>'+
+	          	                              	'<td class="center small"><span ng-bind="u.quantity"></span></td>'+
+	                                        '</tr>'+
+	                                        '</tbody>'+
+	                                      '</table>'+
+	                                      '</div>'+
+	                                      '</div>'+		  
+	                                      '</div>',
+			controller: function ($scope) {
+				CarddeckService.getCardByDeckId($scope.deckid)
+	    		.then(
+	    			function(d) {
+	    				$scope.cardListFinal = d;
+	    			},
+	    			function(errResponse) {
+	    				console.error('Error while fetching Decks with cardId '+ $scope.idcard);
+	    			}
+	    		);
+			}
+		}
+	});

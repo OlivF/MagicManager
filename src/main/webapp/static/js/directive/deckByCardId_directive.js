@@ -7,7 +7,8 @@ angular.module('app.directives.decksList',[])
 		return {
 			restrict: 'E',
 			scope: {
-				idcard: '='
+				idcard: '=',
+				url: '='
 			},
 			template: '<div class="dropdown dropdown-scroll dropdownType">'+
 		    			'<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">'+
@@ -21,7 +22,7 @@ angular.module('app.directives.decksList',[])
 	    							'<input type="text" class="form-control" placeholder="Query" ng-model="queryCD"></input>'+
 	    						'</div>'+
 	    					'</li>'+
-	    					'<li role="presentation" ng-repeat="carddeck in decksListFinal | filter:queryCD"><a href="#"><span class="typeSelector">{{carddeck.deck.name}}</span></a></li>'+
+	    					'<li role="presentation" ng-repeat="carddeck in decksListFinal | filter:queryCD"><a href="/MagicManagerSpringWebMVC/deckInfo/{{carddeck.deck.id}}"><span class="typeSelector">{{carddeck.deck.name}}</span></a></li>'+
 					    '</ul>'+
 						'</div>',
 			controller: function ($scope) {

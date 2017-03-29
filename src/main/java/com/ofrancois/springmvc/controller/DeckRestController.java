@@ -46,7 +46,7 @@ public class DeckRestController {
     /**
      * Récupère les informations de tous les decks dans la base
      * 
-     * @return La liste de toutes les decks
+     * @return La liste de tous les decks
      * 
      * @see Deck
      */
@@ -69,7 +69,7 @@ public class DeckRestController {
      * 
      * @see Deck
      */
-    @RequestMapping(value = "/deck/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/deck/{id}", method = RequestMethod.GET)
     public ResponseEntity<Deck> getDeck(@PathVariable("id") long id) {
         System.out.println("Fetching Deck with id " + id);
         Deck deck = deckService.findById(id);
