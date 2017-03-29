@@ -16,6 +16,7 @@ com\ofrancois\springmvc\service\CarddeckService.class
 com\ofrancois\springmvc\controller\AddDeckController.class
 com\ofrancois\springmvc\service\EditionService.class
 com\ofrancois\springmvc\service\RarityService.class
+com\ofrancois\springmvc\controller\CardDeckRestController.class
 com\ofrancois\springmvc\service\DeckService.class
 com\ofrancois\springmvc\controller\ListOtherManager.class
 com\ofrancois\springmvc\service\CardServiceImpl.class

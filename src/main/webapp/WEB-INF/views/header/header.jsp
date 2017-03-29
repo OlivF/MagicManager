@@ -15,3 +15,4 @@
   			<div ng-controller="EditionController as ctrlE">
   				<div ng-controller="RarityController as ctrlR">
   					<div ng-controller="TypeController as ctrlT">
+  						<div ng-controller="CarddeckController as ctrlCD">

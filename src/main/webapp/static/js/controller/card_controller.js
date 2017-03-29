@@ -39,7 +39,7 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
  
     function updateCardType() {
     	
-    	console.log(self.cards[0])
+    	//console.log(self.cards[0])
     	/*for(var i=0; i<self.cards.length;i++); {
     		self.card[i].type = "blabla";
     		
@@ -127,7 +127,7 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     }
     
     $scope.addManaCost = function ( url , str) {
-    	console.log('ADD MANACOST');
+    	//console.log('ADD MANACOST');
     	self.arrayManaCost.push(url);
     	self.manaCostStr = self.manaCostStr + str;
     	self.card.manaCost = self.manaCostStr;
@@ -159,7 +159,7 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     }
     
     $scope.emptyManaCost = function () {
-    	console.log("here");
+    	//console.log("here");
     	self.card.manaCost = "";
     	self.manaCostStr = "";
     }
@@ -183,12 +183,12 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     		value += array[i];
     	}
     	
-    	console.log(value);
+    	//console.log(value);
     	return value;
     }
     
     $scope.getManaCostHtml = function ( manaCost, url ) {
-    	console.log("GET MANA COST HTML" + manaCost);
+    	//console.log("GET MANA COST HTML" + manaCost);
     	var html = '';
     	var array = [];
     	for(var j=0; j<manaCost.length; j++) {
@@ -206,7 +206,7 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     }
     
     function getType ( type_id ) {
-    	console.log("GET TYPE "+type_id)
+    	//console.log("GET TYPE "+type_id)
     	var type;
     	/*TypeService.getTypeById( type_id ).then(
                 function(d) {

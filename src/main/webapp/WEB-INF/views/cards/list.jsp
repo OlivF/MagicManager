@@ -71,6 +71,10 @@
                               </th>
                               <th class="center"> 
                               	<a href="javascript:void(0)">
+                              		<span class="center magicfont">Decks</span>
+                              	</a> 
+                              <th class="center"> 
+                              	<a href="javascript:void(0)">
                               		<span class="center magicfont">Nb</span>
                               	</a> 
                               
@@ -96,9 +100,14 @@
                               <td class="magicfont"><span ng-bind="u.nameEn"></span></td>
                               <td class="magicfont"><span ng-bind="u.type.name"></span></td>
                               <td class="magicfont"><span ng-bind="u.edition.name"></span></td>
-                              <td class="center magicfont"><span ng-bind-html='getManaCostHtml(u.manaCost, "<c:url value='/static/img/'/>")'></span></td>
+                              <td class="center magicfont">
+                              	<mana-cost idcard="u.id" str="u.manaCost" url="'<c:url value='/static/img/'/>'"></mana-cost>
+                              </td>
                               <td class="center magicfont"><img ng-src="<c:url value='/static/img/{{u.rarity.name}}.gif'/>"></td>
                               <td class="center small"><span ng-bind="u.price"></span>&euro;</td>
+                              <td class="center small">
+                              	<decks-list idcard="u.id"></decks-list>
+							  </td>
                               <td class="center small"><span ng-bind="u.nbItem"></span></td>
                               <td class="center small"><span ng-bind="u.nbDispo"></span></td>
                               <td class="center small"><span ng-bind="u.date"></span></td>
