@@ -2,19 +2,19 @@
  
 angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '$sce', function($scope, TypeService, $sce) {
     var self = this;
-    self.type={typeId:null,name:''};
-    self.types=[];
+    self.type = {
+    				typeId : null,
+    				name : ''
+    			};
+    self.types = [];
  
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
  
-    //$scope.displayPopinAddClass = "";
-    
     $scope.sortType     = 'name'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
-    $scope.searchFish   = '';     // set the default search/filter term
     
     
     $scope.sortTypeByName = 'name';
@@ -27,9 +27,10 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
             .then(
             function(d) {
                 self.types = d;
+                console.info('TypeController : Fetching ' + d.length + ' Types .... OK');
             },
             function(errResponse){
-                console.error('Error while fetching Type');
+                console.error('TypeController : Error while fetching Type');
             }
         );
     }

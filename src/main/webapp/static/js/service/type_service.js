@@ -22,7 +22,7 @@ angular.module('myApp').factory('TypeService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Types');
+                console.error('TypeService : Error while fetching Types');
                 deferred.reject(errResponse);
             }
         );
@@ -37,26 +37,11 @@ angular.module('myApp').factory('TypeService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while creating Type');
+                console.error('TypeService : Error while creating Type', type);
                 deferred.reject(errResponse);
             }
         );
         return deferred.promise;
-    }
- 
-    function getTypeById(id) {
-    	/*var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI+id)
-            .then(
-            function (response) {
-                deferred.resolve(response.data);
-            },
-            function(errResponse){
-                console.error('Error while getting Type by Id');
-                deferred.reject(errResponse);
-            }
-        );
-        return deferred.promise;*/
     }
  
     function updateType(type, id) {
@@ -67,7 +52,7 @@ angular.module('myApp').factory('TypeService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while updating Type');
+                console.error('TypeService : Error while updating Type ' + id, type);
                 deferred.reject(errResponse);
             }
         );
@@ -82,11 +67,10 @@ angular.module('myApp').factory('TypeService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while deleting Type');
+                console.error('TypeService : Error while deleting Type ' + id);
                 deferred.reject(errResponse);
             }
         );
         return deferred.promise;
     }
- 
 }]);

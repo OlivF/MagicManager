@@ -2,21 +2,20 @@
  
 angular.module('myApp').controller('RarityController', ['$scope', 'RarityService', '$sce', function($scope, RarityService, $sce) {
     var self = this;
-    self.raritys={id:null,name:''};
-    self.raritys=[];
+    self.raritys = {
+    				id : null,
+    				name:''
+    				};
+    self.raritys = [];
  
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
  
-    //$scope.displayPopinAddClass = "";
-    
     $scope.sortType     = 'name'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
-    $scope.searchFish   = '';     // set the default search/filter term
-    
-    
+ 
     $scope.sortRarityByName = 'name';
     $scope.sortReverseRarityByName = true;
     
@@ -27,9 +26,10 @@ angular.module('myApp').controller('RarityController', ['$scope', 'RarityService
             .then(
             function(d) {
                 self.raritys = d;
+                console.info('RarityController : Fetching ' + d.length + ' Raritys .... OK');
             },
             function(errResponse){
-                console.error('Error while fetching Rarity');
+                console.error('RarityController : Error while fetching Rarity');
             }
         );
     }

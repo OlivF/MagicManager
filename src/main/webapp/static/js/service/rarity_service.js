@@ -21,7 +21,7 @@ angular.module('myApp').factory('RarityService', ['$http', '$q', function($http,
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Raritys');
+                console.error('RarityService : Error while fetching Raritys');
                 deferred.reject(errResponse);
             }
         );
@@ -36,7 +36,7 @@ angular.module('myApp').factory('RarityService', ['$http', '$q', function($http,
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while creating Rarity');
+                console.error('RarityService : Error while creating Rarity', rarity);
                 deferred.reject(errResponse);
             }
         );
@@ -52,7 +52,7 @@ angular.module('myApp').factory('RarityService', ['$http', '$q', function($http,
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while updating Rarity');
+                console.error('RarityService : Error while updating Rarity ' + id, rarity);
                 deferred.reject(errResponse);
             }
         );
@@ -67,7 +67,7 @@ angular.module('myApp').factory('RarityService', ['$http', '$q', function($http,
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while deleting Rarity');
+                console.error('RarityService : Error while deleting Rarity ' + id);
                 deferred.reject(errResponse);
             }
         );

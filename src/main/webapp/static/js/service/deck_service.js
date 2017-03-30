@@ -22,7 +22,7 @@ angular.module('myApp').factory('DeckService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Decks');
+                console.error('DeckService : Error while fetching Decks');
                 deferred.reject(errResponse);
             }
         );
@@ -37,7 +37,7 @@ angular.module('myApp').factory('DeckService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Decks');
+                console.error('DeckService : Error while fetching Decks by Id ' + deckId);
                 deferred.reject(errResponse);
             }
         );
@@ -52,7 +52,7 @@ angular.module('myApp').factory('DeckService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while creating Deck');
+                console.error('DeckService : Error while creating Deck');
                 deferred.reject(errResponse);
             }
         );

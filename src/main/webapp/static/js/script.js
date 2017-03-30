@@ -1,7 +1,4 @@
 $(function() {
-    console.log( "ready!" );
-    
-    console.log( "Init Event on KeyBoard" );
     /*$( "html" ).unbind().keydown(function( event ) {
     	var code = event.which;
     	if (code === 27 && $('.popin.addCard').is(':visible')) {
@@ -10,13 +7,7 @@ $(function() {
     		$('.popin.addCard').removeClass('displayandanim');
     	}	
     });*/
-    console.log("updated");
- // jQuery
-    /*$('.dropdown-menu').find('input').click(function (e) {
-        e.stopPropagation();
-    });*/
-    
-    
+       
     /* Hack for edition select */
     $( ".dropdownEdition" ).on( "click", ".editionSelector", function() {
     	 $(".editionChoose").text($(this).text());

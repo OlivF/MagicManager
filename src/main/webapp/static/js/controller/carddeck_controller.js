@@ -2,8 +2,13 @@
  
 angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckService', 'DeckService', '$sce', function($scope, CarddeckService, DeckService, $sce) {
     var self = this;
-    self.carddeck={id:null,card:'',deck:'', quantity:''};
-    self.carddecks= [];
+    self.carddeck = {
+    					id : null,
+    					card : '',
+    					deck : '', 
+    					quantity : ''
+    			    };
+    self.carddecks = [];
     
     self.submit = submit;
     self.edit = edit;
@@ -18,6 +23,7 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
     		.then(
     			function(d) {
     				self.carddecks = d;
+    				console.info('CarddeckController : Fetching ' + d.length + ' cards in decks ' + deckId + ' ..... OK');
     			},
     			function(errResponse) {
     				console.error('Error while fetching Card with deckId ' + deckId);

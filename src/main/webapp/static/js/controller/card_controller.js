@@ -41,7 +41,7 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
             .then(
             function(d) {
                 self.cards = d;
-                console.info('CardController : Fetching All Card From DB...... OK');
+                console.info('CardController : Fetching ' + d.length + ' Cards From DB...... OK');
             },
             function(errResponse){
                 console.error('CardController : Error while fetching Card from CardService');

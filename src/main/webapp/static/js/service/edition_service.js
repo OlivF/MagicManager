@@ -37,7 +37,7 @@ angular.module('myApp').factory('EditionService', ['$http', '$q', function($http
                 fetchAllEditions();
             },
             function(errResponse){
-                console.error('EditionService: Error while creating Edition');
+                console.error('EditionService: Error while creating Edition', edition);
                 deferred.reject(errResponse);
             }
         );
@@ -53,7 +53,7 @@ angular.module('myApp').factory('EditionService', ['$http', '$q', function($http
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('EditionService : Error while updating Edition');
+                console.error('EditionService : Error while updating Edition ' + id, edition);
                 deferred.reject(errResponse);
             }
         );

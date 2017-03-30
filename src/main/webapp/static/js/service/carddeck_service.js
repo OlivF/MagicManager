@@ -30,7 +30,7 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching All CardDecks');
+                console.error('CarddeckService : Error while fetching All CardDecks');
                 deferred.reject(errResponse);
             }
         );
@@ -45,7 +45,7 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while get Card By DeckId ' + deckid);
+                console.error('CarddeckService : Error while get Card By DeckId ' + deckid);
                 deferred.reject(errResponse);
             }
         ); 
@@ -61,7 +61,7 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
             	deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while get Deck by cardID ' + cardid);
+                console.error('CarddeckService : Error while get Deck by cardID ' + cardid);
                 deferred.reject(errResponse);
             }
         );
@@ -78,7 +78,7 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
                 fetchAllCarddecks();
             },
             function(errResponse){
-                console.error('Error while creating Carddeck');
+                console.error('CarddeckService : Error while creating Carddeck ', carddeck);
                 deferred.reject(errResponse);
             }
         );
@@ -94,7 +94,7 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while updating Carddeck');
+                console.error('CarddeckService : Error while updating Carddeck ' + id, carddeck);
                 deferred.reject(errResponse);
             }
         );
@@ -109,7 +109,7 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while deleting Carddeck');
+                console.error('CarddeckService : Error while deleting Carddeck ' + id);
                 deferred.reject(errResponse);
             }
         );

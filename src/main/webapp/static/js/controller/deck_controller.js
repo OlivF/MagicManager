@@ -26,7 +26,7 @@ angular.module('myApp').controller('DeckController', ['$scope', 'DeckService', '
             .then(
             function(d) {
                 self.decks = d;
-                console.info("DeckController : Fetching All Decks..... OK");
+                console.info('DeckController : Fetching ' + d.length + ' Decks..... OK');
             },
             function(errResponse){
                 console.error('DeckController : Error while fetching Decks');

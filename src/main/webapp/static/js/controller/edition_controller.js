@@ -26,7 +26,7 @@ angular.module('myApp').controller('EditionController', ['$scope', 'EditionServi
             .then(
             function(d) {
                 self.editions = d;
-                console.info('EditionController : Fetching All Editions .... OK');
+                console.info('EditionController : Fetching ' + d.length + ' Editions .... OK');
             },
             function(errResponse){
                 console.error('EditionController : Error while fetching Edition');
