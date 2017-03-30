@@ -1,98 +1,112 @@
 'use strict';
  
-angular.module('myApp').controller('CardController', ['$scope', 'CardService', 'TypeService', '$sce', function($scope, CardService, TypeService, $sce) {
+angular.module('myApp').controller('CardController', ['$scope', 'CardService', '$sce', function($scope, CardService, $sce) {
     var self = this;
-    self.card={id:null,nameFr:'',nameEn:'',type:'', edition:"", manaCost:"", rarity:"", price:""};
-    self.cards=[];
+    
+    /* Structure d'une carte */
+    self.card = {
+    				id : null,
+    				nameFr : '',
+    				nameEn : '',
+    				type : '', 
+    				edition : "",
+    				manaCost : "", 
+    				rarity: "", 
+    				price : ""
+    			};
+    
+    /* Le tableau de carte */
+    self.cards = [];
  
+    /* Les variables pour la gestion du cout de mana de la carte */
+    self.arrayManaCost = [];
+    self.manaCostStr = "";
+    
+    /* Les variables pour le filtre */
+    $scope.sortType     = 'nameFr'; // set the default sort type
+    $scope.sortReverse  = false;  // set the default sort order
+    
+    /* Les fonctions du controller */
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
-    self.getType = getType;
     
-    self.arrayManaCost = [];
-    self.manaCostStr = "";
-    
-    
-    
-    
-    
-    $scope.sortType     = 'nameFr'; // set the default sort type
-    $scope.sortReverse  = false;  // set the default sort order
-    $scope.searchFish   = '';     // set the default search/filter term
-    
+    /* A l'initialisation du controleur on récupère tous les cartes dans le tableau de cartes */
     fetchAllCards();
     
-    function fetchAllCards(){
+    /* Met dans le tableau de carte toutes les cartes */
+    function fetchAllCards() {
         CardService.fetchAllCards()
             .then(
             function(d) {
                 self.cards = d;
-                updateCardType();
+                console.info('CardController : Fetching All Card From DB...... OK');
             },
             function(errResponse){
-                console.error('Error while fetching Card');
+                console.error('CardController : Error while fetching Card from CardService');
             }
         );
     }
  
-    function updateCardType() {
-    	
-    	//console.log(self.cards[0])
-    	/*for(var i=0; i<self.cards.length;i++); {
-    		self.card[i].type = "blabla";
-    		
-    	}*/
-    	
-    }
-    
-    
-    
+    /* Ajout d'une carte */
     function createCard(card){
         CardService.createCard(card)
             .then(
-            fetchAllCards,
+            function() {
+            	console.info('CardController : Add Card..... OK');
+            	console.info(card);
+            	fetchAllCards();
+            },
             function(errResponse){
-                console.error('Error while creating Card');
+                console.error('CardController : Error while creating Card from CardService');
             }
         );
     }
  
+    /* Modifie une carte */
     function updateCard(card, id){
         CardService.updateCard(card, id)
             .then(
-            fetchAllCards,
+            function() {
+            	console.info('CardController : Update Card...... Ok');
+            	console.info(card);
+            	fetchAllCards();
+            },
             function(errResponse){
-                console.error('Error while updating Card');
+                console.error('CardController : Error while updating Card from CardService');
             }
         );
     }
  
+    /* Supprime une carte */
     function deleteCard(id){
         CardService.deleteCard(id)
             .then(
-            fetchAllCards,
+            function() {
+            	console.info('CardController : Delete Card with id ' + id + ' ..... OK');
+            	fetchAllCards();
+            },
             function(errResponse){
-                console.error('Error while deleting Card');
+                console.error('CardController : Error while deleting Card From CardService');
             }
         );
     }
  
+    /* Soumission du formulaire d'ajout/update  de carte*/
     function submit() {
     	$('.popin.addCard').removeClass('displayCard');
-    	
     	self.card.manaCost = self.manaCostStr;
-    	if(self.card.id===null || typeof self.card.id === "undefined"){
-            console.log('Saving New Card', self.card);
+    	if (self.card.id === null || typeof self.card.id === "undefined"){
+            console.info('CardController : Saving New Card', self.card);
             createCard(self.card);
             $('.banniereAdd').addClass('displayBan');
         	setTimeout(function(){
         		$('.banniereAdd').removeClass('displayBan');	
         	}, 3000);
-        }else{
+        } else {
             updateCard(self.card, self.card.id);
-            console.log('Card updated with id ', self.card.id);
+            console.info('CardController : Card updated with id ', self.card.id);
             $('.banniereUpdate').addClass('displayBan');
         	setTimeout(function(){
         		$('.banniereUpdate').removeClass('displayBan');	
@@ -101,8 +115,9 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
         reset();
     }
  
+    /* Mise à jour d'une carte */
     function edit(id){
-        console.log('id to be edited', id);
+        console.info('CardController : id to be edited', id);
         for(var i = 0; i < self.cards.length; i++){
             if(self.cards[i].id === id) {
                 self.card = angular.copy(self.cards[i]);
@@ -111,35 +126,37 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
         }
     }
  
+    /* Suppression d'une carte */
     function remove(id){
-        console.log('id to be deleted', id);
+        console.info('CardController : id to be deleted', id);
         if(typeof self.card !== "undefined" && self.card.id === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
         deleteCard(id);
     }
  
- 
+    /* Reset form and object */
     function reset(){
-        self.card={id:null,nameFr:'',nameEn:'',type:'',edition:'', manaCost:"", rarity:"", price:""};
+        self.card = {
+        				id : null,
+        				nameFr : '',
+        				nameEn : '',
+        				type : '',
+        				edition : '', 
+        				manaCost : "", 
+        				rarity : "", 
+        				price : ""};
         self.manaCostStr="";
         //$scope.myForm.$setPristine(); //reset Form
     }
     
-    $scope.seeCardInfo = function() {
-    	console.log("CLICK ON CARD");
-    };
-    
-    
     $scope.addManaCost = function ( url , str) {
-    	//console.log('ADD MANACOST');
     	self.arrayManaCost.push(url);
     	self.manaCostStr = self.manaCostStr + str;
     	self.card.manaCost = self.manaCostStr;
     }
     
     $scope.addManaCostHtml = function ( url ) {
-    
     	var html = '';
     	var array = [];
     	var manaCost;
@@ -148,23 +165,16 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     	} else {
     	 manaCost = self.manaCostStr;
     	}
-    	
     	for(var j=0; j<manaCost.length; j++) {
     		array.push(manaCost.substring(j,j+1));
     	}
-    	
-    	
     	for ( var i=0; i< array.length; i++) {
     		html += '<img src="'+url+array[i]+'.gif" />';
     	}
-    	
-    	
     	return $sce.trustAsHtml(html);
-    	
     }
     
     $scope.emptyManaCost = function () {
-    	//console.log("here");
     	self.card.manaCost = "";
     	self.manaCostStr = "";
     }
@@ -182,48 +192,21 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     	for(var j=0; j<manaCost.length; j++) {
     		array.push(manaCost.substring(j,j+1));
     	}
-    	
-    	
     	for ( var i=0; i< array.length; i++) {
     		value += array[i];
     	}
-    	
-    	//console.log(value);
     	return value;
     }
     
     $scope.getManaCostHtml = function ( manaCost, url ) {
-    	//console.log("GET MANA COST HTML" + manaCost);
     	var html = '';
     	var array = [];
     	for(var j=0; j<manaCost.length; j++) {
     		array.push(manaCost.substring(j,j+1));
     	}
-    	
-    	
     	for ( var i=0; i< array.length; i++) {
     		html += '<img src="'+url+array[i]+'.gif" />';
     	}
-    	
-    	
     	return $sce.trustAsHtml(html);
-    	
-    }
-    
-    function getType ( type_id ) {
-    	//console.log("GET TYPE "+type_id)
-    	var type;
-    	/*TypeService.getTypeById( type_id ).then(
-                function(d) {
-                    type = d;
-                    return $sce.trustAsHtml(type.name);
-                },
-                function(errResponse){
-                    console.error('Error while fetching Type by Id');
-                }
-               );*/
-    	//console.log(type);
-    	return $sce.trustAsHtml("ok");
-    }
-    
+    }    
 }]);

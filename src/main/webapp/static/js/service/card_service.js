@@ -21,7 +21,7 @@ angular.module('myApp').factory('CardService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Cards');
+                console.error('CardService : Error while fetching Cards');
                 deferred.reject(errResponse);
             }
         );
@@ -36,7 +36,7 @@ angular.module('myApp').factory('CardService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while creating Card');
+                console.error('CardService : Error while creating Card');
                 deferred.reject(errResponse);
             }
         );
@@ -52,7 +52,7 @@ angular.module('myApp').factory('CardService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while updating Card');
+                console.error('CardService : Error while updating Card');
                 deferred.reject(errResponse);
             }
         );
@@ -67,7 +67,7 @@ angular.module('myApp').factory('CardService', ['$http', '$q', function($http, $
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while deleting Card');
+                console.error('CardService : Error while deleting Card');
                 deferred.reject(errResponse);
             }
         );
