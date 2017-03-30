@@ -21,7 +21,7 @@ angular.module('myApp').factory('EditionService', ['$http', '$q', function($http
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Editions');
+                console.error('EditionService: Error while fetching Editions');
                 deferred.reject(errResponse);
             }
         );
@@ -37,7 +37,7 @@ angular.module('myApp').factory('EditionService', ['$http', '$q', function($http
                 fetchAllEditions();
             },
             function(errResponse){
-                console.error('Error while creating Edition');
+                console.error('EditionService: Error while creating Edition');
                 deferred.reject(errResponse);
             }
         );
@@ -53,7 +53,7 @@ angular.module('myApp').factory('EditionService', ['$http', '$q', function($http
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while updating Edition');
+                console.error('EditionService : Error while updating Edition');
                 deferred.reject(errResponse);
             }
         );
@@ -68,7 +68,7 @@ angular.module('myApp').factory('EditionService', ['$http', '$q', function($http
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while deleting Edition');
+                console.error('EditionService: Error while deleting Edition');
                 deferred.reject(errResponse);
             }
         );
