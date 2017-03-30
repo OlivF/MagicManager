@@ -11,7 +11,7 @@
   </form>
           <div class="panel panel-default">
                 <!-- Default panel contents -->
-              <div class="panel-heading"><span class="lead magicfont">Notre Collection - Liste de tous les Decks</span> <a href="<c:url value='/addDeck'/>"><button type="button" class="btn btn-success btnAdd"><i class="fa fa-plus-circle fa-1x" aria-hidden="true"></i> Ajouter un Deck</button></a></div>
+              <div class="panel-heading"><span class="lead magicfont">Notre Collection - Liste de tous les Decks</span> <button type="button" ng-click="displayDeckFct();" class="btn btn-success btnAdd"><i class="fa fa-plus-circle fa-1x" aria-hidden="true"></i> Ajouter un Deck</button></div>
               <div class="tablecontainer">
                   <table class="table table-hover">
                       <thead>

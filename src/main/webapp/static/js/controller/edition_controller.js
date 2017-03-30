@@ -3,9 +3,9 @@
 angular.module('myApp').controller('EditionController', ['$scope', 'EditionService', '$sce', function($scope, EditionService, $sce) {
     var self = this;
     self.edition = {
-    				 id : null,
-    				 name : ''
-    			    };
+    	id : null,
+    	name : ''
+    };
     self.editions= [];
  
     self.submit = submit;
@@ -21,6 +21,7 @@ angular.module('myApp').controller('EditionController', ['$scope', 'EditionServi
     
     fetchAllEditions();
     
+    /* get all editions */
     function fetchAllEditions(){
         EditionService.fetchAllEditions()
             .then(
@@ -34,6 +35,7 @@ angular.module('myApp').controller('EditionController', ['$scope', 'EditionServi
         );
     }
  
+    /* crée une edition */
     function createEdition(edition){
         EditionService.createEdition(edition)
             .then(
@@ -47,6 +49,7 @@ angular.module('myApp').controller('EditionController', ['$scope', 'EditionServi
         );
     }
  
+    /* Update une edition */
     function updateEdition(edition, id){
         EditionService.updateEdition(edition, id)
             .then(
@@ -60,6 +63,7 @@ angular.module('myApp').controller('EditionController', ['$scope', 'EditionServi
         );
     }
  
+    /* Supprime une edition */
     function deleteEdition(id){
         EditionService.deleteEdition(id)
             .then(
@@ -72,19 +76,21 @@ angular.module('myApp').controller('EditionController', ['$scope', 'EditionServi
             }
         );
     }
- 
+    
+    /* Soumission du form add/update */
     function submit() {
     	$('.popin.addEdition').removeClass('displayEdition');
-        if(self.edition.id===null || typeof self.edition.id === "undefined"){
+        if (self.edition.id===null || typeof self.edition.id === "undefined") {
             console.info('EditionController : Saving New Edition', self.edition);
             createEdition(self.edition);
-        }else{
+        } else {
             updateEdition(self.edition, self.edition.id);
             console.info('EditionController : Edition updated with id ', self.edition.id);
         }
         reset();
     }
  
+    /* update an edition */
     function edit(id){
         console.info('EditionController : id to be edited', id);
         $scope.displayPopinAddClass = true;
@@ -95,7 +101,8 @@ angular.module('myApp').controller('EditionController', ['$scope', 'EditionServi
             }
         }
     }
- 
+    
+    /* Remove an edition */
     function remove(id){
         console.info('EditionController : id to be deleted', id);
         if(typeof self.edition !== "undefined" && self.edition.id === id) {//clean form if the user to be deleted is shown there.
@@ -104,11 +111,12 @@ angular.module('myApp').controller('EditionController', ['$scope', 'EditionServi
         deleteEdition(id);
     }
  
+    /* Reset form and obj */
     function reset(){
         self.edition = {
-        				id : null,
-        				name : ''
-        				};
+        	id : null,
+        	name : ''
+        };
        // $scope.myFormEdition.$setPristine(); //reset Form
     }    
 }]);

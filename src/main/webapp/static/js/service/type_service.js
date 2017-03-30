@@ -8,7 +8,6 @@ angular.module('myApp').factory('TypeService', ['$http', '$q', function($http, $
         fetchAllTypes: fetchAllTypes,
         createType: createType,
         updateType:updateType,
-        getTypeById:getTypeById,
         deleteType:deleteType
     };
  

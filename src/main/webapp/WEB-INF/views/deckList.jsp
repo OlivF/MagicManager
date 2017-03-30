@@ -13,6 +13,9 @@
     <!-- Include List decks -->
     <%@ include file="decks/list.jsp" %>
     
+    <!-- Include forms -->
+    <%@ include file="forms/forms.jsp" %>
+    
      <!-- Include Footer -->      
     <%@ include file="footer/footer.jsp" %>
 </html>

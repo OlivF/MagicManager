@@ -3,9 +3,9 @@
 angular.module('myApp').controller('RarityController', ['$scope', 'RarityService', '$sce', function($scope, RarityService, $sce) {
     var self = this;
     self.raritys = {
-    				id : null,
-    				name:''
-    				};
+    	id : null,
+    	name : ''
+    };
     self.raritys = [];
  
     self.submit = submit;
@@ -21,6 +21,7 @@ angular.module('myApp').controller('RarityController', ['$scope', 'RarityService
     
     fetchAllRaritys();
     
+    /* get all rarity */
     function fetchAllRaritys(){
         RarityService.fetchAllRaritys()
             .then(
@@ -34,50 +35,64 @@ angular.module('myApp').controller('RarityController', ['$scope', 'RarityService
         );
     }
  
+    /* Add rarity */
     function createRarity(rarity){
         RarityService.createRarity(rarity)
             .then(
-            fetchAllRaritys,
+            function() {
+            	console.info('RarityController : Add Rarity..... OK', rarity);
+            	fetchAllRaritys();
+            },            
             function(errResponse){
-                console.error('Error while creating Rarity');
+                console.error('RarityController : Error while creating Rarity', rarity);
             }
         );
     }
  
+    /* update rarity */
     function updateRarity(rarity, id){
         RarityService.updateRarity(rarity, id)
             .then(
-            fetchAllRaritys,
+            function() {
+            	console.info('RarityController : Update Rarity ' + id + '..... OK', rarity);
+            	fetchAllRaritys();
+            },
             function(errResponse){
-                console.error('Error while updating Rarity');
+                console.error('RarityController : Error while updating Rarity ' + id, rarity);
             }
         );
     }
  
+    /* Supprime une rarity */
     function deleteRarity(id){
         RarityService.deleteRarity(id)
             .then(
-            fetchAllRaritys,
+            function() {
+            	console.info('RarityController : Delete Rarity..... OK', id);
+            	fetchAllRaritys();
+            },
             function(errResponse){
-                console.error('Error while deleting Rarity');
+                console.error('RarityController : Error while deleting Rarity', id);
             }
         );
     }
  
+    /* Soumission formulaire ADD/Update */
     function submit() {
     	$('.popin.addRarity').removeClass('displayRarity');
         if(self.rarity.id===null || typeof self.rarity.id === "undefined"){
-            console.log('Saving New Rarity', self.rarity);
+            console.info('RarityController : Saving New Rarity', self.rarity);
             createRarity(self.rarity);
         }else{
             updateRarity(self.rarity, self.rarity.id);
-            console.log('Rarity updated with id ', self.rarity.id);
+            console.info('RarityController : Rarity updated with id ', self.rarity.id);
         }
         reset();
     }
  
+    /* Mettre à jour une rarity */
     function edit(id){
-        console.log('id to be edited', id);
+        console.info('RarityController : id to be edited', id);
         $scope.displayPopinAddClass=true;
         for(var i = 0; i < self.raritys.length; i++){
             if(self.raritys[i].id === id) {
@@ -87,17 +102,21 @@ angular.module('myApp').controller('RarityController', ['$scope', 'RarityService
         }
     }
  
+    /* Supprime une rarity */
     function remove(id){
-        console.log('id to be deleted', id);
+        console.info('RarityController : id to be deleted', id);
         if(typeof self.rarity !== "undefined" && self.rarity.id === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
         deleteRarity(id);
     }
  
- 
+    /* Reset form and rarity obj */
     function reset(){
-        self.rarity={id:null,name:''};
+        self.rarity = {
+        	id : null,
+        	name : ''
+        };
         //$scope.myFormRarity.$setPristine(); //reset Form
     }    
 }]);

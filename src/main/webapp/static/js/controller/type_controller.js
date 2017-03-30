@@ -3,9 +3,9 @@
 angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '$sce', function($scope, TypeService, $sce) {
     var self = this;
     self.type = {
-    				typeId : null,
-    				name : ''
-    			};
+    	typeId : null,
+    	name : ''
+    };
     self.types = [];
  
     self.submit = submit;
@@ -15,7 +15,6 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
  
     $scope.sortType     = 'name'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
-    
     
     $scope.sortTypeByName = 'name';
     $scope.sortReverseTypeByName = true;
@@ -38,9 +37,12 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
     function createType(type){
         TypeService.createType(type)
             .then(
-            fetchAllTypes,
+            function() {
+            	console.info('TypeController: Add New Type ..... OK', type);
+             	fetchAllTypes();
+            },
             function(errResponse){
-                console.error('Error while creating Type');
+                console.error('TypeController : Error while creating Type');
             }
         );
     }
@@ -48,9 +50,12 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
     function updateType(type, id){
         TypeService.updateType(type, id)
             .then(
-            fetchAllTypes,
+    		function() {
+    			console.info('TypeController: Update Type ..... OK', type);
+            	fetchAllTypes();
+            },
             function(errResponse){
-                console.error('Error while updating Type');
+                console.error('TypeController : Error while updating Type ' + id, type);
             }
         );
     }
@@ -58,28 +63,32 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
     function deleteType(id){
         TypeService.deleteType(id)
             .then(
-            fetchAllTypes,
+            function() {
+            	fetchAllTypes();
+            },
             function(errResponse){
-                console.error('Error while deleting Type');
+                console.error('TypeController : Error while deleting Type ' + id);
             }
         );
     }
  
+    /* Soumission form Add/Update */
     function submit() {
     	$('.popin.addType').removeClass('displayType');
         if(self.type.typeId===null || typeof self.type.typeId === "undefined"){
-            console.log('Saving New Type', self.type);
+            console.info('TypeController : Saving New Type', self.type);
             createType(self.type);
         }else{
             updateType(self.type, self.type.typeId);
-            console.log('Type updated with id ', self.type.typeId);
+            console.info('TypeController : Type updated with id ', self.type.typeId);
         }
         reset();
     }
  
+    /* Mettre à jour un type */
     function edit(id){
-        console.log('id to be edited', id);
-        $scope.displayPopinAddClass=true;
+        console.info('TypeController : id to be edited', id);
+        $scope.displayPopinAddClass = true;
         for(var i = 0; i < self.types.length; i++){
             if(self.types[i].typeId === id) {
                 self.type = angular.copy(self.types[i]);
@@ -88,17 +97,21 @@ angular.module('myApp').controller('TypeController', ['$scope', 'TypeService', '
         }
     }
  
+    /* Supprime un type */
     function remove(id){
-        console.log('id to be deleted', id);
+        console.info('TypeController : id to be deleted', id);
         if(typeof self.type !== "undefined" && self.type.typeId === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
         deleteType(id);
     }
  
- 
+    /* Reset form and obj */
     function reset(){
-        self.type={typeId:null,name:''};
+        self.type = {
+        	typeId :null,
+        	name : ''
+        };
        // $scope.myFormType.$setPristine(); //reset Form
     }    
 }]);
