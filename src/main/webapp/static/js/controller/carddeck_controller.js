@@ -1,15 +1,16 @@
 'use strict';
  
-angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckService', '$sce', function($scope, CarddeckService, $sce) {
+angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckService', 'DeckService', '$sce', function($scope, CarddeckService, DeckService, $sce) {
     var self = this;
-    self.cardeck={id:null,cardId:'',deckId:'', quantity:''};
+    self.carddeck={id:null,card:'',deck:'', quantity:''};
     self.carddecks= [];
-    console.log('INIT');
+    
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
- 
+    
+     
     //fetchAllCarddecks();
     //getDeckByCardId(1);
     function getCardByDeckId(deckId) {
@@ -19,7 +20,7 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
     				self.carddecks = d;
     			},
     			function(errResponse) {
-    				console.error('Error while fetching CardDeck with deckId '+deckId);
+    				console.error('Error while fetching Card with deckId ' + deckId);
     			}
     		);
     }
@@ -31,7 +32,7 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
     				self.carddecks = d;
     			},
     			function(errResponse) {
-    				console.error('Error while fetching CardDeck with cardId '+id);
+    				console.error('Error while fetching CardDeck with cardId '+cardId);
     			}
     		);
     }
@@ -71,7 +72,7 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
     }
  
     function deleteCarddeck(id){
-        CarddeckService.deleteCarddeck(id)
+    	CarddeckService.deleteCarddeck(id)
             .then(
             fetchAllEditions,
             function(errResponse){
@@ -80,16 +81,33 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
         );
     }
  
-    function submit() {
-    	/*$('.popin.addEdition').removeClass('displayEdition');
-        if(self.edition.id===null || typeof self.edition.id === "undefined"){
-            console.log('Saving New Edition', self.edition);
-            createEdition(self.edition);
-        }else{
-            updateEdition(self.edition, self.edition.id);
-            console.log('Edition updated with id ', self.edition.id);
-        }
-        reset();*/
+    function submit(deckId, cardId, quantity) {
+    	console.log('SUBMIT CARDDECK' + deckId + "-"+cardId + "-"+quantity);
+    	
+    	 DeckService.findDeckById(deckId)
+         .then(
+         function(d) {
+             
+             self.carddeck.deck = d;
+         	self.carddeck.card = cardId;
+         	self.carddeck.quantity = quantity;
+         	if(self.carddeck.id===null || typeof self.carddeck.id === "undefined"){
+                 console.log('Saving New Card in Deck', self.carddeck);
+                 createCarddeck(self.carddeck);
+             }else{
+                 //updateEdition(self.edition, self.edition.id);
+                 //console.log('Edition updated with id ', self.edition.id);
+             }
+         },
+         function(errResponse){
+             console.error('Error while fetching Carddeck');
+         }
+     );
+    	
+    
+    	
+    	
+        //reset();
     }
  
     function edit(id){

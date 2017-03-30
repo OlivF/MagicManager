@@ -1,4 +1,4 @@
-<div class="generic-container">
+<div class="generic-container listForDeck" ng-class="{'displayListForDeck': (mainCtrl.displayListForDeck)}">
           <form>
     <div class="form-group">
       <div class="input-group">
@@ -11,8 +11,9 @@
   </form>
           <div class="panel panel-default">
                 <!-- Default panel contents -->
-              <div class="panel-heading"><span class="lead magicfont">Notre Collection - Toutes les cartes</span> <button type="button" ng-click="displayCardFct();" class="btn btn-success btnAdd"><i class="fa fa-plus-circle fa-1x" aria-hidden="true"></i> Ajouter une Carte</button></div>
+              <div class="panel-heading"><span class="lead magicfont">Notre Collection - Toutes les cartes</span></div>
               <div class="tablecontainer">
+              	
                   <table class="table table-hover">
                       <thead>
                           <tr>
@@ -71,11 +72,6 @@
                               </th>
                               <th class="center"> 
                               	<a href="javascript:void(0)">
-                              		<span class="center magicfont">Decks</span>
-                              	</a> 
-                              </th>
-                              <th class="center"> 
-                              	<a href="javascript:void(0)">
                               		<span class="center magicfont">Nb</span>
                               	</a> 
                               
@@ -86,11 +82,18 @@
                               	</a> 
                               
                               </th>
-                              <th class="width50"></th>
+                              <th class="center width10"> 
+                              	<a href="javascript:void(0)">
+                              		<span class="center magicfont">Quantité à ajouter</span>
+                              	</a> 
+                              
+                              </th>
+                              <th></th>
                           </tr>
                       </thead>
                       <tbody>
                           <tr ng-repeat="u in ctrl.cards | orderBy:sortType:sortReverse | filter:searchCard">
+                         	 
                          	  <td class="magicfont"><a ng-href="https://www.magicbazar.fr/recherche/search.php?s={{u.nameFr}}" target="_blank"><span ng-bind="u.nameFr"></a></span></td>
                               <td class="magicfont"><span ng-bind="u.nameEn"></span></td>
                               <td class="magicfont"><span ng-bind="u.type.name"></span></td>
@@ -100,17 +103,27 @@
                               </td>
                               <td class="center magicfont"><img ng-src="<c:url value='/static/img/{{u.rarity.name}}.gif'/>"></td>
                               <td class="center small"><span ng-bind="u.price"></span>&euro;</td>
-                              <td class="center small">
-                              	<decks-list idcard="u.id"></decks-list>
-							  </td>
                               <td class="center small"><span ng-bind="u.nbItem"></span></td>
                               <td class="center small"><span ng-bind="u.nbDispo"></span></td>
+                               <td class="center small">
+                               	<input class="width50" type="number" min="1" max="{{u.nbDispo}}" />
+                               </td>
                               <td class="center">
-                              <button type="button" ng-click="displayCardFct();ctrl.edit(u.id)" class="btn btn-primary custom-width"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier</button>  <!-- <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>-->
+                               <input type="hidden" ng-model="ctrlCD.carddeck.id" />
+                              <input type="hidden" ng-model="ctrlCD.carddeck.quantity" value="1" />
+                              <input type="hidden" ng-model="ctrlCD.carddeck.cardid" value="{{u.id}}" />
+                  				<input type="hidden" ng-model="ctrlCD.carddeck.deckid" value="${deck.id}" />
+                              <button type="submit" ng-click="ctrlCD.submit(${deck.id}, u, 1)" value="{{!ctrlCD.carddeck.id ? 'Add' : 'Update'}}" class="btn btn-primary custom-width125">Ajouter au Deck</button>  <!-- <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>-->
+                             
+                               
                               </td>
+                            
                           </tr>
+                          
                       </tbody>
                   </table>
+                    
+                  
               </div>
           </div>		  
       </div>

@@ -7,3 +7,5 @@
 <%@ include file="addRarity.jsp" %>
 
 <%@ include file="addType.jsp" %>
+
+<%@ include file="addDeck.jsp" %>

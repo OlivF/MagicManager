@@ -31,6 +31,6 @@ $(function() {
     	console.log("click");
     	$('.result').text("");
     	$('.manaCost').val("");
+    	$('.color').val("");
     });
-
 });

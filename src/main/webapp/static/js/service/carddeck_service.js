@@ -1,5 +1,12 @@
 'use strict';
- 
+
+/* Service Carddeck :
+ * - Recupere tous les carddecks 
+ * - Recupere toutes les cartes pour un deck
+ * - Recupere tous les decks pour une carte
+ * - Crée un carddeck
+ */
+
 angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($http, $q){
  
     var REST_SERVICE_URI = 'http://localhost:8081/MagicManagerSpringWebMVC/carddeck/';
@@ -23,7 +30,7 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Editions');
+                console.error('Error while fetching All CardDecks');
                 deferred.reject(errResponse);
             }
         );
@@ -38,10 +45,10 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while updating Carddeck');
+                console.error('Error while get Card By DeckId ' + deckid);
                 deferred.reject(errResponse);
             }
-        );
+        ); 
         return deferred.promise;
     }
     
@@ -54,7 +61,7 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
             	deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while get Carddeck by DeckID');
+                console.error('Error while get Deck by cardID ' + cardid);
                 deferred.reject(errResponse);
             }
         );
@@ -68,7 +75,7 @@ angular.module('myApp').factory('CarddeckService', ['$http', '$q', function($htt
             .then(
             function (response) {
                 deferred.resolve(response.data);
-                fetchAllEditions();
+                fetchAllCarddecks();
             },
             function(errResponse){
                 console.error('Error while creating Carddeck');

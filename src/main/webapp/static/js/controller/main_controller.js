@@ -9,8 +9,15 @@ angular.module('myApp').controller('MainController', ['$scope', function($scope)
 	self.displayEdition = false;
 	self.displayType = false;
 	self.displayRarity = false;
+	self.displayDeck = false;
+	
+	self.displayListForDeck = false;
     
 	self.openPopinCard = 0;
+	
+	$scope.displayListForDeckFct = function() {
+		self.displayListForDeck = true;
+	}
 	
     $scope.displayCardFct = function() {
     	self.bodyClassOverflow = true;
@@ -18,6 +25,7 @@ angular.module('myApp').controller('MainController', ['$scope', function($scope)
     	self.displayEdition = false;
     	self.displayType = false;
     	self.displayRarity = false;
+    	self.displayDeck = false;
     	
     	self.openPopinCard = 1;
     }
@@ -28,6 +36,7 @@ angular.module('myApp').controller('MainController', ['$scope', function($scope)
     	self.displayCard = false;
     	self.displayType = false;
     	self.displayRarity = false;
+    	self.displayDeck = false;
     	
     	if(self.openPopinCard === 1) {
     		self.openPopinCard = 2;
@@ -40,6 +49,7 @@ angular.module('myApp').controller('MainController', ['$scope', function($scope)
     	self.displayCard = false;
     	self.displayEdition = false;
     	self.displayRarity = false;
+    	self.displayDeck = false;
     	
     	if(self.openPopinCard === 1) {
     		self.openPopinCard = 2;
@@ -52,6 +62,20 @@ angular.module('myApp').controller('MainController', ['$scope', function($scope)
     	self.displayCard = false;
     	self.displayEdition = false;
     	self.displayType = false;
+    	self.displayDeck = false;
+    	
+    	if(self.openPopinCard === 1) {
+    		self.openPopinCard = 2;
+    	}
+    }
+    
+    $scope.displayDeckFct = function() {
+    	self.bodyClassOverflow = true;
+    	self.displayRarity = false;
+    	self.displayCard = false;
+    	self.displayEdition = false;
+    	self.displayType = false;
+    	self.displayDeck = true;
     	
     	if(self.openPopinCard === 1) {
     		self.openPopinCard = 2;
@@ -64,6 +88,8 @@ angular.module('myApp').controller('MainController', ['$scope', function($scope)
     	self.displayEdition = false;
     	self.displayType = false;
     	self.displayRarity = false;
+    	self.displayDeck = false;
+    	
     	if(self.openPopinCard === 0) {
     		self.bodyClassOverflow = false;
     	}

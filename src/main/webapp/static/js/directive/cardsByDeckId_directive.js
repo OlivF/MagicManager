@@ -16,26 +16,26 @@ angular.module('app.directives.listCards',[])
 	          				'<div class="form-group">'+
 	          					'<div class="input-group">'+
 	          						'<div class="input-group-addon"><i class="fa fa-search"></i></div>'+
-	          						'<input type="text" class="form-control" placeholder="Search card by name" ng-model="searchCard">'+
+	          						'<input type="text" class="form-control" placeholder="Chercher une carte" ng-model="searchCard">'+
 	          					'</div>'+      
 	          				'</div>'+
 	          			'</form>'+
 	          			'<div class="panel panel-default">'+
-	          				'<div class="panel-heading"><span class="lead magicfont">List Cards for {{deckname}}</span></div>'+
+	          				'<div class="panel-heading"><span class="lead magicfont">Liste des cartes du deck : {{deckname}}</span></div>'+
 	          					'<div class="tablecontainer">'+
 	          						'<table class="table table-hover">'+
 	          							'<thead>'+
 	          								'<tr>'+
 	          									'<th>'+
 	          										'<a href="javascript:void(0)" ng-click="sortType = \'nameFr\'; sortReverse = !sortReverse">'+
-	          										'<span class="magicfont">French Name</span>'+
+	          										'<span class="magicfont">Nom Fran&ccedil;ais</span>'+
 	          										'<i ng-show="sortType == \'nameFr\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
 	          										'<i ng-show="sortType == \'nameFr\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
 	          										'</a>'+ 
 	          									'</th>'+
 	          									'<th>'+
 	          	                              		'<a href="javascript:void(0)" ng-click="sortType = \'nameEn\'; sortReverse = !sortReverse">'+
-	          	                              		'<span class="magicfont">English Name</span>'+
+	          	                              		'<span class="magicfont">Nom Anglais</span>'+
 	          	                              		'<i ng-show="sortType == \'nameEn\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
 	          	                          	  		'<i ng-show="sortType == \'nameEn\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
 	          	                          	  		'</a>'+ 
@@ -56,21 +56,21 @@ angular.module('app.directives.listCards',[])
 	          	                          	  	'</th>'+
 	          	                          	  	'<th class="center">'+ 
 	          	                          	  		'<a href="javascript:void(0)" ng-click="sortType = \'manaCost\'; sortReverse = !sortReverse">'+
-	          	                              		'<span class="center magicfont">Mana Cost</span>'+
+	          	                              		'<span class="center magicfont">Cout de mana</span>'+
 	          	                              		'<i ng-show="sortType == \'manaCost\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
 	          	                          	  		'<i ng-show="sortType == \'manaCost\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
 	          	                          	  		'</a>'+
 	          	                                '</th>'+
 	          	                                '<th class="center">'+ 
 	          	                              		'<a href="javascript:void(0)" ng-click="sortType = \'rarity\'; sortReverse = !sortReverse">'+
-	          	                              		'<span class="center magicfont">Rarity</span>'+
+	          	                              		'<span class="center magicfont">Raret&eacute;</span>'+
 	          	                              		'<i ng-show="sortType == \'rarity\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
 	          	                          	  		'<i ng-show="sortType == \'rarity\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
 	          	                          	  		'</a>'+
 	          	                                '</th>'+
 	          	                                '<th class="center">'+ 
 	          	                              		'<a href="javascript:void(0)" ng-click="sortType = \'price\'; sortReverse = !sortReverse">'+
-	          	                              		'<span class="center magicfont">Price</span>'+
+	          	                              		'<span class="center magicfont">Prix</span>'+
 	          	                              		'<i ng-show="sortType == \'price\' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>'+
 	          	                          	  		'<i ng-show="sortType == \'price\' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>'+
 	          	                          	  		'</a>'+ 

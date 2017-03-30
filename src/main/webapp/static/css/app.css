@@ -90,6 +90,10 @@ body, .form-control{
     width: 100px !important;
 }
 
+.custom-width125 {
+    width: 125px !important;
+}
+
 .panel-default {
     border:none;
     position: relative;
@@ -251,6 +255,17 @@ a:focus, a:hover {
     vertical-align: middle;
     font-size: 40px;
 }
+.addCardDeck {
+	display:none;
+}
+.listForDeck {
+	display : none;
+}
+
+.displayListForDeck {
+	
+	display : block;
+}
 /* Overlay and Popin Add Card */
 body.popinDisplay {
 	overflow : hidden;
@@ -276,7 +291,7 @@ body.popinDisplay {
     height: 424px;
 }
 
-.popin.addCard, .popin.addType, .popin.addEdition, .popin.addRarity {
+.popin.addCard, .popin.addType, .popin.addEdition, .popin.addRarity, .popin.addDeck {
     transition-duration: 0.6s;
     top: -550px;
 }
@@ -285,7 +300,7 @@ body.popinDisplay {
 	display:block;
 }
 
-.popin.addCard.displayCard , .popin.addEdition.displayEdition, .popin.addType.displayType,.popin.addRarity.displayRarity {
+.popin.addCard.displayCard , .popin.addEdition.displayEdition, .popin.addType.displayType, .popin.addRarity.displayRarity, .popin.addDeck.displayDeck {
     top: 50%;
     margin-top: -300px;
 }

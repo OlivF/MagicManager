@@ -4,7 +4,11 @@ angular.module('myApp').controller('DeckController', ['$scope', 'DeckService', '
     var self = this;
     self.deck={id:null,name:'',color:''};
     self.decks=[];
-
+    
+    self.submit = submit;
+    self.reset = reset;
+    self.arrayColor = [];
+    self.colorStr = "";
     $scope.sortType     = 'name'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
     
@@ -23,6 +27,11 @@ angular.module('myApp').controller('DeckController', ['$scope', 'DeckService', '
         );
     }
  
+    
+    function redirect() {
+    	console.log("redirect");
+    	document.location = "/MagicManagerSpringWebMVC/deckList/";
+    }
    /* function updateCardType() {
     	
     	//console.log(self.cards[0])
@@ -33,18 +42,19 @@ angular.module('myApp').controller('DeckController', ['$scope', 'DeckService', '
     	
     /*}
     
+    */
     
-    
-    /*function createCard(card){
-        CardService.createCard(card)
+    function createDeck(deck){
+        DeckService.createDeck(deck)
             .then(
-            fetchAllCards,
+            fetchAllDecks,
             function(errResponse){
-                console.error('Error while creating Card');
+                console.error('Error while creating Deck');
             }
         );
     }
- 
+    
+ /*
     function updateCard(card, id){
         CardService.updateCard(card, id)
             .then(
@@ -63,31 +73,96 @@ angular.module('myApp').controller('DeckController', ['$scope', 'DeckService', '
                 console.error('Error while deleting Card');
             }
         );
+    }*/
+    
+    $scope.addColor = function ( url , str) {
+    	console.log('ADD COLOR');
+    	self.arrayColor.push(url);
+    	self.colorStr = self.colorStr + str;
+    	self.deck.color = self.colorStr;
     }
+    
+    $scope.addColorHtml = function ( url ) {
+    
+    	var html = '';
+    	var array = [];
+    	var color;
+    	if(self.deck.color != "") {
+    		color = self.deck.color;
+    	} else {
+    	 color = self.colorStr;
+    	}
+    	
+    	for(var j=0; j<color.length; j++) {
+    		array.push(color.substring(j,j+1));
+    	}
+    	
+    	
+    	for ( var i=0; i< array.length; i++) {
+    		html += '<img src="'+url+array[i]+'.gif" />';
+    	}
+    	
+    	
+    	return $sce.trustAsHtml(html);
+    	
+    }
+    
+    $scope.emptyColor = function () {
+    	console.log("here");
+    	self.deck.color = "";
+    	self.colorStr = "";
+    }
+    
+    $scope.getColor = function () {
+    	console.log("GET COLOR");
+    	var value = '';
+    	var array = [];
+    	var color;
+    	if(self.deck.color != "") {
+    		color = self.deck.color;
+    		self.colorStr = color;
+    	} else {
+    	 color = self.colorStr;
+    	}
+    	for(var j=0; j<color.length; j++) {
+    		array.push(color.substring(j,j+1));
+    	}
+    	
+    	
+    	for ( var i=0; i< array.length; i++) {
+    		value += array[i];
+    	}
+    	
+    	//console.log(value);
+    	return value;
+    }
+    
+    
  
     function submit() {
-    	$('.popin.addCard').removeClass('displayCard');
+    	$('.popin.addDeck').removeClass('displayDeck');
     	
-    	self.card.manaCost = self.manaCostStr;
-    	if(self.card.id===null || typeof self.card.id === "undefined"){
-            console.log('Saving New Card', self.card);
-            createCard(self.card);
-            $('.banniereAdd').addClass('displayBan');
-        	setTimeout(function(){
-        		$('.banniereAdd').removeClass('displayBan');	
-        	}, 3000);
+    	self.deck.color = self.colorStr;
+    	if(self.deck.id===null || typeof self.deck.id === "undefined"){
+            console.log('Saving New Deck', self.deck);
+            createDeck(self.deck);
+            redirect();
+            //$('.banniereAdd').addClass('displayBan');
+        	//setTimeout(function(){
+        		//$('.banniereAdd').removeClass('displayBan');	
+        	//}, 3000);
         }else{
-            updateCard(self.card, self.card.id);
-            console.log('Card updated with id ', self.card.id);
-            $('.banniereUpdate').addClass('displayBan');
-        	setTimeout(function(){
-        		$('.banniereUpdate').removeClass('displayBan');	
-        	}, 3000);
+            updateDeck(self.deck, self.deck.id);
+            console.log('Deck updated with id ', self.deck.id);
+            //$('.banniereUpdate').addClass('displayBan');
+        	//setTimeout(function(){
+        		//$('.banniereUpdate').removeClass('displayBan');	
+        	//}, 3000);
         }
-        reset();
+        //reset();
     }
  
-    function edit(id){
+ /*   function edit(id){
         console.log('id to be edited', id);
         for(var i = 0; i < self.cards.length; i++){
             if(self.cards[i].id === id) {
@@ -104,14 +179,14 @@ angular.module('myApp').controller('DeckController', ['$scope', 'DeckService', '
         }
         deleteCard(id);
     }
- 
+ */
  
     function reset(){
-        self.card={id:null,nameFr:'',nameEn:'',type:'',edition:'', manaCost:"", rarity:"", price:""};
-        self.manaCostStr="";
+        //self.deck={id:null,name:'',color:''};
+        //self.colorStr="";
         //$scope.myForm.$setPristine(); //reset Form
     }
-    
+   /* 
     $scope.seeCardInfo = function() {
     	console.log("CLICK ON CARD");
     };

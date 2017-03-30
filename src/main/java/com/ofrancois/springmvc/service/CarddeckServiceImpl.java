@@ -8,9 +8,11 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ofrancois.springmvc.hibernate.HibernateUtil;
+import com.ofrancois.springmvc.model.Card;
 import com.ofrancois.springmvc.model.Carddeck;
 
 /** 
@@ -34,6 +36,11 @@ import com.ofrancois.springmvc.model.Carddeck;
 @Service("cardDeckService")
 public class CarddeckServiceImpl implements CarddeckService{
      
+	
+	@Autowired
+	DeckService deckService;
+	CardService cardService;
+	
 	/**
 	 * un compteur pour les identifiants
 	 */
@@ -85,7 +92,8 @@ public class CarddeckServiceImpl implements CarddeckService{
      */
     public void saveCardDeck(Carddeck carddeck) {
     	carddeck.setId(counter.incrementAndGet());
-        carddecks.add(carddeck);
+    	
+    	carddecks.add(carddeck);
         
         // Add deck in DB
         Session session = HibernateUtil.currentSession();

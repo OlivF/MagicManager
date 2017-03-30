@@ -22,7 +22,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li class="addCardBtn" ng-click="displayCardFct();" ><a href="javascript:void(0);">AJOUTER UNE CARTE</a></li>
-        <li><a href="<c:url value='/addDeck'/>">AJOUTER UN DECK</a></li>
+        <li ng-click="displayDeckFct();"><a href="javascript:void(0);">AJOUTER UN DECK</a></li>
         <li class="dropdown">
         	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">AJOUTER ...<span class="caret"></span></a>
 	        <ul class="dropdown-menu">

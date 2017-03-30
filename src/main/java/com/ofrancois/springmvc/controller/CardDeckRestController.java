@@ -130,7 +130,7 @@ public class CardDeckRestController {
     @RequestMapping(value = "/carddeck/", method = RequestMethod.POST)
     public ResponseEntity<Void> createCarddeck(@RequestBody Carddeck carddeck,    UriComponentsBuilder ucBuilder) {
     	
-    	// System.out.println("Creating Carddeck " + carddeck.toString());
+    	System.out.println("Creating Carddeck " + carddeck.toString());
   
         /*if (cardeckService.isCardDeckExist(carddeck)) {
             System.out.println("A Carddeck with name " + carddeck.getName() + " already exist");
