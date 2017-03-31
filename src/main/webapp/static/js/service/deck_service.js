@@ -8,7 +8,7 @@ angular.module('myApp').factory('DeckService', ['$http', '$q', function($http, $
         fetchAllDecks: fetchAllDecks,
         findDeckById: findDeckById,
         createDeck: createDeck,
-        //updateCard:updateCard,
+        updateDeck:updateDeck,
         //deleteCard:deleteCard
     };
  
@@ -59,22 +59,22 @@ angular.module('myApp').factory('DeckService', ['$http', '$q', function($http, $
         return deferred.promise;
     }
  
- /*
-    function updateCard(card, id) {
+ 
+    function updateDeck(deck, id) {
         var deferred = $q.defer();
-        $http.put(REST_SERVICE_URI+id, card)
+        $http.put(REST_SERVICE_URI+id, deck)
             .then(
             function (response) {
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while updating Card');
+                console.error('Error while updating Deck');
                 deferred.reject(errResponse);
             }
         );
         return deferred.promise;
     }
- 
+ /*
     function deleteCard(id) {
         var deferred = $q.defer();
         $http.delete(REST_SERVICE_URI+id)

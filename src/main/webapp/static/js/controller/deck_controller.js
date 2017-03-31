@@ -17,6 +17,7 @@ angular.module('myApp').controller('DeckController', ['$scope', 'DeckService', '
     $scope.sortReverse  = false;  // set the default sort order
     
     self.submit = submit;
+    self.edit = edit;
     self.reset = reset;
     
     fetchAllDecks();
@@ -33,8 +34,20 @@ angular.module('myApp').controller('DeckController', ['$scope', 'DeckService', '
             }
         );
     }
- 
     
+    /* Modifie une carte */
+    function updateDeck(deck, id){
+    	DeckService.updateDeck(deck, id)
+            .then(
+            function() {
+            	fetchAllDecks();
+            },
+            function(errResponse){
+                console.error('DeckController : Error while updating Deck from DeckService');
+            }
+        );
+    }
+ 
     function redirect() {
     	document.location = "/MagicManagerSpringWebMVC/deckList/";
     }
@@ -110,12 +123,23 @@ angular.module('myApp').controller('DeckController', ['$scope', 'DeckService', '
             updateDeck(self.deck, self.deck.id);
             console.info('DeckController : Deck updated with id ', self.deck.id);
         }
-        //reset();
+        reset();
     }
  
+    /* Mise à jour d'une carte */
+    function edit(id){
+        console.info('DeckController : id to be edited', id);
+        for(var i = 0; i < self.decks.length; i++){
+            if(self.decks[i].id === id) {
+                self.deck = angular.copy(self.decks[i]);
+                break;
+            }
+        }
+    }
+    
     function reset(){
-        //self.deck={id:null,name:'',color:''};
-        //self.colorStr="";
+        self.deck={id:null,name:'',color:''};
+        self.colorStr="";
         //$scope.myForm.$setPristine(); //reset Form
     }
 }]);

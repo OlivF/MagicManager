@@ -23,14 +23,20 @@
                           	  		<i ng-show="sortType == 'manaCost' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>
                               	</a>
                              </th>
-                          	  <th class="width70">
+                          	  <th class="width60">
                           	  	<a href="javascript:void(0)" ng-click="sortType = 'nameFr'; sortReverse = !sortReverse">
                           	  		<span class="magicfont">Nom</span>
                           	  		<i ng-show="sortType == 'nameFr' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>
                           	  		<i ng-show="sortType == 'nameFr' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>
                           	  	</a> 
                           	  </th>
-                            
+                             <th class="width10 center">
+                             <a href="javascript:void(0)" ng-click="sortType = 'prix'; sortReverse = !sortReverse">
+                          	  		<span class="magicfont">Prix</span>
+                          	  		<i ng-show="sortType == 'prix' && !sortReverse" class="fa fa-caret-up" aria-hidden="true"></i>
+                          	  		<i ng-show="sortType == 'prix' && sortReverse" class="fa fa-caret-down" aria-hidden="true"></i>
+                          	  	</a> </th>
+                          	 <th class="width10"></th>
                              <th class="width10"></th>
                           </tr>
                       </thead>
@@ -39,8 +45,11 @@
                          	   <td class="center magicfont">
                               	<deck-color color="u.color" url="'<c:url value='/static/img/'/>'"></deck-color>
                               </td>
-                         	  <td class="magicfont"><span ng-bind="u.name"></a></td>
-                             
+                         	  <td class="magicfont"><a href="/MagicManagerSpringWebMVC/deckInfo/{{u.id}}"><span ng-bind="u.name"></span></a></td>
+                              <td class="center"><price-deck deckid="u.id"></price-deck></td>
+                               <td class="center">
+                               	<button type="button" ng-click="displayDeckFct();ctrlD.edit(u.id)" class="btn btn-warning custom-width125">Mettre &agrave; jour</button>
+                               </td>
                               <td class="center">
                               <a href="/MagicManagerSpringWebMVC/deckInfo/{{u.id}}"><button type="button" class="btn btn-primary custom-width">Voir</button></a>  <!-- <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>-->
                               </td>

@@ -296,9 +296,9 @@ body.popinDisplay {
 .popin {
 	position: fixed;
     z-index: 4;
-    width: 700px;
+    width: 790px;
     left: 50%;
-    margin-left: -350px;
+    margin-left: -395px;
     height: 424px;
 }
 
@@ -360,6 +360,13 @@ body.popinDisplay {
     overflow: auto;
     left: -100px;
 }
+.dropdown.dropdown-scroll .dropdown-menu.addCardPopin {
+    max-height: 200px;
+    width: 291px;
+    overflow: auto;
+    left: 0px;
+}
+
 .search-control {
     padding: 5px 10px;
 }

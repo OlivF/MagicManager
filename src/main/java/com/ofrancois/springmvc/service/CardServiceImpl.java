@@ -186,7 +186,7 @@ public class CardServiceImpl implements CardService{
      * 
      */
     public boolean isCardExist(Card card) {
-        return findByName(card.getNameFr())!=null;
+        return false;
     }
      
     /**

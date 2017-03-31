@@ -13,8 +13,7 @@ angular.module('app.directives.deckColor',[])
 			template: '<span ng-bind-html="result"></span>',
 			controller: function ($scope) {
 				$scope.manaCostCard = '';
-				console.log($scope.color);
-		    	var array = [];
+				var array = [];
 		    	for ( var j = 0; j < $scope.color.length; j++ ) {
 		    		array.push($scope.color.substring(j, j + 1));
 		    	}

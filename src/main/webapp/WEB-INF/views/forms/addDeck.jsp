@@ -1,5 +1,5 @@
 <div class="popin addDeck" ng-class="{'displayDeck': (mainCtrl.displayDeck)}">
-	<div class="closeBtn" ng-click="closePopin();"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
+	<div class="closeBtn" ng-click="ctrlD.reset();closePopin();"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
 	<div class="generic-container">
       	<div class="panel panel-default">
           	<div class="panel-heading"><span class="lead">Créer un deck</span></div>

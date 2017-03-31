@@ -84,7 +84,6 @@ angular.module('myApp').controller('MainController', ['$scope', function($scope)
     
     $scope.closePopin = function() {
     	
-    	
     	self.displayEdition = false;
     	self.displayType = false;
     	self.displayRarity = false;
@@ -98,13 +97,10 @@ angular.module('myApp').controller('MainController', ['$scope', function($scope)
     		self.displayCard = false;
     		self.bodyClassOverflow = false;
     	}
-    	
     	if(self.openPopinCard === 2) {
     		self.openPopinCard = 1;
     		self.displayCard = true;
     		self.bodyClassOverflow = true;
     	}
-    	
-    	
     }
 }]);

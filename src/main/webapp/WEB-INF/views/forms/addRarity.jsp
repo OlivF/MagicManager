@@ -1,5 +1,5 @@
 <div class="popin addRarity" ng-class="{'displayRarity': (mainCtrl.displayRarity)}">
-	<div class="closeBtn" ng-click="closePopin();"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
+	<div class="closeBtn" ng-click="ctrlR.reset();closePopin();"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
 	<div class="generic-container">
       	<div class="panel panel-default">
           	<div class="panel-heading"><span class="lead">Ajouter une rareté:</span></div>

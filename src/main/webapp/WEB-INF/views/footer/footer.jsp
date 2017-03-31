@@ -38,6 +38,8 @@
 	<script src="<c:url value='/static/js/directive/sideboardByDeckId_directive.js' />"></script>
 	<script src="<c:url value='/static/js/directive/deckColor_directive.js' />"></script>
 	<script src="<c:url value='/static/js/directive/priceCollection_directive.js' />"></script>
+	<script src="<c:url value='/static/js/directive/priceDeck_directive.js' />"></script>
+	<script src="<c:url value='/static/js/directive/priceSideboard_directive.js' />"></script>
 	<!-- Load Additional script JS -->
 	<script src="<c:url value='/static/js/script.js' />"></script>
 

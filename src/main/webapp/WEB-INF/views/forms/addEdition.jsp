@@ -1,5 +1,5 @@
 <div class="popin addEdition" ng-class="{'displayEdition': (mainCtrl.displayEdition)}">
-	<div class="closeBtn" ng-click="closePopin();"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
+	<div class="closeBtn" ng-click="ctrlE.reset();closePopin();"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
 	<div class="generic-container">
       	<div class="panel panel-default">
           	<div class="panel-heading"><span class="lead">Ajouter une édition:</span></div>
