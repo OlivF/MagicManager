@@ -6,6 +6,7 @@ angular.module('myApp').factory('CardService', ['$http', '$q', function($http, $
  
     var factory = {
         fetchAllCards: fetchAllCards,
+        findCardById: findCardById,
         createCard: createCard,
         updateCard:updateCard,
         deleteCard:deleteCard
@@ -28,6 +29,22 @@ angular.module('myApp').factory('CardService', ['$http', '$q', function($http, $
         return deferred.promise;
     }
  
+    
+    function findCardById( cardId ) {
+        var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+cardId)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('CardService : Error while fetching Card by Id ' + cardId);
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
     function createCard(card) {
         var deferred = $q.defer();
         $http.post(REST_SERVICE_URI, card)

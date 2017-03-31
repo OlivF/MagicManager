@@ -12,7 +12,7 @@ angular.module('myApp').controller('MainController', ['$scope', function($scope)
 	self.displayDeck = false;
 	
 	self.displayListForDeck = false;
-    
+	self.displayListForSideboard = false;
 	self.openPopinCard = 0;
 	
 	$scope.displayListForDeckFct = function() {

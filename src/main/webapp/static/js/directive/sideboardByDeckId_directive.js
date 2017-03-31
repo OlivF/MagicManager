@@ -2,8 +2,8 @@
  * Create an html balise who generate a dropdown list containing
  * decks associate to the card id in parameter
  */
-angular.module('app.directives.listCards',[])
-	.directive('listCards', function (CardService, CarddeckService){
+angular.module('app.directives.listSideboard',[])
+	.directive('listSideboard', function (CardService, SideboardService){
 		return {
 			restrict: 'E',
 			scope: {
@@ -21,7 +21,7 @@ angular.module('app.directives.listCards',[])
 	          				'</div>'+
 	          			'</form>'+
 	          			'<div class="panel panel-default">'+
-	          				'<div class="panel-heading"><span class="lead magicfont">Liste des cartes du deck : {{deckname}}</span></div>'+
+	          				'<div class="panel-heading"><span class="lead magicfont">Liste de la r&eacute;serve du deck : {{deckname}}</span></div>'+
 	          					'<div class="tablecontainer">'+
 	          						'<table class="table table-hover">'+
 	          							'<thead>'+
@@ -84,7 +84,7 @@ angular.module('app.directives.listCards',[])
 	          	                               '</tr>'+
 	          								'</thead>'+
 	          								'<tbody>'+
-	          								'<tr ng-repeat="u in cardListFinal | orderBy:sortType:sortReverse | filter:searchCard">'+
+	          								'<tr ng-repeat="u in sideboardListFinal | orderBy:sortType:sortReverse | filter:searchCard">'+
 	          									'<td class="magicfont"><a ng-href="https://www.magicbazar.fr/recherche/search.php?s={{u.card.nameFr}}" target="_blank"><span ng-bind="u.card.nameFr"></span></a></td>'+
 	          									'<td class="magicfont"><span ng-bind="u.card.nameEn"></span></td>'+
 	          									'<td class="magicfont"><span ng-bind="u.card.type.name"></span></td>'+
@@ -104,21 +104,21 @@ angular.module('app.directives.listCards',[])
 	                                      '</div>',
 			controller: function ($scope) {
 				
-				$scope.remove = function (carddeck) {
+				$scope.remove = function (sideboard) {
 					if (confirm("Etes vous sur de vouloir supprimer cette carte de ce deck?")) {
 						
 			        	 
-						 CardService.findCardById(carddeck.card.id)
+						 CardService.findCardById(sideboard.card.id)
 				            .then(
 				            function(d) {
 				            	var card = d;
-				            	card.nbDispo = parseInt(card.nbDispo) +parseInt(carddeck.quantity);
+				            	card.nbDispo = parseInt(card.nbDispo) +parseInt(sideboard.quantity);
 				            	
 				            	CardService.updateCard(card, card.id)
 					             .then(
 					             function(d) {
 					            	 
-					            	 CarddeckService.deleteCarddeck(carddeck.id)
+					            	 SideboardService.deleteSideboard(sideboard.id)
 							            .then(
 							            function() {
 							            	document.location.reload();
@@ -146,10 +146,10 @@ angular.module('app.directives.listCards',[])
 					}
 				}
 				
-				CarddeckService.getCardByDeckId($scope.deckid)
+				SideboardService.getCardByDeckId($scope.deckid)
 	    		.then(
 	    			function(d) {
-	    				$scope.cardListFinal = d;
+	    				$scope.sideboardListFinal = d;
 	    			},
 	    			function(errResponse) {
 	    				console.error('Error while fetching Decks with cardId '+ $scope.idcard);

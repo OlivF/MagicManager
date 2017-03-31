@@ -1,14 +1,14 @@
 'use strict';
  
-angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckService', 'CardService', 'DeckService', '$sce', function($scope, CarddeckService, CardService, DeckService, $sce) {
+angular.module('myApp').controller('SideboardController', ['$scope', 'SideboardService', 'CardService', 'DeckService', '$sce', function($scope, SideboardService, CardService, DeckService, $sce) {
     var self = this;
-    self.carddeck = {
+    self.sideboard = {
     	id : null,
     	card : '',
     	deck : '', 
     	quantity : ''
     };
-    self.carddecks = [];
+    self.sideboards = [];
     
     self.submit = submit;
     self.edit = edit;
@@ -16,14 +16,14 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
     self.reset = reset;
     
      
-    fetchAllCarddecks();
+    fetchAllSideboards();
     //getDeckByCardId(1);
     function getCardByDeckId(deckId) {
-    	CarddeckService.getCardByDeckId(deckId)
+    	SideboardService.getCardByDeckId(deckId)
     		.then(
     			function(d) {
-    				self.carddecks = d;
-    				console.info('CarddeckController : Fetching ' + d.length + ' cards in deckId ' + deckId + ' ..... OK');
+    				self.sideboards = d;
+    				console.info('SideboardController : Fetching ' + d.length + ' cards in deckId ' + deckId + ' ..... OK');
     			},
     			function(errResponse) {
     				console.error('Error while fetching Card with deckId ' + deckId);
@@ -32,10 +32,10 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
     }
     
     $scope.getDeckByCardId = function (cardId) {
-    	CarddeckService.getDeckByCardId(cardId)
+    	SideboardService.getDeckByCardId(cardId)
     		.then(
     			function(d) {
-    				self.carddecks = d;
+    				self.sideboards = d;
     			},
     			function(errResponse) {
     				console.error('Error while fetching CardDeck with cardId '+cardId);
@@ -45,46 +45,46 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
     
     
     
-    function fetchAllCarddecks(){
-        CarddeckService.fetchAllCarddecks()
+    function fetchAllSideboards(){
+        SideboardService.fetchAllSideboards()
             .then(
             function(d) {
-                self.carddecks = d;
-                console.info('CarddeckController : Fetching All cardsdeck..... OK');
+                self.sideboards = d;
+                console.info('SideboardController : Fetching All cardsdeck..... OK');
             },
             function(errResponse){
-                console.error('Error while fetching Carddeck');
+                console.error('Error while fetching Sideboard');
             }
         );
     }
  
-    function createCarddeck(carddeck){
-        CarddeckService.createCarddeck(carddeck)
+    function createSideboard(sideboard){
+        SideboardService.createSideboard(sideboard)
             .then(
             function() {
             	window.location.reload();
-            	//getCardByDeckId(carddeck.deck.id);
+            	//getCardByDeckId(sideboard.deck.id);
             },            
             function(errResponse){
-                console.error('Error while creating Carddeck');
+                console.error('Error while creating Sideboard');
             }
         );
     }
  
-    function updateCarddeck(carddeck, id){
-        CarddeckService.updateCarddeck(carddeck, id)
+    function updateSideboard(sideboard, id){
+        SideboardService.updateSideboard(sideboard, id)
             .then(
-            fetchAllCarddecks,
+            fetchAllSideboards,
             function(errResponse){
                 console.error('Error while updating Edition');
             }
         );
     }
  
-    function deleteCarddeck(id){
-    	CarddeckService.deleteCarddeck(id)
+    function deleteSideboard(id){
+    	SideboardService.deleteSideboard(id)
             .then(
-            fetchAllCarddecks,
+            fetchAllSideboards,
             function(errResponse){
                 console.error('Error while deleting Edition');
             }
@@ -104,13 +104,13 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
         	 CardService.updateCard(card, card.id)
              .then(
              function() {
-            	self.carddeck.deck = d;
-              	self.carddeck.card = card;
-              	self.carddeck.quantity = quantity;
+            	self.sideboard.deck = d;
+              	self.sideboard.card = card;
+              	self.sideboard.quantity = quantity;
              
-              	if ( self.carddeck.id === null || typeof self.carddeck.id === "undefined") {
-                      console.log('Saving New Card in Deck', self.carddeck);
-                      createCarddeck(self.carddeck);
+              	if ( self.sideboard.id === null || typeof self.sideboard.id === "undefined") {
+                      console.log('Saving New Card in Deck', self.sideboard);
+                      createSideboard(self.sideboard);
                  } else {
                       //updateEdition(self.edition, self.edition.id);
                       //console.log('Edition updated with id ', self.edition.id);
@@ -123,7 +123,7 @@ angular.module('myApp').controller('CarddeckController', ['$scope', 'CarddeckSer
             
          },
          function(errResponse){
-             console.error('Error while fetching Carddeck');
+             console.error('Error while fetching Sideboard');
          }
      );
     	

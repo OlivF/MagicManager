@@ -3,9 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 31 mars 2017 13:39:20 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="com.ofrancois.springmvc.model.Carddeck" table="CARDDECK">
-        <id name="card_deck_id" type="long" access="field">
-            <column name="CARD_DECK_ID" />
+    <class name="com.ofrancois.springmvc.model.Sideboard" table="SIDEBOARD">
+        <id name="sideboard_id" type="long" access="field">
+            <column name="SIDEBOARD_ID" />
             <generator class="assigned" />
         </id>
         <one-to-one name="deck" class="com.ofrancois.springmvc.model.Deck"></one-to-one>

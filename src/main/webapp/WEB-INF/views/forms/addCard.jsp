@@ -7,6 +7,8 @@
           	<div class="formcontainer">
            		<form ng-submit="ctrl.submit()" id="myForm" name="myForm" class="">
             		<input type="hidden" ng-model="ctrl.card.id" />
+            		<input type="hidden" ng-model="ctrl.card.nbDispo" ng-value="ctrl.card.nbDispo" />
+            		<input type="hidden" class="nbItemOld{{ctrl.card.id}}" value="{{ctrl.card.nbItemOld}}" />
                		<div class="row">
                		
                    		<div class="form-group col-md-6">

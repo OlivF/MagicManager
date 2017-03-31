@@ -126,6 +126,7 @@ public class CardServiceImpl implements CardService{
     public void updateCard(Card card) {
         int index = cards.indexOf(card);
         cards.set(index, card);
+        System.out.println("On UPDATE");
         System.out.println(card.toString());
         // update card in DB
         Session session = HibernateUtil.currentSession();
@@ -142,6 +143,9 @@ public class CardServiceImpl implements CardService{
         c.setRarity(r);
         c.setPrice(card.getPrice());
         c.setNbItem(card.getNbItem()); 
+        
+        c.setNbDispo(card.getNbDispo());
+        
         session.save(c);
         tx.commit();
         HibernateUtil.closeSession();
@@ -155,10 +159,21 @@ public class CardServiceImpl implements CardService{
      */
     public void deleteCardById(long id) {
          
+    	cards= populateDummyCards();
         for (Iterator<Card> iterator = cards.iterator(); iterator.hasNext(); ) {
             Card card = iterator.next();
             if (card.getId() == id) {
                 iterator.remove();
+                
+                Session session = HibernateUtil.currentSession();
+                Transaction tx = session.beginTransaction();
+                session.createQuery("delete from Card where id = :id").setLong("id", id).executeUpdate();
+                tx.commit();
+                HibernateUtil.closeSession();
+                
+                
+            	//List<Card> cards = query.getResultList();
+            	HibernateUtil.closeSession();
             }
         }
     }

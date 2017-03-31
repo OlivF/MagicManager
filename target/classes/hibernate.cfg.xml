@@ -13,6 +13,8 @@
         <mapping class="com.ofrancois.springmvc.model.Type"></mapping> 
         <mapping class="com.ofrancois.springmvc.model.Rarity"></mapping>
         <mapping class="com.ofrancois.springmvc.model.Deck"></mapping>
-        <mapping class="com.ofrancois.springmvc.model.Carddeck"></mapping> 
+        <mapping class="com.ofrancois.springmvc.model.Carddeck"></mapping>
+         <mapping class="com.ofrancois.springmvc.model.Sideboard"></mapping> 
+       
     </session-factory>
 </hibernate-configuration>

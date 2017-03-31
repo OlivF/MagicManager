@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.ofrancois.springmvc.hibernate.HibernateUtil;
 import com.ofrancois.springmvc.model.Card;
 import com.ofrancois.springmvc.model.Carddeck;
+import com.ofrancois.springmvc.model.Sideboard;
 
 /** 
  * <b>CardDeckServiceImpl est la classe correspondant à l'interface CardDeckService</b>
@@ -33,8 +34,8 @@ import com.ofrancois.springmvc.model.Carddeck;
  * @author Olivier F.
  * @version 1.0
  */
-@Service("cardDeckService")
-public class CarddeckServiceImpl implements CarddeckService{
+@Service("sideboardService")
+public class SideboardServiceImpl implements SideboardService{
      
 	
 	@Autowired
@@ -49,10 +50,10 @@ public class CarddeckServiceImpl implements CarddeckService{
     /**
      * La liste statiques des carddecks
      */
-    private static List<Carddeck> carddecks;
+    private static List<Sideboard> sideboards;
      
     static{
-        carddecks= populateDummyCardDecks();
+        sideboards= populateDummySideboard();
     }
  
     /**
@@ -60,9 +61,9 @@ public class CarddeckServiceImpl implements CarddeckService{
      * 
      * @return une liste des carddecks
      */
-    public List<Carddeck> findAllCardDecks() {
-    	carddecks = populateDummyCardDecks();
-        return carddecks;
+    public List<Sideboard> findAllSideboards() {
+    	sideboards = populateDummySideboard();
+        return sideboards;
     }
     
     /**
@@ -74,10 +75,10 @@ public class CarddeckServiceImpl implements CarddeckService{
 	 * 
 	 * @see Carddeck
 	 */
-    public Carddeck findById(long id) {
-        for(Carddeck carddeck : carddecks){
-            if(carddeck.getId() == id){
-                return carddeck;
+    public Sideboard findById(long id) {
+        for(Sideboard sideboard : sideboards){
+            if(sideboard.getId() == id){
+                return sideboard;
             }
         }
         return null;
@@ -91,15 +92,15 @@ public class CarddeckServiceImpl implements CarddeckService{
      * 
      * @see Carddeck
      */
-    public void saveCardDeck(Carddeck carddeck) {
-    	carddeck.setId(counter.incrementAndGet());
+    public void saveSideboard(Sideboard sideboard) {
+    	sideboard.setId(counter.incrementAndGet());
     	
-    	carddecks.add(carddeck);
+    	sideboards.add(sideboard);
         
         // Add deck in DB
         Session session = HibernateUtil.currentSession();
         Transaction tx = session.beginTransaction();
-        session.save(carddeck);
+        session.save(sideboard);
         tx.commit();
         HibernateUtil.closeSession();
     }
@@ -110,14 +111,14 @@ public class CarddeckServiceImpl implements CarddeckService{
      * @param carddeck
      * 				Le carddeck a mettre à jour
      */
-    public void updateCardDeck(Carddeck carddeck) {
-        int index = carddecks.indexOf(carddeck);
-        carddecks.set(index, carddeck);
+    public void updateSideboard(Sideboard sideboard) {
+        int index = sideboards.indexOf(sideboard);
+        sideboards.set(index, sideboard);
         
         // update deck in DB
         Session session = HibernateUtil.currentSession();
         Transaction tx = session.beginTransaction();
-        Carddeck r = (Carddeck) session.load(Carddeck.class, carddeck.getId());
+        Sideboard r = (Sideboard) session.load(Sideboard.class, sideboard.getId());
         session.save(r);
         tx.commit();
         HibernateUtil.closeSession();
@@ -129,16 +130,16 @@ public class CarddeckServiceImpl implements CarddeckService{
      * @param id
      * 				l'identifiant du carddeck à supprimer
      */
-    public void deleteCardDeckById(long id) {
+    public void deleteSideboardById(long id) {
          
-        for (Iterator<Carddeck> iterator = carddecks.iterator(); iterator.hasNext(); ) {
-            Carddeck carddeck = iterator.next();
-            if (carddeck.getId() == id) {
+        for (Iterator<Sideboard> iterator = sideboards.iterator(); iterator.hasNext(); ) {
+            Sideboard sideboard = iterator.next();
+            if (sideboard.getId() == id) {
                 iterator.remove();
                 
                 Session session = HibernateUtil.currentSession();
                 Transaction tx = session.beginTransaction();
-                session.createQuery("delete from carddeck where id = :id").setLong("id", id).executeUpdate();
+                session.createQuery("delete from sideboard where id = :id").setLong("id", id).executeUpdate();
                 tx.commit();
                 HibernateUtil.closeSession();
                 
@@ -155,15 +156,15 @@ public class CarddeckServiceImpl implements CarddeckService{
      * @return boolean
      * 
      */
-    public boolean isCardDeckExist(Carddeck carddeck) {
+    public boolean isSideboardExist(Sideboard sideboard) {
         return false;
     }
      
     /**
      * Supprime toutes les carddecks
      */
-    public void deleteAllCardDecks(){
-        carddecks.clear();
+    public void deleteAllSideboard(){
+        sideboards.clear();
     }
  
     /**
@@ -175,15 +176,15 @@ public class CarddeckServiceImpl implements CarddeckService{
 	 * 
 	 * @see Carddeck
 	 */
-    public List<Carddeck> findCardByDeckId(long id) {
-    	 carddecks = populateDummyCardDecks();
-    	 List<Carddeck> cardByDeck = new ArrayList<Carddeck>();
-    	 for(Carddeck carddeck : carddecks){
-             if(carddeck.getDeck().getId() == id){
-            	 cardByDeck.add(carddeck);
+    public List<Sideboard> findCardByDeckId(long id) {
+    	 sideboards = populateDummySideboard();
+    	 List<Sideboard> sideboardList = new ArrayList<Sideboard>();
+    	 for(Sideboard sideboard : sideboards){
+             if(sideboard.getDeck().getId() == id){
+            	 sideboardList.add(sideboard);
              }	 
          }
-    	return cardByDeck;
+    	return sideboardList;
     }
     
     /**
@@ -195,15 +196,15 @@ public class CarddeckServiceImpl implements CarddeckService{
 	 * 
 	 * @see Carddeck
 	 */
-    public List<Carddeck> findDeckByCardId(long id) {
-    	 carddecks = populateDummyCardDecks();
-    	 List<Carddeck> cardByDeck = new ArrayList<Carddeck>();
-    	 for(Carddeck carddeck : carddecks){
-             if(carddeck.getCard().getId() == id){
-            	 cardByDeck.add(carddeck);
+    public List<Sideboard> findDeckByCardId(long id) {
+    	 sideboards = populateDummySideboard();
+    	 List<Sideboard> sideboardList = new ArrayList<Sideboard>();
+    	 for(Sideboard sideboard : sideboards){
+             if(sideboard.getCard().getId() == id){
+            	 sideboardList.add(sideboard);
              }	 
          }
-    	return cardByDeck;
+    	return sideboardList;
     }
     
     /**
@@ -211,13 +212,13 @@ public class CarddeckServiceImpl implements CarddeckService{
      * 
      * @return La liste des carddecks
      */
-    private static List<Carddeck> populateDummyCardDecks(){
+    private static List<Sideboard> populateDummySideboard(){
         // Get List Deck from DB
     	Session session = HibernateUtil.currentSession();
-    	Query<Carddeck> query = session.createQuery("from carddeck");
-    	List<Carddeck> carddecks = query.getResultList();
+    	Query<Sideboard> query = session.createQuery("from sideboard");
+    	List<Sideboard> sideboards = query.getResultList();
     	HibernateUtil.closeSession();
     	
-    	return carddecks;
+    	return sideboards;
     } 
 }

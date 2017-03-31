@@ -89,6 +89,7 @@
                               
                               </th>
                               <th></th>
+                          
                           </tr>
                       </thead>
                       <tbody>
@@ -106,14 +107,19 @@
                               <td class="center small"><span ng-bind="u.nbItem"></span></td>
                               <td class="center small"><span ng-bind="u.nbDispo"></span></td>
                                <td class="center small">
-                               	<input class="width50" type="number" min="1" max="{{u.nbDispo}}" />
+                               	<input class="quantity{{u.id}} width50" type="number" min="1" max="{{u.nbDispo}}" />
                                </td>
                               <td class="center">
                                <input type="hidden" ng-model="ctrlCD.carddeck.id" />
-                              <input type="hidden" ng-model="ctrlCD.carddeck.quantity" value="1" />
+                              <input type="hidden" ng-model="ctrlCD.carddeck.quantity" value="" />
                               <input type="hidden" ng-model="ctrlCD.carddeck.cardid" value="{{u.id}}" />
                   				<input type="hidden" ng-model="ctrlCD.carddeck.deckid" value="${deck.id}" />
-                              <button type="submit" ng-click="ctrlCD.submit(${deck.id}, u, 1)" value="{{!ctrlCD.carddeck.id ? 'Add' : 'Update'}}" class="btn btn-primary custom-width125">Ajouter au Deck</button>  <!-- <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>-->
+                              <button type="submit" ng-click="ctrlCD.submit(${deck.id}, u)" value="{{!ctrlCD.carddeck.id ? 'Add' : 'Update'}}" class="btn btn-primary custom-width125">Ajouter au Deck</button>  <!-- <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>-->
+                             <input type="hidden" ng-model="ctrlS.sideboard.id" />
+                              <input type="hidden" ng-model="ctrlS.sideboard.quantity" value="" />
+                              <input type="hidden" ng-model="ctrlS.sideboard.cardid" value="{{u.id}}" />
+                  				<input type="hidden" ng-model="ctrlS.sideboard.deckid" value="${deck.id}" />
+                              <br><button type="submit" ng-click="ctrlS.submit(${deck.id}, u)" value="{{!ctrlS.sideboard.id ? 'Add' : 'Update'}}" class="btn btn-warning custom-width125">Ajouter à la réserve</button>  <!-- <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>-->
                              
                                
                               </td>

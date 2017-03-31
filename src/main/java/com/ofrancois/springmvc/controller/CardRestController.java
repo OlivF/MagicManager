@@ -140,6 +140,7 @@ public class CardRestController {
         currentCard.setRarity(card.getRarity());
         currentCard.setPrice(card.getPrice());
         currentCard.setNbItem(card.getNbItem());
+        currentCard.setNbDispo(card.getNbDispo());
         currentCard.setDate(new Date(System.currentTimeMillis()));
         cardService.updateCard(currentCard);
         return new ResponseEntity<Card>(currentCard, HttpStatus.OK);

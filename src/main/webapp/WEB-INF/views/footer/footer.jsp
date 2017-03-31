@@ -1,9 +1,11 @@
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div id="basdepage"></div>
 	<!-- Load jQuery  -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	
@@ -28,9 +30,12 @@
 	<script src="<c:url value='/static/js/controller/deck_controller.js' />"></script>
 	<script src="<c:url value='/static/js/service/carddeck_service.js' />"></script>
 	<script src="<c:url value='/static/js/controller/carddeck_controller.js' />"></script>
+	<script src="<c:url value='/static/js/service/sideboard_service.js' />"></script>
+	<script src="<c:url value='/static/js/controller/sideboard_controller.js' />"></script>
 	<script src="<c:url value='/static/js/directive/deckByCardId_directive.js' />"></script>
 	<script src="<c:url value='/static/js/directive/manaCostByCardId_directive.js' />"></script>
 	<script src="<c:url value='/static/js/directive/cardsByDeckId_directive.js' />"></script>
+	<script src="<c:url value='/static/js/directive/sideboardByDeckId_directive.js' />"></script>
 	<script src="<c:url value='/static/js/directive/deckColor_directive.js' />"></script>
 	<script src="<c:url value='/static/js/directive/priceCollection_directive.js' />"></script>
 	<!-- Load Additional script JS -->

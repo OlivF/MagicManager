@@ -54,7 +54,7 @@
                		</div>
                		<div class="row">
                    		<div class="form-actions floatRight">
-                       		<input type="submit"  ng-click="closePopin();" value="{{!ctrlD.deck.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myFormDeck.$invalid">
+                       		<input type="submit"  ng-click="closePopin();" value="{{!ctrlD.deck.id ? 'Ajouter' : 'Mettre à jour'}}" class="btn btn-primary btn-sm" ng-disabled="myFormDeck.$invalid">
                        		<button type="button" ng-click="ctrlD.reset()" class="btn btn-warning btn-sm" ng-disabled="myFormDeck.$pristine">Reset Form</button>
                    		</div>
                		</div>

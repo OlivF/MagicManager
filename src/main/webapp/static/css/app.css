@@ -83,6 +83,7 @@ body, .form-control{
   width:100%;
   padding: 20px;
   background-color: #c5c3b1;
+  padding-top:1px;
   padding-bottom: 1px;
 }
 
@@ -92,6 +93,14 @@ body, .form-control{
 
 .custom-width125 {
     width: 125px !important;
+    font-size:11px;
+    margin-top: 3px;
+}
+
+#basdepage {
+	width:100%;
+	height:50px;
+	background-color: #c5c3b1;
 }
 
 .panel-default {
@@ -265,6 +274,8 @@ a:focus, a:hover {
 .displayListForDeck {
 	
 	display : block;
+	text-align: center;
+    margin: 0 auto;
 }
 /* Overlay and Popin Add Card */
 body.popinDisplay {
@@ -345,8 +356,9 @@ body.popinDisplay {
 
 .dropdown.dropdown-scroll .dropdown-menu {
     max-height: 200px;
-    width: 100%;
+    width: 200px;
     overflow: auto;
+    left: -100px;
 }
 .search-control {
     padding: 5px 10px;

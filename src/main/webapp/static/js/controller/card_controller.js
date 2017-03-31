@@ -1,6 +1,6 @@
 'use strict';
  
-angular.module('myApp').controller('CardController', ['$scope', 'CardService', '$sce', function($scope, CardService, $sce) {
+angular.module('myApp').controller('CardController', ['$scope', 'CardService', 'CarddeckService', '$sce', function($scope, CardService, CarddeckService, $sce) {
     var self = this;
     
     /* Structure d'une carte */
@@ -12,7 +12,8 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
     				edition : "",
     				manaCost : "", 
     				rarity: "", 
-    				price : ""
+    				price : "",
+    				nbItem: "",
     			};
     
     /* Le tableau de carte */
@@ -41,6 +42,11 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
             .then(
             function(d) {
                 self.cards = d;
+                
+                for(var i =0; i < self.cards.length; i++){
+                	self.cards[i].nbItemOld = self.cards[i].nbItem;
+                }
+                
                 console.info('CardController : Fetching ' + d.length + ' Cards From DB...... OK');
             },
             function(errResponse){
@@ -54,8 +60,7 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
         CardService.createCard(card)
             .then(
             function() {
-            	console.info('CardController : Add Card..... OK');
-            	console.info(card);
+            	console.info('CardController : Add Card..... OK', card);
             	fetchAllCards();
             },
             function(errResponse){
@@ -66,11 +71,19 @@ angular.module('myApp').controller('CardController', ['$scope', 'CardService', '
  
     /* Modifie une carte */
     function updateCard(card, id){
+    	console.log("nbitemOld "+$('.nbItemOld'+id).val());
+    	console.log('nbdispo ' + card.nbDispo);
+    	console.log('nbItem ' + card.nbItem);
+    	
+    	var diff =  parseInt($('.nbItemOld'+id).val()) - parseInt(card.nbDispo);
+    	console.log("old - dispo " + diff);
+    	
+    	card.nbDispo = parseInt(card.nbItem) - diff;
+    	console.log("dispofinal "+card.nbDispo);
         CardService.updateCard(card, id)
             .then(
             function() {
-            	console.info('CardController : Update Card...... Ok');
-            	console.info(card);
+            	console.info('CardController : Update Card...... Ok', card);
             	fetchAllCards();
             },
             function(errResponse){
