@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.ofrancois.springmvc.model.Type;
 import com.ofrancois.springmvc.service.TypeService;
+import org.apache.log4j.Logger;
 
 /** 
  * <b>TypeRestController est le controleur des requêtes sur les types</b>
@@ -44,6 +45,8 @@ public class TypeRestController {
     @Autowired
     TypeService typeService;  //Service which will do all data retrieval/manipulation work
   
+    private static Logger logger = Logger.getLogger(TypeRestController.class);
+     
     /**
      * Récupère les informations de tous les types dans la base
      * 
@@ -53,8 +56,9 @@ public class TypeRestController {
      */
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
     public ResponseEntity<List<Type>> listAllTypes() {
-        List<Type> types = typeService.findAllTypes();
+    	 List<Type> types = typeService.findAllTypes();
         if(types.isEmpty()){
+        	logger.warn( "Types empty..." );
             return new ResponseEntity<List<Type>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Type>>(types, HttpStatus.OK);
@@ -72,10 +76,9 @@ public class TypeRestController {
      */
     @RequestMapping(value = "/type/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Type> getType(@PathVariable("id") long id) {
-        System.out.println("Fetching Type with id " + id);
         Type type = typeService.findById(id);
         if (type == null) {
-            System.out.println("Type with id " + id + " not found");
+            logger.warn( "Type with id " + id + " not found" );
             return new ResponseEntity<Type>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Type>(type, HttpStatus.OK);
@@ -91,15 +94,12 @@ public class TypeRestController {
      */
     @RequestMapping(value = "/type/", method = RequestMethod.POST)
     public ResponseEntity<Void> createType(@RequestBody Type type,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating Type " + type.toString());
-  
         if (typeService.isTypeExist(type)) {
-            System.out.println("A Type with name " + type.getName() + " already exist");
+        	logger.warn( "A Type with name " + type.getName() + " already exist" );
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
   
         typeService.saveType(type);
-  
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/type/{id}").buildAndExpand(type.getTypeId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -119,17 +119,14 @@ public class TypeRestController {
      */
     @RequestMapping(value = "/type/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Type> updateType(@PathVariable("id") long id, @RequestBody Type type) {
-        System.out.println("Updating Type " + id);
+       Type currentType = typeService.findById(id);
           
-        Type currentType = typeService.findById(id);
-          
-        if (currentType==null) {
-            System.out.println("Type with id " + id + " not found");
+        if ( currentType == null ) {
+        	logger.warn( "Type with id " + id + " not found" );
             return new ResponseEntity<Type>(HttpStatus.NOT_FOUND);
         }
   
-        currentType.setName(type.getName());
-          
+        currentType.setName( type.getName() );
         typeService.updateType(currentType);
         return new ResponseEntity<Type>(currentType, HttpStatus.OK);
     }
@@ -143,11 +140,9 @@ public class TypeRestController {
      */
     @RequestMapping(value = "/type/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Type> deleteType(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting Type with id " + id);
-  
         Type type = typeService.findById(id);
         if (type == null) {
-            System.out.println("Unable to delete. Type with id " + id + " not found");
+        	logger.warn( "Unable to delete. Type with id " + id + " not found" );
             return new ResponseEntity<Type>(HttpStatus.NOT_FOUND);
         }
   
@@ -162,8 +157,6 @@ public class TypeRestController {
      */
     @RequestMapping(value = "/type/", method = RequestMethod.DELETE)
     public ResponseEntity<Type> deleteAllTypes() {
-        System.out.println("Deleting All Types");
-  
         typeService.deleteAllTypes();
         return new ResponseEntity<Type>(HttpStatus.NO_CONTENT);
     }

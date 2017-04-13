@@ -30,8 +30,7 @@ public class DeckInfoController {
 	 */
     @RequestMapping(method = RequestMethod.GET)
     public String getIndexPage(@PathVariable("id") long id , Model model) {
-     	System.out.println("Fetching Deck with id " + id);
-        Deck deck = deckService.findById(id);
+     	Deck deck = deckService.findById(id);
         model.addAttribute("deck", deck);
         return "deckInfo";
     }

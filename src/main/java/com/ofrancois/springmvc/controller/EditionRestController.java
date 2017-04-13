@@ -2,6 +2,7 @@ package com.ofrancois.springmvc.controller;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,8 @@ public class EditionRestController {
     @Autowired
     EditionService editionService;  //Service which will do all data retrieval/manipulation work
   
+    private static Logger logger = Logger.getLogger(EditionRestController.class);
+    
     /**
      * Récupère les informations de toutes les éditions dans la base
      * 
@@ -55,6 +58,7 @@ public class EditionRestController {
     public ResponseEntity<List<Edition>> listAllEditions() {
         List<Edition> editions = editionService.findAllEditions();
         if(editions.isEmpty()){
+        	logger.warn( "Editions empty..." );
             return new ResponseEntity<List<Edition>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Edition>>(editions, HttpStatus.OK);
@@ -72,10 +76,9 @@ public class EditionRestController {
      */
     @RequestMapping(value = "/edition/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Edition> getEdition(@PathVariable("id") long id) {
-        System.out.println("Fetching Edition with id " + id);
         Edition edition = editionService.findById(id);
         if (edition == null) {
-            System.out.println("Edition with id " + id + " not found");
+        	logger.warn( "Edition with id " + id + " not found" );
             return new ResponseEntity<Edition>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Edition>(edition, HttpStatus.OK);
@@ -91,15 +94,11 @@ public class EditionRestController {
      */
     @RequestMapping(value = "/edition/", method = RequestMethod.POST)
     public ResponseEntity<Void> createEdition(@RequestBody Edition edition,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating Edition " + edition.toString());
-  
         if (editionService.isEditionExist(edition)) {
-            System.out.println("A Edition with name " + edition.getName() + " already exist");
+        	logger.warn( "A Edition with name " + edition.getName() + " already exist" );
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-  
         editionService.saveEdition(edition);
-  
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/edition/{id}").buildAndExpand(edition.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -119,17 +118,12 @@ public class EditionRestController {
      */
     @RequestMapping(value = "/edition/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Edition> updateEdition(@PathVariable("id") long id, @RequestBody Edition edition) {
-        System.out.println("Updating Edition " + id);
-          
         Edition currentEdition = editionService.findById(id);
-          
         if (currentEdition==null) {
-            System.out.println("Edition with id " + id + " not found");
+        	logger.warn( "Edition with id " + id + " not found" );
             return new ResponseEntity<Edition>(HttpStatus.NOT_FOUND);
         }
-  
         currentEdition.setName(edition.getName());
-          
         editionService.updateEdition(currentEdition);
         return new ResponseEntity<Edition>(currentEdition, HttpStatus.OK);
     }
@@ -143,14 +137,11 @@ public class EditionRestController {
      */
     @RequestMapping(value = "/edition/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Edition> deleteEdition(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting Edition with id " + id);
-  
         Edition edition = editionService.findById(id);
         if (edition == null) {
-            System.out.println("Unable to delete. Edition with id " + id + " not found");
+        	logger.warn( "Unable to delete. Edition with id " + id + " not found" );
             return new ResponseEntity<Edition>(HttpStatus.NOT_FOUND);
         }
-  
         editionService.deleteEditionById(id);
         return new ResponseEntity<Edition>(HttpStatus.NO_CONTENT);
     }
@@ -162,8 +153,6 @@ public class EditionRestController {
      */
     @RequestMapping(value = "/edition/", method = RequestMethod.DELETE)
     public ResponseEntity<Edition> deleteAllEditions() {
-        System.out.println("Deleting All Editions");
-  
         editionService.deleteAllEditions();
         return new ResponseEntity<Edition>(HttpStatus.NO_CONTENT);
     }

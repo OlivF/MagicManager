@@ -1,6 +1,8 @@
 package com.ofrancois.springmvc.controller;
 
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,6 +46,7 @@ public class CardDeckRestController {
     @Autowired
     CarddeckService carddeckService;  //Service which will do all data retrieval/manipulation work
   
+    private static Logger logger = Logger.getLogger(CardDeckRestController.class);
     /**
      * Récupère les informations de tous les carddecks dans la base
      * 
@@ -55,6 +58,7 @@ public class CardDeckRestController {
     public ResponseEntity<List<Carddeck>> listAllCarddecks() {
         List<Carddeck> carddecks = carddeckService.findAllCardDecks();
         if(carddecks.isEmpty()){
+        	logger.warn( "Cards empty..." );
             return new ResponseEntity<List<Carddeck>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Carddeck>>(carddecks, HttpStatus.OK);
@@ -72,10 +76,9 @@ public class CardDeckRestController {
      */
     @RequestMapping(value = "/carddeck/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Carddeck> getCarddeck(@PathVariable("id") long id) {
-        System.out.println("Fetching Carddeck with id " + id);
         Carddeck carddeck = carddeckService.findById(id);
         if (carddeck == null) {
-            System.out.println("Carddeck with id " + id + " not found");
+        	logger.warn( "Carddecks empty..." );
             return new ResponseEntity<Carddeck>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Carddeck>(carddeck, HttpStatus.OK);
@@ -95,6 +98,7 @@ public class CardDeckRestController {
     public ResponseEntity<List<Carddeck>> getCardByDeck(@PathVariable("id") long id) {
     	 List<Carddeck> carddecks = carddeckService.findCardByDeckId(id);
          if(carddecks.isEmpty()){
+        	 logger.warn( "No cards for deck " + id );
              return new ResponseEntity<List<Carddeck>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
          }
          return new ResponseEntity<List<Carddeck>>(carddecks, HttpStatus.OK);
@@ -114,6 +118,7 @@ public class CardDeckRestController {
     public ResponseEntity<List<Carddeck>> getDeckByCard(@PathVariable("id") long id) {
     	 List<Carddeck> carddecks = carddeckService.findDeckByCardId(id);
          if(carddecks.isEmpty()){
+        	 logger.warn( "No Deck for card " + id );
              return new ResponseEntity<List<Carddeck>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
          }
          return new ResponseEntity<List<Carddeck>>(carddecks, HttpStatus.OK);
@@ -129,16 +134,7 @@ public class CardDeckRestController {
      */
     @RequestMapping(value = "/carddeck/", method = RequestMethod.POST)
     public ResponseEntity<Void> createCarddeck(@RequestBody Carddeck carddeck,    UriComponentsBuilder ucBuilder) {
-    	
-    	System.out.println("Creating Carddeck " + carddeck.toString());
-  
-        /*if (cardeckService.isCardDeckExist(carddeck)) {
-            System.out.println("A Carddeck with name " + carddeck.getName() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }*/
-        
-        carddeckService.saveCardDeck(carddeck);
-  
+    	carddeckService.saveCardDeck(carddeck);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/carddeck/{id}").buildAndExpand(carddeck.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -158,18 +154,11 @@ public class CardDeckRestController {
      */
     @RequestMapping(value = "/carddeck/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Carddeck> updateCarddeck(@PathVariable("id") long id, @RequestBody Carddeck carddeck) {
-        System.out.println("Updating Carddeck " + id);
-          
         Carddeck currentCarddeck = carddeckService.findById(id);
-        System.out.println(carddeck.toString());
         if (currentCarddeck==null) {
-            System.out.println("Carddeck with id " + id + " not found");
+        	logger.warn( "Carddeck with id " + id + " not found" );
             return new ResponseEntity<Carddeck>(HttpStatus.NOT_FOUND);
         }
-  
-       // currentCarddeck.setName(carddeck.getName());
-       // currentCarddeck.setColor(carddeck.getColor());
-        
         carddeckService.updateCardDeck(currentCarddeck);
         return new ResponseEntity<Carddeck>(currentCarddeck, HttpStatus.OK);
     }
@@ -183,14 +172,11 @@ public class CardDeckRestController {
      */
     @RequestMapping(value = "/carddeck/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Carddeck> deleteCarddeck(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting Carddeck with id " + id);
-  
         Carddeck carddeck = carddeckService.findById(id);
         if (carddeck == null) {
-            System.out.println("Unable to delete. Carddeck with id " + id + " not found");
+        	logger.warn( "Unable to delete. Carddeck with id " + id + " not found" );
             return new ResponseEntity<Carddeck>(HttpStatus.NOT_FOUND);
         }
-  
         carddeckService.deleteCardDeckById(id);
         return new ResponseEntity<Carddeck>(HttpStatus.NO_CONTENT);
     }
@@ -202,8 +188,6 @@ public class CardDeckRestController {
      */
     @RequestMapping(value = "/carddeck/", method = RequestMethod.DELETE)
     public ResponseEntity<Carddeck> deleteAllCarddecks() {
-        System.out.println("Deleting All Carddecks");
-  
         carddeckService.deleteAllCardDecks();
         return new ResponseEntity<Carddeck>(HttpStatus.NO_CONTENT);
     }

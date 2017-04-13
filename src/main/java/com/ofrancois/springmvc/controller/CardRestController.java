@@ -2,6 +2,8 @@ package com.ofrancois.springmvc.controller;
 
 import java.sql.Date;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,6 +46,8 @@ public class CardRestController {
     @Autowired
     CardService cardService;  //Service which will do all data retrieval/manipulation work
   
+    private static Logger logger = Logger.getLogger(CardRestController.class);
+    
     /**
      * Récupère les informations de toutes les cartes dans la base
      * 
@@ -55,6 +59,7 @@ public class CardRestController {
     public ResponseEntity<List<Card>> listAllCards() {
         List<Card> cards = cardService.findAllCards();
         if(cards.isEmpty()){
+        	logger.warn( "Cards empty..." );
             return new ResponseEntity<List<Card>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Card>>(cards, HttpStatus.OK);
@@ -72,10 +77,9 @@ public class CardRestController {
      */
     @RequestMapping(value = "/card/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Card> getCard(@PathVariable("id") long id) {
-        System.out.println("Fetching Card with id " + id);
         Card card = cardService.findById(id);
         if (card == null) {
-            System.out.println("Card with id " + id + " not found");
+        	logger.warn( "Card with id " + id + " not found" );
             return new ResponseEntity<Card>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Card>(card, HttpStatus.OK);
@@ -91,19 +95,13 @@ public class CardRestController {
      */
     @RequestMapping(value = "/card/", method = RequestMethod.POST)
     public ResponseEntity<Void> createCard(@RequestBody Card card,    UriComponentsBuilder ucBuilder) {
-    	
     	card.setNbDispo(card.getNbItem());
         card.setDate(new Date(System.currentTimeMillis()));
-    	
-        // System.out.println("Creating Card " + card.toString());
-  
         if (cardService.isCardExist(card)) {
-            System.out.println("A Card with name " + card.getNameFr() + " already exist");
+        	logger.warn( "A Card with name " + card.getNameFr() + " already exist" );
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-        
         cardService.saveCard(card);
-  
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/card/{id}").buildAndExpand(card.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -123,15 +121,11 @@ public class CardRestController {
      */
     @RequestMapping(value = "/card/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Card> updateCard(@PathVariable("id") long id, @RequestBody Card card) {
-        System.out.println("Updating Card " + id);
-          
         Card currentCard = cardService.findById(id);
-        System.out.println(card.toString());
         if (currentCard==null) {
-            System.out.println("Card with id " + id + " not found");
+        	logger.warn( "Card with id " + id + " not found" );
             return new ResponseEntity<Card>(HttpStatus.NOT_FOUND);
         }
-  
         currentCard.setNameFr(card.getNameFr());
         currentCard.setNameEn(card.getNameEn());
         currentCard.setType(card.getType());
@@ -155,14 +149,11 @@ public class CardRestController {
      */
     @RequestMapping(value = "/card/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Card> deleteCard(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting Card with id " + id);
-  
         Card card = cardService.findById(id);
         if (card == null) {
-            System.out.println("Unable to delete. Card with id " + id + " not found");
+        	logger.warn( "Unable to delete. Card with id " + id + " not found" );
             return new ResponseEntity<Card>(HttpStatus.NOT_FOUND);
         }
-  
         cardService.deleteCardById(id);
         return new ResponseEntity<Card>(HttpStatus.NO_CONTENT);
     }
@@ -174,8 +165,6 @@ public class CardRestController {
      */
     @RequestMapping(value = "/card/", method = RequestMethod.DELETE)
     public ResponseEntity<Card> deleteAllCards() {
-        System.out.println("Deleting All Cards");
-  
         cardService.deleteAllCards();
         return new ResponseEntity<Card>(HttpStatus.NO_CONTENT);
     }

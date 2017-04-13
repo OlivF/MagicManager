@@ -1,10 +1,11 @@
 package com.ofrancois.springmvc.controller;
 
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import com.ofrancois.springmvc.model.Deck;
 import com.ofrancois.springmvc.service.DeckService;
 
@@ -43,6 +45,8 @@ public class DeckRestController {
     @Autowired
     DeckService deckService;  //Service which will do all data retrieval/manipulation work
   
+    private static Logger logger = Logger.getLogger(DeckRestController.class);
+    
     /**
      * Récupère les informations de tous les decks dans la base
      * 
@@ -54,6 +58,7 @@ public class DeckRestController {
     public ResponseEntity<List<Deck>> listAllDecks() {
         List<Deck> decks = deckService.findAllDecks();
         if(decks.isEmpty()){
+        	logger.warn( "Decks empty..." );
             return new ResponseEntity<List<Deck>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Deck>>(decks, HttpStatus.OK);
@@ -71,10 +76,9 @@ public class DeckRestController {
      */
     @RequestMapping(value = "/deck/{id}", method = RequestMethod.GET)
     public ResponseEntity<Deck> getDeck(@PathVariable("id") long id) {
-        System.out.println("Fetching Deck with id " + id);
         Deck deck = deckService.findById(id);
         if (deck == null) {
-            System.out.println("Deck with id " + id + " not found");
+        	logger.warn( "Deck with id " + id + " not found" );
             return new ResponseEntity<Deck>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Deck>(deck, HttpStatus.OK);
@@ -90,16 +94,11 @@ public class DeckRestController {
      */
     @RequestMapping(value = "/deck/", method = RequestMethod.POST)
     public ResponseEntity<Void> createDeck(@RequestBody Deck deck,    UriComponentsBuilder ucBuilder) {
-    	
-    	// System.out.println("Creating Deck " + deck.toString());
-  
-        if (deckService.isDeckExist(deck)) {
-            System.out.println("A Deck with name " + deck.getName() + " already exist");
+    	if (deckService.isDeckExist(deck)) {
+        	logger.warn( "A Deck with name " + deck.getName() + " already exist" );
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-        
         deckService.saveDeck(deck);
-  
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/deck/{id}").buildAndExpand(deck.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -119,18 +118,13 @@ public class DeckRestController {
      */
     @RequestMapping(value = "/deck/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Deck> updateDeck(@PathVariable("id") long id, @RequestBody Deck deck) {
-        System.out.println("Updating Deck " + id);
-          
         Deck currentDeck = deckService.findById(id);
-        System.out.println(deck.toString());
         if (currentDeck==null) {
-            System.out.println("Deck with id " + id + " not found");
+        	logger.warn( "Deck with id " + id + " not found" );
             return new ResponseEntity<Deck>(HttpStatus.NOT_FOUND);
         }
-  
         currentDeck.setName(deck.getName());
         currentDeck.setColor(deck.getColor());
-        
         deckService.updateDeck(currentDeck);
         return new ResponseEntity<Deck>(currentDeck, HttpStatus.OK);
     }
@@ -144,14 +138,11 @@ public class DeckRestController {
      */
     @RequestMapping(value = "/deck/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Deck> deleteDeck(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting Deck with id " + id);
-  
         Deck deck = deckService.findById(id);
         if (deck == null) {
-            System.out.println("Unable to delete. Deck with id " + id + " not found");
+        	logger.warn( "Unable to delete. Deck with id " + id + " not found" );
             return new ResponseEntity<Deck>(HttpStatus.NOT_FOUND);
         }
-  
         deckService.deleteDeckById(id);
         return new ResponseEntity<Deck>(HttpStatus.NO_CONTENT);
     }
@@ -163,8 +154,6 @@ public class DeckRestController {
      */
     @RequestMapping(value = "/deck/", method = RequestMethod.DELETE)
     public ResponseEntity<Deck> deleteAllDecks() {
-        System.out.println("Deleting All Decks");
-  
         deckService.deleteAllDecks();
         return new ResponseEntity<Deck>(HttpStatus.NO_CONTENT);
     }
