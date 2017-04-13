@@ -129,6 +129,11 @@ public class Card {
     private Date date;
     
     /**
+     * Constructeur Card vide
+     */
+    public Card(){}
+    
+    /**
      * Constructeur Card.
      *
      * @param id
@@ -144,18 +149,21 @@ public class Card {
      * @param nbItem
      * 				La quantité de la carte
      */
-    public Card( long id, String nameFr, String nameEn, String manaCost, float price, int nbItem ) {
-        this.setId( id );
-        this.setNameFr( nameFr );
-        this.setNameEn( nameEn );
-        this.setManaCost( manaCost );
-        this.setPrice( price );
-        this.setNbItem( nbItem );
+    public Card(long id, String nameFr, String nameEn, String manaCost, float price, int nbItem){
+        this.id = id;
+        this.nameFr = nameFr;
+        this.nameEn = nameEn;
+        this.manaCost = manaCost;
+        this.price = price;
+        this.nbItem = nbItem;
     }
  
     /**
      * Retourne l'id de la carte
-     * Ce champs est relié à la base de données grâce à une annotation
+     * 
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * 
      * @return L'identifiant de la carte
      */
@@ -172,15 +180,16 @@ public class Card {
      * @param id
      * 				Le nouvel identifiant de la carte
      */
-    public void setId( long id ) {
-    	if ( id < 0 ) throw new RuntimeException( "Id must be positive" ); 
+    public void setId(long id) {
         this.id = id;
     }
  
     /**
      * Retourne le nom français de la carte
      * 
-     * Ce champs est relié à la base de données grâce à une annotation
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * 
      * @return Le nom français de la carte, sous forme d'une chaine de caractère
      */
@@ -196,15 +205,15 @@ public class Card {
      * 					Le nouveau nom français de la carte
      */
     public void setNameFr(String nameFr) {
-    	if ( nameFr == null || nameFr.trim().equals("") ) throw new RuntimeException( "NameFr cannot be empty" );
         this.nameFr = nameFr;
     }
     
     /**
      * Retourne le nom anglais de la carte
      * 
-     * Ce champs est relié à la base de données grâce à une annotation
-     *
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * @return Le nom anglais de la carte, sous forme d'une chaine de caractère
      */
     @Column(name = "NAMEEN")
@@ -218,15 +227,16 @@ public class Card {
      * @param nameEn
      * 					Le nouveau nom anglais de la carte
      */
-    public void setNameEn( String nameEn ) {
-    	if ( nameEn == null || nameEn.trim().equals("") ) throw new RuntimeException( "NameEn cannot be empty" );
+    public void setNameEn(String nameEn) {
         this.nameEn = nameEn;
     }
     
     /**
      * Retourne le type de la carte
      * 
-     * Ce champs est relié à la base de données grâce à une annotation
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * 
      * @return Une instance de Type, qui correspond au type de la carte
      * 
@@ -246,15 +256,16 @@ public class Card {
      * 
      * @see Type
      */
-    public void setType( Type type ) {
+    public void setType(Type type) {
         this.type = type;
     }
 
     /**
      * Retourne l'édition de la carte
      * 
-     * Ce champs est relié à la base de données grâce à une annotation
-     *
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * @return Une instance de Edition, qui correspond à l'édition de la carte
      * 
      * @see Edition
@@ -273,14 +284,16 @@ public class Card {
      * 
      * @see Edition
      */
-    public void setEdition( Edition edition ) {
+    public void setEdition(Edition edition) {
         this.edition = edition;
     }
     
     /**
      * Retourne le coût de mana de la carte
      * 
-     * Ce champs est relié à la base de données grâce à une annotation
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * 
      * @return Le coût de mana de la carte, sous forme d'une chaîne de caractère
      */
@@ -295,14 +308,16 @@ public class Card {
      * @param manaCost
      * 					Le nouveau coût de mana de la carte
      */
-    public void setManaCost( String manaCost ) {
+    public void setManaCost(String manaCost) {
         this.manaCost = manaCost;
     }
     
     /**
      * Retourne la rareté de la carte
      * 
-     * Ce champs est relié à la base de données grâce à une annotation
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * 
      * @return Une instance de Rarity, qui correspond à la rareté de la carte
      * 
@@ -322,14 +337,16 @@ public class Card {
      * 
      * @see Rarity
      */
-    public void setRarity( Rarity rarity ) {
+    public void setRarity(Rarity rarity) {
         this.rarity = rarity;
     }
     
     /**
      * Retourne le prix de la carte
      * 
-     * Ce champs est relié à la base de données grâce à une annotation
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * 
      * @return Le prix de la carte, sous forme d'un nombre
      */
@@ -344,15 +361,16 @@ public class Card {
      * @param price
      * 				Le nouveau prix de la carte
      */
-    public void setPrice( float price ) {
-    	if ( price <= 0 ) throw new RuntimeException( "Price must be positive" );
+    public void setPrice(float price) {
         this.price = price;
     }
    
     /**
      * Retourne la quantité de la carte
      * 
-     * Ce champs est relié à la base de données grâce à une annotation
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * 
      * @return La quantité de la carte sous forme d'entier
      */
@@ -367,15 +385,16 @@ public class Card {
      * @param nbItem
      * 					La nouvelle quantité de la carte
      */
-    public void setNbItem( int nbItem ) {
-    	if ( nbItem <= 0 ) throw new RuntimeException( "NbItem must be positive" );
+    public void setNbItem(int nbItem) {
         this.nbItem = nbItem;
     }
 
     /**
      * Retourne la quantité de la carte disponible
      *
-     * Ce champs est relié à la base de données grâce à une annotation
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * 
      * @return La quantité de la carte disponible sous forme d'entier
      */
@@ -390,15 +409,15 @@ public class Card {
      * @param nbDispo
      * 					La nouvelle quantité de la carte disponible
      */
-    public void setNbDispo( int nbDispo ) {
+    public void setNbDispo(int nbDispo) {
         this.nbDispo = nbDispo;
     }
     
     /**
      * Retourne la date de création ou de mise à jour de la carte
-     * 
-     * Ce champs est relié à la base de données grâce à une annotation
-     *
+     * <p>
+     * <i>Ce champs est relié à la base de données grâce à une annotation</i>
+     * </p>
      * @return La date de création ou de mise à jour de la carte, sous forme de date
      */
     @Column(name = "DATECREATION")
@@ -412,7 +431,7 @@ public class Card {
      * @param date
      * 				La nouvelle date de la carte
      */
-	public void setDate( Date date ) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
     

@@ -12,24 +12,4 @@ public class testEdition {
 		Assert.assertEquals( "Odyssée", e.getName() );
 	}
 	
-	@Test ( expected = RuntimeException.class )
-	public void testBadId() {
-		new Edition(-1, "Odyssée");
-	}
-	
-	@Test ( expected = RuntimeException.class )
-	public void testNullName() {
-		new Edition(1, null);
-	}
-	
-	@Test ( expected = RuntimeException.class )
-	public void testEmptyName() {
-		new Edition(1, "");
-	}
-	
-	@Test ( expected = RuntimeException.class )
-	public void testEmptyName2() {
-		new Edition(1, "   ");
-	}
-
 }

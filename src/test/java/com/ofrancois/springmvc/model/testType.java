@@ -12,24 +12,4 @@ public class testType {
 		Assert.assertEquals( "Créatures", t.getName() );
 	}
 	
-	@Test ( expected = RuntimeException.class )
-	public void testBadId() {
-		new Type(-1, "Créature");
-	}
-	
-	@Test ( expected = RuntimeException.class )
-	public void testNullName() {
-		new Type(1, null);
-	}
-	
-	@Test ( expected = RuntimeException.class )
-	public void testEmptyName() {
-		new Type(1, "");
-	}
-	
-	@Test ( expected = RuntimeException.class )
-	public void testEmptyName2() {
-		new Type(1, "   ");
-	}
-	
 }

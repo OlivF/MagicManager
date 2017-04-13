@@ -47,6 +47,11 @@ public class Type {
     private String name;
      
     /**
+     * Constructeur Type vide
+     */
+    public Type(){}
+    
+    /**
      * Constructeur d'un type
      * 
      * @param id
@@ -54,9 +59,9 @@ public class Type {
      * @param name
      * 				Le nom du type
      */
-    public Type( long id, String name ) {
-    	this.setTypeId( id );
-    	this.setName( name );
+    public Type(long id, String name){
+        this.type_id = id;
+        this.name = name;
     }
  
     /**
@@ -77,8 +82,7 @@ public class Type {
      * @param id
      * 				Le nouvel identifiant du type
      */
-    public void setTypeId( long id ) {
-    	if ( id < 0 ) throw new RuntimeException( "Id must be positive" );
+    public void setTypeId(long id) {
         this.type_id = id;
     }
  
@@ -98,8 +102,7 @@ public class Type {
      * @param name
      * 				Le nouveau nom du type
      */
-    public void setName( String name ) {
-    	if ( name == null || name.trim().equals("") ) throw new RuntimeException( "Name cannot be empty" ); 
+    public void setName(String name) {
         this.name = name;
     }
  
@@ -110,7 +113,7 @@ public class Type {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) ( type_id ^ ( type_id >>> 32 ) );
+        result = prime * result + (int) (type_id ^ (type_id >>> 32));
         return result;
     }
  
@@ -118,15 +121,15 @@ public class Type {
      * function equals
      */
     @Override
-    public boolean equals( Object obj ) {
-        if ( this == obj )
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        if ( obj == null )
+        if (obj == null)
             return false;
-        if ( !(obj instanceof Type) )
+        if (!(obj instanceof Type))
             return false;
         Type other = (Type) obj;
-        if ( type_id != other.type_id )
+        if (type_id != other.type_id)
             return false;
         return true;
     }

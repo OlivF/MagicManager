@@ -47,6 +47,11 @@ public class Rarity {
     private String name;
      
     /**
+     * Constructeur Rarity vide
+     */
+    public Rarity(){}
+    
+    /**
      * Constructeur d'une rareté
      * 
      * @param id
@@ -54,9 +59,9 @@ public class Rarity {
      * @param name
      * 				Le nom de la rareté
      */
-    public Rarity( long id, String name ) {
-    	this.setId( id );
-    	this.setName( name );
+    public Rarity(long id, String name){
+        this.rarity_id = id;
+        this.name = name;
     }
     
     /**
@@ -77,8 +82,7 @@ public class Rarity {
      * @param id
      * 				Le nouvel identifiant de la rareté
      */
-    public void setId( long id ) {
-    	if ( id < 0 ) throw new RuntimeException( "Id must be positive" ); 
+    public void setId(long id) {
         this.rarity_id = id;
     }
  
@@ -98,8 +102,7 @@ public class Rarity {
      * @param name
      * 				Le nouveau nom de la rareté
      */
-    public void setName( String name ) {
-    	if ( name == null || name.trim().equals("") ) throw new RuntimeException( "Name cannot be empty" ); 
+    public void setName(String name) {
         this.name = name;
     }
  
@@ -118,15 +121,15 @@ public class Rarity {
      * function equals
      */
     @Override
-    public boolean equals( Object obj ) {
-        if ( this == obj )
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        if ( obj == null )
+        if (obj == null)
             return false;
-        if ( !(obj instanceof Rarity) )
+        if (!(obj instanceof Rarity))
             return false;
         Rarity other = (Rarity) obj;
-        if ( rarity_id != other.rarity_id )
+        if (rarity_id != other.rarity_id)
             return false;
         return true;
     }

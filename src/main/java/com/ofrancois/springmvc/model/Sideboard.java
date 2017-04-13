@@ -26,7 +26,7 @@ import javax.persistence.Table;
  * @version 1.0
  */
 @Entity (name = "sideboard")
-@Table (name = "sideboard")
+@Table ( name = "sideboard")
 public class Sideboard {
 
 	/**
@@ -59,6 +59,11 @@ public class Sideboard {
      * @see Sideboard#getQuantity()
      */
     private int quantity;
+    
+    /**
+     * Constructeur CardDeck vide
+     */
+    public Sideboard(){}
      
     /**
      * Constructeur d'un carddeck
@@ -70,11 +75,11 @@ public class Sideboard {
      * @param color
      * 				La couleur du deck
      */
-    public Sideboard( long id, Card card, Deck deck, int quantity ) {
-    	this.setId( id );
-    	this.setCard( card );
-    	this.setDeck( deck );
-    	this.setQuantity( quantity );
+    public Sideboard(long id, Card card, Deck deck, int quantity){
+        this.sideboard_id = id;
+        this.card = card;
+        this.deck= deck;
+        this.quantity = quantity;
     }
  
     /**
@@ -95,8 +100,7 @@ public class Sideboard {
      * @param id
      * 				Le nouvel identifiant du carddeck
      */
-    public void setId( long id ) {
-    	if ( id < 0 ) throw new RuntimeException( "Id must be positive" ); 
+    public void setId(long id) {
         this.sideboard_id = id;
     }
  
@@ -117,7 +121,7 @@ public class Sideboard {
      * @param name
      * 				Le nouvel identifiant du deck
      */
-    public void setDeck( Deck deck ) {
+    public void setDeck(Deck deck) {
         this.deck = deck;
     }
     
@@ -138,7 +142,7 @@ public class Sideboard {
      * @param card_id
      * 				Le nouvel identifiant de la carte
      */
-    public void setCard( Card card ) {
+    public void setCard(Card card) {
         this.card = card;
     }
  
@@ -158,8 +162,7 @@ public class Sideboard {
      * @param quantity
      * 				La nouvelle quantity de la carte
      */
-    public void setQuantity( int quantity ) {
-    	if ( quantity < 0 ) throw new RuntimeException( "Quantity must be positive" ); 
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     
@@ -178,15 +181,15 @@ public class Sideboard {
      * function equals
      */
     @Override
-    public boolean equals( Object obj ) {
-        if ( this == obj )
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        if ( obj == null )
+        if (obj == null)
             return false;
-        if ( !(obj instanceof Sideboard) )
+        if (!(obj instanceof Sideboard))
             return false;
         Sideboard other = (Sideboard) obj;
-        if ( sideboard_id != other.sideboard_id )
+        if (sideboard_id != other.sideboard_id)
             return false;
         return true;
     }

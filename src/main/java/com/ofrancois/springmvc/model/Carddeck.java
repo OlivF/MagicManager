@@ -55,12 +55,16 @@ public class Carddeck {
     
     /**
      * La quantity de la carte
-     * 
      * @see Carddeck#setQuantity(int)
      * @see Carddeck#getQuantity()
      */
     private int quantity;
     
+    /**
+     * Constructeur CardDeck vide
+     */
+    public Carddeck(){}
+     
     /**
      * Constructeur d'un carddeck
      *  
@@ -71,11 +75,11 @@ public class Carddeck {
      * @param color
      * 				La couleur du deck
      */
-    public Carddeck( long id, Card card, Deck deck, int quantity ) {
-    	this.setId( id );
-    	this.setCard( card );
-    	this.setDeck( deck );
-    	this.setQuantity( quantity );
+    public Carddeck(long id, Card card, Deck deck, int quantity){
+        this.card_deck_id = id;
+        this.card = card;
+        this.deck= deck;
+        this.quantity = quantity;
     }
  
     /**
@@ -96,8 +100,7 @@ public class Carddeck {
      * @param id
      * 				Le nouvel identifiant du carddeck
      */
-    public void setId( long id ) {
-    	if ( id < 0 ) throw new RuntimeException( "Id must be positive" ); 
+    public void setId(long id) {
         this.card_deck_id = id;
     }
  
@@ -118,7 +121,7 @@ public class Carddeck {
      * @param name
      * 				Le nouvel identifiant du deck
      */
-    public void setDeck( Deck deck ) {
+    public void setDeck(Deck deck) {
         this.deck = deck;
     }
     
@@ -139,7 +142,7 @@ public class Carddeck {
      * @param card_id
      * 				Le nouvel identifiant de la carte
      */
-    public void setCard( Card card ) {
+    public void setCard(Card card) {
         this.card = card;
     }
  
@@ -159,8 +162,7 @@ public class Carddeck {
      * @param quantity
      * 				La nouvelle quantity de la carte
      */
-    public void setQuantity( int quantity ) {
-    	if ( quantity <= 0 ) throw new RuntimeException( "Id must be positive" ); 
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     
@@ -179,7 +181,7 @@ public class Carddeck {
      * function equals
      */
     @Override
-    public boolean equals( Object obj ) {
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)

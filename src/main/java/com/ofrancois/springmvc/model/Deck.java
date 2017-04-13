@@ -51,6 +51,11 @@ public class Deck {
     private String color;
     
     /**
+     * Constructeur Deck vide
+     */
+    public Deck(){}
+     
+    /**
      * Constructeur d'un deck
      *  
      * @param id
@@ -60,10 +65,10 @@ public class Deck {
      * @param color
      * 				La couleur du deck
      */
-    public Deck( long id, String name, String color ) {
-    	this.setId( id );
-    	this.setName( name );
-    	this.setColor( color );
+    public Deck(long id, String name, String color){
+        this.deck_id = id;
+        this.name = name;
+        this.color = color;
     }
  
     /**
@@ -84,8 +89,7 @@ public class Deck {
      * @param id
      * 				Le nouvel identifiant du deck
      */
-    public void setId( long id ) {
-    	if ( id < 0 ) throw new RuntimeException( "Id must be positive" ); 
+    public void setId(long id) {
         this.deck_id = id;
     }
  
@@ -105,8 +109,7 @@ public class Deck {
      * @param name
      * 				Le nouveau nom du deck
      */
-    public void setName( String name ) {
-    	if ( name == null || name.trim().equals("") ) throw new RuntimeException( "Name cannot be empty" ); 
+    public void setName(String name) {
         this.name = name;
     }
     
@@ -126,8 +129,7 @@ public class Deck {
      * @param color
      * 				La nouvelle couleur du deck
      */
-    public void setColor( String color ) {
-    	if ( color == null || color.trim().equals("") ) throw new RuntimeException( "Color cannot be empty" ); 
+    public void setColor(String color) {
         this.color = color;
     }
  
