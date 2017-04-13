@@ -45,12 +45,7 @@ public class Edition {
 	 * @see Edition#getName()
 	 */
     private String name;
-     
-    /**
-     * Constructeur Edition vide
-     */
-    public Edition(){}
-     
+         
     /**
      * Constructeur d'une édition
      * 
@@ -59,9 +54,9 @@ public class Edition {
      * @param name
      * 				Le nom de l'édition
      */
-    public Edition(long id, String name){
-        this.edition_id = id;
-        this.name = name;
+    public Edition( long id, String name ) {
+    	this.setId( id );
+    	this.setName( name );
     }
  
     /**
@@ -82,7 +77,8 @@ public class Edition {
      * @param id
      * 				Le nouvel identifiant de l'édition
      */
-    public void setId(long id) {
+    public void setId( long id ) {
+    	if ( id < 0 ) throw new RuntimeException( "Id must be positive" ); 
         this.edition_id = id;
     }
  
@@ -102,7 +98,8 @@ public class Edition {
      * @param name
      * 				Le nouveau nom de l'édition
      */
-    public void setName(String name) {
+    public void setName( String name ) {
+    	if ( name == null || name.trim().equals("") ) throw new RuntimeException( "Name cannot be empty" ); 
         this.name = name;
     }
  
@@ -121,15 +118,15 @@ public class Edition {
      * function equals
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals( Object obj ) {
+        if ( this == obj )
             return true;
-        if (obj == null)
+        if ( obj == null )
             return false;
-        if (!(obj instanceof Edition))
+        if ( !(obj instanceof Edition) )
             return false;
         Edition other = (Edition) obj;
-        if (edition_id != other.edition_id)
+        if ( edition_id != other.edition_id )
             return false;
         return true;
     }
